@@ -1,22 +1,24 @@
-# Checkpoint 失败实验：验证进行中
+# Checkpoint 失败实验：首次完整验证通过，复验进行中
 
-当前主实验配置：30秒 CK、滚动1小时 ID 有效期、四线程目标3000条/秒，
-每个场景30000条 JSON。输入和输出都保留 input_seq，最终落盘 JSONL。
+配置：CK30秒、滚动1小时 ID 有效期、四线程目标3000条/秒，每场景30000条 JSON。
 
-截至当前首次运行，已经观察到：
+首次 `recovery-oracle-01` 已正常完成，Harbor报告验证得1；六个场景均由独立消费者重新逐条核对。第二次干净环境复验尚未完成，本文件不是最终稳定性结论。
 
-| 场景 | 源输入 | 已提交输出 | 重放 | 错误标记 | 原生任务状态 |
-|---|---:|---:|---:|---:|---|
-| CK超时，非事务sink，容忍一次失败 | 30000 | 30000 | 0 | 0 | attempt0，没有重启 |
-| CK超时，事务sink，容忍一次失败 | 30000 | 30000 | 0 | 0 | attempt0，没有重启 |
-| snapshot异常，state＋非事务sink | 30000 | 60000 | 30000 | 10000 | attempt1，isRestored=true |
+报告得1只说明报告完整且与 Kafka 一致，不能理解为所有交付方案均正确。
 
-以上来自首次原生运行的已完成场景，不是完整验证结论。Redis、下游Streams、
-事务恢复对照及整体验证仍在运行；本报告会在完整复验后替换。
+| 场景 | 原始输出 | 已提交输出 | 已提交重放 | 已提交缺失 | 已提交标记错误 |
+|---|---:|---:|---:|---:|---:|
+| state-alo-timeout | 30000 | 30000 | 0 | 0 | 0 |
+| state-eos-timeout | 30000 | 30000 | 0 | 0 | 0 |
+| state-alo-restart | 60000 | 60000 | 30000 | 0 | 10000 |
+| redis-alo-restart | 36973 | 36973 | 6973 | 0 | 0 |
+| streams-after-alo-restart | 60000 | 60000 | 30000 | 0 | 0 |
+| state-eos-restart | 60000 | 30000 | 0 | 0 | 0 |
 
-故障来自真实 snapshotState 的超时或 IOException，由 Flink 自动执行失败策略。
-controller 不通过强杀/重启 JVM 来制造故障。已提交视图与包含中止事务的原始
-视图分开统计，单个策略的交付正确性也与 Harbor 报告验证得分分开。
+`*-timeout` 使用真实8秒 snapshot 延迟触发5秒 CK 超时，容忍一次失败；原生abort通知已核对，任务保持attempt0，没有重启。
 
-代码：[CheckpointFailureDemo.java](../src/main/java/lab/CheckpointFailureDemo.java)、
-[恢复controller](../harbor/id-marking-recovery/environment/recovery.py)。
+`*-restart` 在真实snapshotState抛一次IOException，由Flink自动恢复任务。原生attempt1和isRestored=true已核对。controller没有通过kill/relaunch JVM制造故障。
+
+事务以read_committed核对业务消息一致性；原始视图包含中止事务记录。Redis和Streams在本轮标记正确，但非事务上游重放仍增加最终输出条数。
+
+全部输入与两个输出视图均落盘为JSONL.gz：[首次原生报告和数据](recovery-evidence/)。最终报告将在复验后覆盖此文件。
