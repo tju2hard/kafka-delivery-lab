@@ -1,0 +1,129 @@
+{
+  "meaning": "paired observer time difference, not exact broker commit latency; independent consumer scheduling may produce negative samples",
+  "measurements": [
+    {
+      "trial": "streams-filter-oracle-01",
+      "case": "streams-eos-filter-100ms",
+      "source_to_raw_ms": {
+        "samples": 3000,
+        "min": 1248,
+        "p50": 5416,
+        "p95": 5657,
+        "p99": 5748,
+        "max": 5760,
+        "within_100ms": 0
+      },
+      "source_to_committed_ms": {
+        "samples": 3000,
+        "min": 1517,
+        "p50": 5563,
+        "p95": 5803,
+        "p99": 5889,
+        "max": 5902,
+        "within_100ms": 0
+      },
+      "paired_committed_minus_raw_observation_ms": {
+        "samples": 3000,
+        "p50": 135,
+        "p95": 218,
+        "p99": 228,
+        "min": 26,
+        "max": 326,
+        "negative_samples": 0
+      }
+    },
+    {
+      "trial": "streams-filter-oracle-01",
+      "case": "flink-eos-filter-30s",
+      "source_to_raw_ms": {
+        "samples": 3000,
+        "min": 67,
+        "p50": 389,
+        "p95": 650,
+        "p99": 666,
+        "max": 686,
+        "within_100ms": 53
+      },
+      "source_to_committed_ms": {
+        "samples": 3000,
+        "min": 25804,
+        "p50": 27273,
+        "p95": 28497,
+        "p99": 28634,
+        "max": 28727,
+        "within_100ms": 0
+      },
+      "paired_committed_minus_raw_observation_ms": {
+        "samples": 3000,
+        "p50": 26888,
+        "p95": 27936,
+        "p99": 28051,
+        "min": 25664,
+        "max": 28132,
+        "negative_samples": 0
+      }
+    },
+    {
+      "trial": "streams-filter-oracle-02",
+      "case": "streams-eos-filter-100ms",
+      "source_to_raw_ms": {
+        "samples": 3000,
+        "min": 701,
+        "p50": 6270,
+        "p95": 6690,
+        "p99": 6742,
+        "max": 6763,
+        "within_100ms": 0
+      },
+      "source_to_committed_ms": {
+        "samples": 3000,
+        "min": 913,
+        "p50": 6405,
+        "p95": 6796,
+        "p99": 6844,
+        "max": 6872,
+        "within_100ms": 0
+      },
+      "paired_committed_minus_raw_observation_ms": {
+        "samples": 3000,
+        "p50": 121,
+        "p95": 186,
+        "p99": 239,
+        "min": 68,
+        "max": 325,
+        "negative_samples": 0
+      }
+    },
+    {
+      "trial": "streams-filter-oracle-02",
+      "case": "flink-eos-filter-30s",
+      "source_to_raw_ms": {
+        "samples": 3000,
+        "min": 45,
+        "p50": 433,
+        "p95": 707,
+        "p99": 749,
+        "max": 760,
+        "within_100ms": 554
+      },
+      "source_to_committed_ms": {
+        "samples": 3000,
+        "min": 25413,
+        "p50": 26902,
+        "p95": 28169,
+        "p99": 28316,
+        "max": 28383,
+        "within_100ms": 0
+      },
+      "paired_committed_minus_raw_observation_ms": {
+        "samples": 3000,
+        "p50": 26268,
+        "p95": 27752,
+        "p99": 27869,
+        "min": 25359,
+        "max": 27940,
+        "negative_samples": 0
+      }
+    }
+  ]
+}

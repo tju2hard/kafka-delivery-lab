@@ -11,3 +11,4 @@ __pycache__/
 credentials/
 secrets/
 harbor/id-deduplication/environment/runtime/
+harbor/streams-id-filter/environment/runtime/

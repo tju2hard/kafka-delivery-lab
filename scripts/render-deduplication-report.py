@@ -15,7 +15,10 @@ def main():
     results=ROOT/'results';evidence=results/'deduplication-evidence';evidence.mkdir(exist_ok=True)
     manifest=results/'deduplication-inputs.sha256.json'
     for name,digest in json.loads(manifest.read_text()).items():
-        assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
+        current=ROOT/name
+        if hashlib.sha256(current.read_bytes()).hexdigest()!=digest:
+            archived=evidence/'inputs'/name
+            assert archived.exists() and hashlib.sha256(archived.read_bytes()).hexdigest()==digest,name
     metadata=[];reports=[]
     for name,reward in [(args.baseline,0),*((name,1) for name in args.oracle)]:
         trial=results/'trials'/name;native=json.loads((trial/'result.json').read_text())

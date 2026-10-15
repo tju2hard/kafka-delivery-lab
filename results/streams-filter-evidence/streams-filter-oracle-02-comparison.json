@@ -1,0 +1,574 @@
+{
+  "experiment_valid": true,
+  "run_id": "streams-filter-cb1aeeca6b",
+  "contract": "one complete first-arrival JSON per business ID",
+  "source_arrivals_per_case": 9000,
+  "producer_threads": 4,
+  "target_rate_per_sec": 3000,
+  "deduplication_ttl_ms": 3600000,
+  "streams_commit_interval_ms": 100,
+  "flink_checkpoint_interval_ms": 30000,
+  "versions": {
+    "kafka_broker": "3.7.0",
+    "kafka_streams": "3.4.0",
+    "flink": "1.20.4",
+    "connector": "3.4.0-1.20",
+    "python": "3.10.12"
+  },
+  "limitations": [
+    "single machine, single input/output partition, one processing thread",
+    "synthetic inputs; source keys must equal event_id",
+    "100ms commit configuration is not a latency SLA; cold start excluded through warmup",
+    "ACK-before-commit crash is SIGKILL of an owned JVM, not a Flink CK failure",
+    "transaction timeout10s for bounded crash recovery; production setting needs separate sizing",
+    "one-hour TTL expiry, broker/disk failures and rebalancing under rescale not tested"
+  ],
+  "cases": [
+    {
+      "name": "streams-eos-filter-100ms",
+      "engine": "Kafka Streams",
+      "source_topic": "streams-filter-cb1aeeca6b-streams-eos-filter-100ms-in",
+      "output_topic": "streams-filter-cb1aeeca6b-streams-eos-filter-100ms-out",
+      "generation": {
+        "records": 9000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792060483408,
+        "send_duration_ms": 3024.387729,
+        "acknowledged_duration_ms": 3134.569341,
+        "achieved_send_rate_per_sec": 2975.8089261180176,
+        "send_buckets_per_second": {
+          "0": 2998,
+          "1": 2999,
+          "2": 2981,
+          "3": 22
+        }
+      },
+      "configuration": {
+        "application_id": "streams-filter-cb1aeeca6b-streams-eos-filter-100ms-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": true
+      },
+      "worker_directory": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/streams",
+      "worker_pids": [
+        153
+      ],
+      "failure": null,
+      "source_committed_offset": 9001,
+      "lifecycle": [
+        {
+          "pid": 153,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792060479157
+        },
+        {
+          "pid": 153,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792060481792
+        }
+      ],
+      "restore": [
+        {
+          "pid": 153,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-100ms-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 153,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-100ms-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        }
+      ],
+      "input_file": {
+        "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/input.jsonl",
+        "bytes": 1185780,
+        "sha256": "ae2423237160b1d6502f11b85d658cc89b8ceaab915222c9a8cfb3c916ec3903"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3000,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 0,
+            "duplicated_business_ids": {},
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/sink-read_uncommitted.jsonl",
+            "bytes": 395262,
+            "sha256": "a8b00e0ef0350d7b97e1ae3ea273d7403d38e733ce1e76a303de06fc1ca1dbd7"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/observations-read_uncommitted.jsonl",
+            "bytes": 772179,
+            "sha256": "8dd2c7d03aea7ce107eda8d9f1175d32d03a49cd8b69e0c9ec9ff021923f0eb6"
+          },
+          "visibility_ms": {
+            "samples": 3000,
+            "min": 701,
+            "p50": 6270,
+            "p95": 6690,
+            "p99": 6742,
+            "max": 6763,
+            "within_100ms": 0
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3000,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 0,
+            "duplicated_business_ids": {},
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/sink-read_committed.jsonl",
+            "bytes": 395262,
+            "sha256": "a8b00e0ef0350d7b97e1ae3ea273d7403d38e733ce1e76a303de06fc1ca1dbd7"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-100ms/observations-read_committed.jsonl",
+            "bytes": 766179,
+            "sha256": "ef5b2321cd6443d14e20127a7164b0b8ee2e60c48e0887941179611c1e21ccb2"
+          },
+          "visibility_ms": {
+            "samples": 3000,
+            "min": 913,
+            "p50": 6405,
+            "p95": 6796,
+            "p99": 6844,
+            "max": 6872,
+            "within_100ms": 0
+          }
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/streams-eos-filter-100ms/input.jsonl.gz",
+          "rows": 9000,
+          "uncompressed_sha256": "ccf5a0b826be483823bcfdaedfb523f780954ff200fe3bfdda399c4399ca5d10",
+          "gzip_sha256": "68f67ecc25f9520aacb670f0613ef24e219257233d74d4fb7889789732c93b34"
+        },
+        {
+          "path": "data/streams-eos-filter-100ms/output-read_uncommitted.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "c59981e939cf5e759adc2d325e450fa6dc2b920927dfbe117dd6aa835969944e",
+          "gzip_sha256": "aa9c6190ccfb48a12ad8f9474ee3aafdb2efc9613e714397fea72b48c029e6c2"
+        },
+        {
+          "path": "data/streams-eos-filter-100ms/observations-read_uncommitted.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "d04446c552cd2c824ab371e973ac11a62635595851c50a6e5b74313a033dc246",
+          "gzip_sha256": "be5f919c9ae2e10b6122c70e2ee2f500cfbe6781168dae0abd741e0ecb55b5c1"
+        },
+        {
+          "path": "data/streams-eos-filter-100ms/output-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "c59981e939cf5e759adc2d325e450fa6dc2b920927dfbe117dd6aa835969944e",
+          "gzip_sha256": "80680557da5f791fa680e0316b3d8379f9f04ede7645b91535762252690e1134"
+        },
+        {
+          "path": "data/streams-eos-filter-100ms/observations-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "39bbb9e5f6c53d650597bdae350634dd2712ae155c8b36006944e62648acac82",
+          "gzip_sha256": "3ceca6ad70d75ccb70e60e6ade8b65ea869e630f1f16eef99301fd44c43bb0a8"
+        }
+      ]
+    },
+    {
+      "name": "streams-eos-filter-ack-crash",
+      "engine": "Kafka Streams",
+      "source_topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-in",
+      "output_topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out",
+      "generation": {
+        "records": 9000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792060515006,
+        "send_duration_ms": 3020.414959,
+        "acknowledged_duration_ms": 3155.807451,
+        "achieved_send_rate_per_sec": 2979.7230255341215,
+        "send_buckets_per_second": {
+          "0": 1537,
+          "1": 4462,
+          "2": 2990,
+          "3": 11
+        }
+      },
+      "configuration": {
+        "application_id": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": true
+      },
+      "worker_directory": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/streams",
+      "worker_pids": [
+        503,
+        644
+      ],
+      "failure": {
+        "kind": "SIGKILL after native output ACK, before transaction commit",
+        "witness": {
+          "pid": 503,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out",
+          "partition": 0,
+          "offset": 0,
+          "value": {
+            "event_id": "event-00001",
+            "input_seq": 3,
+            "payload": {
+              "source": "synthetic",
+              "value": 3,
+              "worker": 3
+            },
+            "ingested_at_ms": 1792060515017
+          },
+          "at_ms": 1792060515672
+        },
+        "killed_pid": 503,
+        "exit_code": -9,
+        "raw_records_before_kill": 2,
+        "committed_records_before_kill": 0
+      },
+      "source_committed_offset": 9001,
+      "lifecycle": [
+        {
+          "pid": 503,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792060512223
+        },
+        {
+          "pid": 503,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792060513494
+        },
+        {
+          "pid": 644,
+          "previous": "RUNNING",
+          "state": "REBALANCING",
+          "at_ms": 1792060533568
+        },
+        {
+          "pid": 644,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792060533666
+        }
+      ],
+      "restore": [
+        {
+          "pid": 503,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 503,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        },
+        {
+          "pid": 644,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 644,
+          "topic": "streams-filter-cb1aeeca6b-streams-eos-filter-ack-crash-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 3
+        }
+      ],
+      "input_file": {
+        "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/input.jsonl",
+        "bytes": 1185780,
+        "sha256": "fff252801e00aed9ecfbc29eb8d20a3f90d7a128743d75643a70a2a81e24a117"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3002,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 2,
+            "duplicated_business_ids": {
+              "event-00001": 2,
+              "event-00000": 2
+            },
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/sink-read_uncommitted.jsonl",
+            "bytes": 395514,
+            "sha256": "e421560d6bcea5c0f8ed45d0c2c73bb12018fb75be6c0283098d74c8c6796b35"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/observations-read_uncommitted.jsonl",
+            "bytes": 772666,
+            "sha256": "927d96eabd8debbc5756d49df33462b2f7e0fdf26f1375aae1654821cbeab153"
+          },
+          "visibility_ms": {
+            "samples": 3002,
+            "min": 660,
+            "p50": 18622,
+            "p95": 18807,
+            "p99": 18881,
+            "max": 18914,
+            "within_100ms": 0
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3000,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 0,
+            "duplicated_business_ids": {},
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/sink-read_committed.jsonl",
+            "bytes": 395262,
+            "sha256": "e270fdf31c46282ffbeab955824a8f16d4d68b099c53f631489984c19f805562"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/streams-eos-filter-ack-crash/observations-read_committed.jsonl",
+            "bytes": 766168,
+            "sha256": "64010f3db9b29094a4032b07b56f12fb7b1e68690a563517e0b47114b340c0b5"
+          },
+          "visibility_ms": {
+            "samples": 3000,
+            "min": 18175,
+            "p50": 18708,
+            "p95": 18908,
+            "p99": 18985,
+            "max": 19002,
+            "within_100ms": 0
+          }
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/streams-eos-filter-ack-crash/input.jsonl.gz",
+          "rows": 9000,
+          "uncompressed_sha256": "a825a118e905a1756a440117966de784257cd31d371138516e7dd7a5fdcec6f5",
+          "gzip_sha256": "c5be87a3477b1b5b3869c0eea50033e6f056bb8ed6d4c1256f82e50d3f4f7595"
+        },
+        {
+          "path": "data/streams-eos-filter-ack-crash/output-read_uncommitted.jsonl.gz",
+          "rows": 3002,
+          "uncompressed_sha256": "ba4b6e83c0298c82f27891c7dd2589ca0b84605d7eabe02e7e321215cae85b7f",
+          "gzip_sha256": "ac4b1666e3c45537419aeec2a4341937d2b2a09402fca82cf0018fa25be8b313"
+        },
+        {
+          "path": "data/streams-eos-filter-ack-crash/observations-read_uncommitted.jsonl.gz",
+          "rows": 3002,
+          "uncompressed_sha256": "90e88552cd6141a04bfed91bc95592cc08dcdd0f9cc4c98781367af917d7987b",
+          "gzip_sha256": "0acb0a2b99aeda58c4094220eb60824356ae20a482b0f72751f08ff563614b98"
+        },
+        {
+          "path": "data/streams-eos-filter-ack-crash/output-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "02681b29a7bfaf0d0ec9e71717d8411032b5908aaa97dc2c5fbe40404da6035e",
+          "gzip_sha256": "116118bdc629e9d865f2fa4c2c190a29b8c70c9d766e35bc8f5df4a4055aa0c5"
+        },
+        {
+          "path": "data/streams-eos-filter-ack-crash/observations-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "d51fdb3be7349ca3e184c4f4d6f50ea7b62508a1f56c00bd212651bbdf9ea8eb",
+          "gzip_sha256": "50172b16f550d2ca981c75c34a362b1cc957ebd432f91772b925d5606b5fe282"
+        }
+      ]
+    },
+    {
+      "name": "flink-eos-filter-30s",
+      "mode": "state-eos",
+      "fault_kind": "none",
+      "generation": {
+        "records": 9000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792060577447,
+        "send_duration_ms": 3004.712916,
+        "acknowledged_duration_ms": 3024.97429,
+        "achieved_send_rate_per_sec": 2995.294476246063,
+        "send_buckets_per_second": {
+          "0": 1737,
+          "1": 4253,
+          "2": 3009,
+          "3": 1
+        }
+      },
+      "source_topic": "streams-filter-cb1aeeca6b-flink-eos-filter-30s-in",
+      "output_topic": "streams-filter-cb1aeeca6b-flink-eos-filter-30s-out",
+      "checkpoint_interval_ms": 30000,
+      "deduplication_ttl_ms": 3600000,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792060575892
+      },
+      "controller_kill_during_failure": false,
+      "worker_directory": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/flink",
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792060560144
+        }
+      ],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792060575892
+        },
+        {
+          "checkpoint_id": 2,
+          "attempt": 0,
+          "processed": 9000,
+          "completed_at_ms": 1792060605832
+        }
+      ],
+      "checkpoint_fault": [],
+      "sink_gap": [],
+      "input_file": {
+        "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/input.jsonl",
+        "bytes": 1185780,
+        "sha256": "ef4fa7d025096cc289cf13e54612f3306d82cdebd9dd8dabddefb60988e23a1c"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3000,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 0,
+            "duplicated_business_ids": {},
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/sink-read_uncommitted.jsonl",
+            "bytes": 395258,
+            "sha256": "f5bfaa3bce1f3bd7c949314dc3b5a762a7b776f1b5179baa5a1b101f0d151f69"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/observations-read_uncommitted.jsonl",
+            "bytes": 772148,
+            "sha256": "cbcf0070f04b79e161823e341b1067645064dfd8faebe3af570b15f93622e603"
+          },
+          "visibility_ms": {
+            "samples": 3000,
+            "min": 45,
+            "p50": 433,
+            "p95": 707,
+            "p99": 749,
+            "max": 760,
+            "within_100ms": 554
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 9000,
+            "expected_business_events": 3000,
+            "output_records": 3000,
+            "missing_business_ids": [],
+            "unexpected_business_ids": [],
+            "duplicate_records": 0,
+            "duplicated_business_ids": {},
+            "payload_or_first_arrival_mismatches": 0,
+            "business_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/sink-read_committed.jsonl",
+            "bytes": 395258,
+            "sha256": "f5bfaa3bce1f3bd7c949314dc3b5a762a7b776f1b5179baa5a1b101f0d151f69"
+          },
+          "observation_file": {
+            "path": "/app/streams-filter-runs/streams-filter-cb1aeeca6b/flink-eos-filter-30s/observations-read_committed.jsonl",
+            "bytes": 766148,
+            "sha256": "a388643419b0c772d3417e627cdec22c310d44f81ad0a4569a2b521dbf167c2a"
+          },
+          "visibility_ms": {
+            "samples": 3000,
+            "min": 25413,
+            "p50": 26902,
+            "p95": 28169,
+            "p99": 28316,
+            "max": 28383,
+            "within_100ms": 0
+          }
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/flink-eos-filter-30s/input.jsonl.gz",
+          "rows": 9000,
+          "uncompressed_sha256": "657dc485d379e26a86fbb8a6d18ebc8b935b519187d71837ed301d754486f944",
+          "gzip_sha256": "88405f7f2b0dfed4f0e171bb1e0c1acac0bb7b4adb35bd260fa0f4a32a19fadf"
+        },
+        {
+          "path": "data/flink-eos-filter-30s/output-read_uncommitted.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "f2111ca39d573341396631a5fffff88edab3b35547bbc64ab10c488b775a477a",
+          "gzip_sha256": "186bcdfd7925e0613a0440d6d60f283fd7c0a66739bcdbf6ef3688cbcf89717f"
+        },
+        {
+          "path": "data/flink-eos-filter-30s/observations-read_uncommitted.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "53ea1367498a5225915d515fa20df4805ab42489788783d2082ed6e47c9cc7ec",
+          "gzip_sha256": "3a530a0229bbdb46a419c1269ea5999ef9b015bce91e95a38738ce650b227f4b"
+        },
+        {
+          "path": "data/flink-eos-filter-30s/output-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "f2111ca39d573341396631a5fffff88edab3b35547bbc64ab10c488b775a477a",
+          "gzip_sha256": "df5af81e26ec6d1007b57f82c031aa24512a79596012340f8afa627d4dad9331"
+        },
+        {
+          "path": "data/flink-eos-filter-30s/observations-read_committed.jsonl.gz",
+          "rows": 3000,
+          "uncompressed_sha256": "06097729a1096516477b6897661ac0b4536171bc52faf37400b6964d385261db",
+          "gzip_sha256": "b707fa33be2922ca838df9170306ed84a8fd10975b934211f5c13991f4225064"
+        }
+      ]
+    }
+  ]
+}

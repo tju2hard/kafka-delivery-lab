@@ -20,8 +20,10 @@ EOSv2 使用 Kafka 事务，协调输入 offset、state changelog 与输出。�
 说明 EOS 默认 commit.interval.ms 为100ms；这不是端到端100ms保证。消费结果需
 使用 read_committed。[Kafka Streams 配置与处理保证](https://kafka.apache.org/34/streams/developer-guide/config-streams/)
 
-**当前仓库旧 Streams 原型仍是保留到达并打标记，尚未验证 Streams 过滤版故障恢复。**
-不能把旧标记实验的结果冒充这条过滤路线的实测结果。
+旧 `TaggingDemo` Streams 原型保留到达并打标记；新的 `StreamsDeduplicationDemo`
+已实现首次过滤、EOSv2 和提交前崩溃恢复实验，见 [Streams 过滤实测](../results/STREAMS_FILTER.md)。
+这个过滤版本的当前端到端实测仍为秒级，尚未达到100ms；不能用提交配置代替延迟结果，
+也不能将旧标记实验作为新过滤版本的证明。
 
 ## 不用分布式两阶段提交：目标 MQ 提供持久幂等追加
 

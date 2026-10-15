@@ -1,0 +1,78 @@
+{
+  "report_validation_reward": 1,
+  "checks": [
+    {
+      "name": "streams-eos-filter-100ms",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 0,
+        "business_contract_pass": true
+      },
+      "committed_visibility_ms": {
+        "samples": 3000,
+        "min": 1517,
+        "p50": 5563,
+        "p95": 5803,
+        "p99": 5889,
+        "max": 5902,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "streams-eos-filter-ack-crash",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 0,
+        "business_contract_pass": true
+      },
+      "committed_visibility_ms": {
+        "samples": 3000,
+        "min": 20092,
+        "p50": 21880,
+        "p95": 22249,
+        "p99": 22301,
+        "max": 22330,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-eos-filter-30s",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 0,
+        "business_contract_pass": true
+      },
+      "committed_visibility_ms": {
+        "samples": 3000,
+        "min": 25804,
+        "p50": 27273,
+        "p95": 28497,
+        "p99": 28634,
+        "max": 28727,
+        "within_100ms": 0
+      }
+    }
+  ],
+  "errors": []
+}

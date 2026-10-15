@@ -1,0 +1,7 @@
+[
+  {
+    "trial": "streams-filter-baseline-01",
+    "status": "invalid_infrastructure",
+    "reason": "runtime build context absent after Java compilation failed; not baseline0 evidence"
+  }
+]

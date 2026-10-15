@@ -25,6 +25,13 @@ Keep this business-ID contract separate from the earlier all-arrivals marking
 contract. Kafka transactions protect the committed view; raw aborted records
 can still violate the original physical-log-only-once requirement.
 
+`streams-id-filter` implements actual duplicate filtering with Kafka Streams
+EOSv2, persistent one-hour state and 100ms commit configuration. Inputs must
+already be keyed/partitioned by event_id. Measure actual committed visibility;
+never call 100ms configuration a 100ms latency SLA. Its controlled fault is a
+process crash after data ACK but before Kafka transaction commit, not a Flink
+checkpoint failure. Its CK30s Flink case is a normal latency reference.
+
 Keep runtime/image/dependency versions pinned. Test reports must identify exact
 versions, fault witnesses, raw counts, committed counts and visibility times.
 Stop only this lab's owned processes and services. No Docker socket in the image.

@@ -4,7 +4,28 @@
 Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，不是生产库，
 也不是 TalentAI 出题包；不调用模型。
 
-## 按业务 ID 过滤：模拟事务的不重不漏（当前重点）
+## Kafka Streams：过滤重复 ID＋EOSv2
+
+已实现 [StreamsDeduplicationDemo](src/main/java/lab/StreamsDeduplicationDemo.java)：
+输入以 event_id 为 Kafka key，用持久化 state 做1小时去重，只转发首次 JSON，
+EOSv2 协调 source offset、state changelog 和输出，commit.interval.ms=100。
+这条链路没有 Flink，不等待30秒 CK。相同 ID 必须进入相同源分区；本实验固定1分区。
+
+当前是每场景9000次到达、3000个 ID 各三次的约3秒短批次，四线程目标3000条/秒。
+三项实验包括正常 Streams、真实 ACK 后且事务未提交时 SIGKILL/恢复，以及正常
+Flink state＋事务 KafkaSink/CK30s 的同规模延迟对照。最终 JSON、源进度、原始和
+已提交视图均由独立消费者复核，详见 [Streams 实测报告](results/STREAMS_FILTER.md)。
+**100ms 是提交配置；当前实测端到端可见延迟仍为秒级，未达到100ms目标。**
+按同一输出 offset 配对的“原始可见→已提交可见”观察差 p50 为121～135ms；
+当前主要延迟已发生在目标原始日志可见之前，具体瓶颈尚未单独定位。
+
+```bash
+bash scripts/build.sh
+harbor trials start -p harbor/streams-id-filter -a oracle \
+  --trial-name streams-filter --trials-dir results/trials
+```
+
+## 按业务 ID 过滤：Redis 能否模拟事务的不重不漏
 
 当前目标是同一个业务 ID 最终只输出首次到达的一条完整 JSON，重复 ID 直接跳过
 sink。新实现见 [DeduplicationDemo](src/main/java/lab/DeduplicationDemo.java)，

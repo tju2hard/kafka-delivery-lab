@@ -1,0 +1,110 @@
+[
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "streams-eos-filter-100ms",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "streams-eos-filter-100ms",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "streams-eos-filter-ack-crash",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "streams-eos-filter-ack-crash",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "flink-eos-filter-30s",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-01",
+    "case": "flink-eos-filter-30s",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "streams-eos-filter-100ms",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "streams-eos-filter-100ms",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "streams-eos-filter-ack-crash",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "streams-eos-filter-ack-crash",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "flink-eos-filter-30s",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  },
+  {
+    "trial": "streams-filter-oracle-02",
+    "case": "flink-eos-filter-30s",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true,
+    "native_timing_match": true
+  }
+]

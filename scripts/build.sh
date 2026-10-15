@@ -7,7 +7,7 @@ mvn -q clean compile dependency:copy-dependencies -DincludeScope=runtime
 python3 - <<'PY'
 from pathlib import Path
 import shutil
-for task in ('delivery-matrix','id-marking-latency','id-marking-recovery','id-deduplication'):
+for task in ('delivery-matrix','id-marking-latency','id-marking-recovery','id-deduplication','streams-id-filter'):
  root=Path('harbor')/task/'environment/runtime'
  if root.exists():shutil.rmtree(root)
  root.mkdir(parents=True)
