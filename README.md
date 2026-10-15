@@ -6,18 +6,21 @@ Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，
 
 ## 当前需求：全量输出，只标记重复
 
-`harbor/arrival-marking-comparison` 对比五种方案在正常与故障恢复时的最终总条数、
-去重后 ID 数、首次/重复标记、输入重放和 Kafka sink 可见延迟。每场9000次到达，
-3000个 ID 各三次，四线程目标3000条/秒；理想输出仍为9000条，3000 false、6000 true。
-重复消息必须输出。下面的 ID 过滤实验是不同语义，不能作为本需求的结果。
+**目标是不重不漏、标记正确，并让下游在秒级看到消息。** 输入总共9000条，包含3000个 ID
+各出现三次；要全部输出，3000条标首次、6000条标重复，故障恢复不能额外多写。
 
-两轮原生实验及逐条复核已完成，见 [总量、重复标记与延迟对比](results/ARRIVAL_COMPARISON.md)。
-9000是每场原始输入总数，已包含重复 ID。直接 Streams EOS 恢复后仍输出9000条；
-Flink 非事务转发的恢复链路先向中间 Kafka 写成18000条，下游 Streams 因而读取并输出18000条。
-本次全量标记实验的 Redis 仅测“先登记 Redis、后写 Kafka”；“Kafka ACK 后再登记 Redis”
-尚未纳入该实验。下面的过滤实验测过两种顺序，其结果属于另一种输出语义。
+两轮实验中，Flink 事务写入和直接 Streams EOS 在故障恢复后仍是9000条、标记正确；
+Redis“先登记、再发送”恢复后变成14402条。Redis“发送成功后再登记”尚未做本次全量标记实验。
+直接 Streams 正常运行时99%的消息在6.5～6.9秒内可见；Flink 事务在本次30秒 CK 配置下为
+28.2～29.1秒。这是短批次实测，当前尚未证明1秒以内可见。
+
+[通俗对比报告](results/ARRIVAL_COMPARISON.md) 先说明最后收到多少条、标记对不对、
+下游多久能看到；[两轮完整明细](results/ARRIVAL_DETAILS.md) 保留所有方案和额外对照。
+Flink 普通转发后再接 Streams 的串联对照单独解释；它的18000条来自上游恢复时又写了一遍。
+
 实际 JSON 小样：[9条输入](results/examples/arrival-marked-input.jsonl)、
-[9条带标记输出](results/examples/arrival-marked-output.jsonl)。
+[9条带标记输出](results/examples/arrival-marked-output.jsonl)。可复现入口为
+`harbor/arrival-marking-comparison`。下面的 ID 过滤实验会跳过重复消息，属于另一种语义。
 
 实现：[ArrivalStreamsDemo](src/main/java/lab/ArrivalStreamsDemo.java)、
 [ArrivalCheckpointDemo](src/main/java/lab/ArrivalCheckpointDemo.java)。
