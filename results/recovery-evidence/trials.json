@@ -1,0 +1,35 @@
+[
+  {
+    "trial": "recovery-baseline-01",
+    "started_at": "2026-10-15T09:05:40.443508Z",
+    "finished_at": "2026-10-15T09:06:15.687828Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 0.0
+      }
+    }
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "started_at": "2026-10-15T09:06:33.826622Z",
+    "finished_at": "2026-10-15T09:21:34.963563Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "started_at": "2026-10-15T09:22:28.240590Z",
+    "finished_at": "2026-10-15T09:37:00.539636Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  }
+]

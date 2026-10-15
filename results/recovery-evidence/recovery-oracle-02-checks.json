@@ -1,0 +1,126 @@
+{
+  "report_validation_reward": 1,
+  "checks": [
+    {
+      "name": "state-alo-timeout",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 30000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 10000,
+        "true_markers": 20000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      }
+    },
+    {
+      "name": "state-eos-timeout",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 30000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 10000,
+        "true_markers": 20000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      }
+    },
+    {
+      "name": "state-alo-restart",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 60000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 30000,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 10000,
+        "invalid_flag_types": 0,
+        "false_markers": 20000,
+        "true_markers": 40000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 10000,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      }
+    },
+    {
+      "name": "redis-alo-restart",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 36973,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 6973,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 10000,
+        "true_markers": 26973,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      }
+    },
+    {
+      "name": "streams-after-alo-restart",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 60000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 30000,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 10000,
+        "true_markers": 50000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      }
+    },
+    {
+      "name": "state-eos-restart",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 30000,
+        "output_arrivals": 30000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 10000,
+        "true_markers": 20000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      }
+    }
+  ],
+  "errors": []
+}

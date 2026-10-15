@@ -2,6 +2,8 @@
 
 Input order is Kafka partition order. This load-test checker requires the whole
 run to fit inside the one-hour horizon; it does not certify expiry behavior.
+For recovery diagnostics (markers in final output order), use
+compare-recovery-jsonl.py instead.
 """
 import argparse
 from collections import Counter

@@ -1,0 +1,1870 @@
+{
+  "experiment_valid": true,
+  "run_id": "recovery-82e768085f",
+  "contract": "preserve all JSON arrivals and correct ID markers through checkpoint failure/recovery",
+  "target_rate_per_sec": 3000,
+  "source_arrivals_per_case": 30000,
+  "producer_threads": 4,
+  "checkpoint_interval_ms": 30000,
+  "deduplication_ttl_ms": 3600000,
+  "streams_commit_interval_ms": 100,
+  "versions": {
+    "kafka_broker": "3.7.0",
+    "kafka_client": "3.4.0",
+    "kafka_streams": "3.4.0",
+    "flink": "1.20.4",
+    "redis": "7.2.6",
+    "python": "3.10.12"
+  },
+  "limitations": [
+    "single-machine single partition, synthetic JSON input",
+    "snapshot timeout/IOException injected once; not broker or disk-loss testing",
+    "no manual JVM kill/relaunch used to cause failure; final process kill is cleanup only",
+    "one-hour TTL expiry not observed by waiting an hour"
+  ],
+  "cases": [
+    {
+      "name": "state-alo-timeout",
+      "mode": "alo",
+      "failure_kind": "timeout",
+      "source_topic": "recovery-82e768085f-state-alo-timeout-in",
+      "output_topic": "recovery-82e768085f-state-alo-timeout-out",
+      "staging_topic": null,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056190694,
+        "send_duration_ms": 10021.320739,
+        "acknowledged_duration_ms": 10087.649683,
+        "achieved_send_rate_per_sec": 2993.6173865036494,
+        "send_buckets_per_second": {
+          "0": 1766,
+          "1": 4227,
+          "10": 5,
+          "2": 2997,
+          "3": 2999,
+          "4": 3005,
+          "5": 2993,
+          "6": 3013,
+          "7": 2992,
+          "8": 3005,
+          "9": 2998
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 5000,
+      "tolerable_checkpoint_failures": 1,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 155,
+      "failure_action": "native snapshot stall and coordinator timeout",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056188314
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 30000,
+        "at_ms": 1792056218168,
+        "fault_kind": "timeout",
+        "reason": "injected actual snapshotState timeout"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056186064
+        }
+      ],
+      "aborted_checkpoints": [
+        {
+          "checkpoint_id": 2,
+          "attempt": 0,
+          "at_ms": 1792056226194
+        }
+      ],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056188314
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 0,
+          "processed": 30000,
+          "completed_at_ms": 1792056248195
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/state-alo-timeout/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/state-alo-timeout/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "42c74106ac4b3659ee3fcf814417d0f305beff88e8297d84711ecd057737e312"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 30000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 20000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-alo-timeout/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "56f222ccedfeaf14705c557504b114ade7dcfc1bd95a3f6b3510ba42395120ac"
+          },
+          "examples": [
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056190720,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191122
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056190720,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191302
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190718,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056191307
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056190718,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056191330
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190832,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191345
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 10,
+              "payload": {
+                "source": "synthetic",
+                "value": 10,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190836,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191346
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 30000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 20000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-alo-timeout/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "56f222ccedfeaf14705c557504b114ade7dcfc1bd95a3f6b3510ba42395120ac"
+          },
+          "examples": [
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056190720,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191122
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056190720,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191302
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190718,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056191307
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056190718,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056191330
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190832,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191345
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 10,
+              "payload": {
+                "source": "synthetic",
+                "value": 10,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056190836,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056191346
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/state-alo-timeout/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "a45f45ab1b36e813d27276bc8e955fed848e335973303bb68b06bcc8766591d8",
+          "gzip_sha256": "5a89beaf461c317dfadc26a66cf5e20fd2cadcf18fada5ab9496fd4ba6f30bf2"
+        },
+        {
+          "path": "data/state-alo-timeout/output-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "d71d27396b11bf224e500c094600070db662cb909267460c2abf6f81d29080eb",
+          "gzip_sha256": "8c1929e458d3853d894aa198bb90da4675adc9fd55fad6216fce4c03f4a6ade1"
+        },
+        {
+          "path": "data/state-alo-timeout/output-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "d71d27396b11bf224e500c094600070db662cb909267460c2abf6f81d29080eb",
+          "gzip_sha256": "677dce35fc09e25144721fe2508d5810baecf047e5b0845ae9f0c98400ed9c49"
+        }
+      ]
+    },
+    {
+      "name": "state-eos-timeout",
+      "mode": "eos",
+      "failure_kind": "timeout",
+      "source_topic": "recovery-82e768085f-state-eos-timeout-in",
+      "output_topic": "recovery-82e768085f-state-eos-timeout-out",
+      "staging_topic": null,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056277147,
+        "send_duration_ms": 10000.707899,
+        "acknowledged_duration_ms": 10074.880793,
+        "achieved_send_rate_per_sec": 2999.7876453325657,
+        "send_buckets_per_second": {
+          "0": 1594,
+          "1": 4396,
+          "2": 2999,
+          "3": 3006,
+          "4": 3001,
+          "5": 2993,
+          "6": 3008,
+          "7": 3002,
+          "8": 3000,
+          "9": 3001
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 5000,
+      "tolerable_checkpoint_failures": 1,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 498,
+      "failure_action": "native snapshot stall and coordinator timeout",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056274889
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 30000,
+        "at_ms": 1792056304873,
+        "fault_kind": "timeout",
+        "reason": "injected actual snapshotState timeout"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056270702
+        }
+      ],
+      "aborted_checkpoints": [
+        {
+          "checkpoint_id": 2,
+          "attempt": 0,
+          "at_ms": 1792056312891
+        }
+      ],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056274889
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 0,
+          "processed": 30000,
+          "completed_at_ms": 1792056334779
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/state-eos-timeout/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/state-eos-timeout/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "d830318b47b6877cfd38725eaeb4234257e0b06f65c2de5540d59ce83c0b3935"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 30000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 20000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-eos-timeout/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "5cefde49af5ff79f0904244c0bec9f81503b8c11dbe2d685f0f0158662f225f3"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056277169,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277429
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056277168,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277567
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056277169,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277577
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056277168,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277606
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056277261,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277607
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056277260,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277611
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 30000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 20000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-eos-timeout/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "5cefde49af5ff79f0904244c0bec9f81503b8c11dbe2d685f0f0158662f225f3"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056277169,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277429
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056277168,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277567
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056277169,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277577
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056277168,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277606
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056277261,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056277607
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056277260,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056277611
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/state-eos-timeout/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "5d6c6f34dec2fb96f099d981184ca3ca955b5b85884deb7e9c9dfe41a205a49e",
+          "gzip_sha256": "769d7ab9a1123ff8e74f1a0cf72847d0ab46ee04c5e156607c9242e41e035bf6"
+        },
+        {
+          "path": "data/state-eos-timeout/output-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "30eee8f4d998ab9bd492c9169a2798ce35d870c48c78bdb7e081066016b09c09",
+          "gzip_sha256": "2d29ac20217e01208b8a7a758c6fc687ed55821cecbb5c1fbf0399815047b91b"
+        },
+        {
+          "path": "data/state-eos-timeout/output-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "30eee8f4d998ab9bd492c9169a2798ce35d870c48c78bdb7e081066016b09c09",
+          "gzip_sha256": "ee4228ed8b09e6900cd8a7e09882d18eae9f2ca49346dc9a10f9a121fb3c2212"
+        }
+      ]
+    },
+    {
+      "name": "state-alo-restart",
+      "mode": "alo",
+      "failure_kind": "snapshot-error",
+      "source_topic": "recovery-82e768085f-state-alo-restart-in",
+      "output_topic": "recovery-82e768085f-state-alo-restart-out",
+      "staging_topic": null,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056371085,
+        "send_duration_ms": 10006.093551,
+        "acknowledged_duration_ms": 10069.031642,
+        "achieved_send_rate_per_sec": 2998.1730479625417,
+        "send_buckets_per_second": {
+          "0": 2466,
+          "1": 3518,
+          "10": 1,
+          "2": 2980,
+          "3": 3033,
+          "4": 2998,
+          "5": 3003,
+          "6": 2979,
+          "7": 3022,
+          "8": 3001,
+          "9": 2999
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 120000,
+      "tolerable_checkpoint_failures": 0,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 835,
+      "failure_action": "native snapshot IOException; automatic job restart",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056369715
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 30000,
+        "at_ms": 1792056399557,
+        "fault_kind": "snapshot-error",
+        "reason": "injected actual snapshotState snapshot-error"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056355049
+        },
+        {
+          "attempt": 1,
+          "is_restored": true,
+          "at_ms": 1792056400698
+        }
+      ],
+      "aborted_checkpoints": [],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056369715
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 1,
+          "processed": 30000,
+          "completed_at_ms": 1792056411331
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/state-alo-restart/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/state-alo-restart/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "333d2984246ed6bb6f465bd6af9d5f107199b4f630c5bcde0ea4ebf445a8c42a"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 60000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 30000,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 10000,
+            "invalid_flag_types": 0,
+            "false_markers": 20000,
+            "true_markers": 40000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 10000,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-alo-restart/sink-read_uncommitted.jsonl",
+            "bytes": 10955560,
+            "sha256": "0637e217e1c221592347e3b3ff74c9e79515dee2f35753264296848cdb4fe0b4"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371337
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371474
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371181,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371482
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 8,
+              "payload": {
+                "source": "synthetic",
+                "value": 8,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371183,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371487
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371488
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056371185,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371491
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 60000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 30000,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 10000,
+            "invalid_flag_types": 0,
+            "false_markers": 20000,
+            "true_markers": 40000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 10000,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-alo-restart/sink-read_committed.jsonl",
+            "bytes": 10955560,
+            "sha256": "0637e217e1c221592347e3b3ff74c9e79515dee2f35753264296848cdb4fe0b4"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371337
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371474
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371181,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371482
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 8,
+              "payload": {
+                "source": "synthetic",
+                "value": 8,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056371183,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056371487
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056371098,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371488
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056371185,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056371491
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/state-alo-restart/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "1a732679ff429ea4d0d6f1b339f46b130d9f95b6690d9303c453192067e61535",
+          "gzip_sha256": "8edfc1c28593b459d9254f6e9c9c084aafdc61c9e9fd8a2f3b307f58e7d0519c"
+        },
+        {
+          "path": "data/state-alo-restart/output-read_uncommitted.jsonl.gz",
+          "rows": 60000,
+          "uncompressed_sha256": "123a7ba3cc11873148eef62a3911639abbeac789402fa4907cebae55b2093a02",
+          "gzip_sha256": "2a261320cd4f6f14f0ac4d3ae5e38e77d8811018a2693cbf06172e673d6c5913"
+        },
+        {
+          "path": "data/state-alo-restart/output-read_committed.jsonl.gz",
+          "rows": 60000,
+          "uncompressed_sha256": "123a7ba3cc11873148eef62a3911639abbeac789402fa4907cebae55b2093a02",
+          "gzip_sha256": "510eb2af2440ee5e57603a2aad4b9e54a9bb72dff82359b18e88333653dbb1e8"
+        }
+      ]
+    },
+    {
+      "name": "redis-alo-restart",
+      "mode": "redis",
+      "failure_kind": "snapshot-error",
+      "source_topic": "recovery-82e768085f-redis-alo-restart-in",
+      "output_topic": "recovery-82e768085f-redis-alo-restart-out",
+      "staging_topic": null,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056448586,
+        "send_duration_ms": 10005.780007,
+        "acknowledged_duration_ms": 10063.876992,
+        "achieved_send_rate_per_sec": 2998.2669995754586,
+        "send_buckets_per_second": {
+          "0": 2466,
+          "1": 3532,
+          "10": 1,
+          "2": 2997,
+          "3": 3004,
+          "4": 3001,
+          "5": 3000,
+          "6": 2974,
+          "7": 3025,
+          "8": 3000,
+          "9": 3000
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 120000,
+      "tolerable_checkpoint_failures": 0,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 1188,
+      "failure_action": "native snapshot IOException; automatic job restart",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056446212
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 6973,
+        "at_ms": 1792056484019,
+        "fault_kind": "snapshot-error",
+        "reason": "injected actual snapshotState snapshot-error"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056439454
+        },
+        {
+          "attempt": 1,
+          "is_restored": true,
+          "at_ms": 1792056485245
+        }
+      ],
+      "aborted_checkpoints": [],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056446212
+        },
+        {
+          "checkpoint_id": 10,
+          "attempt": 1,
+          "processed": 30000,
+          "completed_at_ms": 1792056720131
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 1,
+          "processed": 7652,
+          "completed_at_ms": 1792056518548
+        },
+        {
+          "checkpoint_id": 4,
+          "attempt": 1,
+          "processed": 12553,
+          "completed_at_ms": 1792056557343
+        },
+        {
+          "checkpoint_id": 5,
+          "attempt": 1,
+          "processed": 15876,
+          "completed_at_ms": 1792056587024
+        },
+        {
+          "checkpoint_id": 6,
+          "attempt": 1,
+          "processed": 19197,
+          "completed_at_ms": 1792056617488
+        },
+        {
+          "checkpoint_id": 7,
+          "attempt": 1,
+          "processed": 22519,
+          "completed_at_ms": 1792056648552
+        },
+        {
+          "checkpoint_id": 8,
+          "attempt": 1,
+          "processed": 25619,
+          "completed_at_ms": 1792056677455
+        },
+        {
+          "checkpoint_id": 9,
+          "attempt": 1,
+          "processed": 28941,
+          "completed_at_ms": 1792056708739
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/redis-alo-restart/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/redis-alo-restart/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "3ff845c69d91cea54eef6ba02338a2e231cb4a8bae07f9c36a7bf212fbcbbb67"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 36973,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 6973,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 26973,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/redis-alo-restart/sink-read_uncommitted.jsonl",
+            "bytes": 6737673,
+            "sha256": "a6fb0f2f85a09277f4fcef7d404642a8a5dacdf79cef1188a3cf11c5a86990a0"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056448790
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056448977
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056449020
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448670,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056449037
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056448669,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056449045
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 10,
+              "payload": {
+                "source": "synthetic",
+                "value": 10,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448670,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056449050
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 36973,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 6973,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 26973,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/redis-alo-restart/sink-read_committed.jsonl",
+            "bytes": 6737673,
+            "sha256": "a6fb0f2f85a09277f4fcef7d404642a8a5dacdf79cef1188a3cf11c5a86990a0"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056448790
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056448977
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448596,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056449020
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448670,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056449037
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056448669,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056449045
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 10,
+              "payload": {
+                "source": "synthetic",
+                "value": 10,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056448670,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056449050
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/redis-alo-restart/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "fe38ca6a506639ce077f016e5399ed18a12563329d2bfbcda53e5e0f140c747a",
+          "gzip_sha256": "238b8490a1466507e4986a540243b8c9e160f4329de07151a7d897e70ef898bb"
+        },
+        {
+          "path": "data/redis-alo-restart/output-read_uncommitted.jsonl.gz",
+          "rows": 36973,
+          "uncompressed_sha256": "3430bd2e0e0296d31021e6fa4f7d108c0b14330bc65b660fa0e24b9bbeaef9c4",
+          "gzip_sha256": "c971743d93b785d353973554780f8c911d17a6d858f706020c58bc06fa7c648d"
+        },
+        {
+          "path": "data/redis-alo-restart/output-read_committed.jsonl.gz",
+          "rows": 36973,
+          "uncompressed_sha256": "3430bd2e0e0296d31021e6fa4f7d108c0b14330bc65b660fa0e24b9bbeaef9c4",
+          "gzip_sha256": "5a04cbc37f18f8c200334461ec0c3a8ddcd7023c91d809931e04cee1de2aded7"
+        }
+      ]
+    },
+    {
+      "name": "streams-after-alo-restart",
+      "mode": "bridge",
+      "failure_kind": "snapshot-error",
+      "source_topic": "recovery-82e768085f-streams-after-alo-restart-in",
+      "output_topic": "recovery-82e768085f-streams-after-alo-restart-out",
+      "staging_topic": "recovery-82e768085f-streams-after-alo-restart-out-staging",
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056780986,
+        "send_duration_ms": 10006.466441,
+        "acknowledged_duration_ms": 10016.106744,
+        "achieved_send_rate_per_sec": 2998.0613213351203,
+        "send_buckets_per_second": {
+          "0": 2719,
+          "1": 3267,
+          "10": 6,
+          "2": 2983,
+          "3": 2969,
+          "4": 3052,
+          "5": 3006,
+          "6": 2995,
+          "7": 2995,
+          "8": 3014,
+          "9": 2994
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 120000,
+      "tolerable_checkpoint_failures": 0,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 1668,
+      "failure_action": "native snapshot IOException; automatic job restart",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056779851
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 30000,
+        "at_ms": 1792056809640,
+        "fault_kind": "snapshot-error",
+        "reason": "injected actual snapshotState snapshot-error"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056751114
+        },
+        {
+          "attempt": 1,
+          "is_restored": true,
+          "at_ms": 1792056810837
+        }
+      ],
+      "aborted_checkpoints": [],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056779851
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 1,
+          "processed": 30000,
+          "completed_at_ms": 1792056830698
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/streams-after-alo-restart/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/streams-after-alo-restart/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "f5d7c5873e21e1bbc8d4d603c1841bc07467e33ff8e0f99eae321f7f30553d89"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 60000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 30000,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 50000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/streams-after-alo-restart/sink-read_uncommitted.jsonl",
+            "bytes": 10945560,
+            "sha256": "fdca11c4da9b13f3e8fcab16ed1eac32d107fa7988b6ebb3f211e25c734bfdf3"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056781438
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781494
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781738
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056781751
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056781055,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781770
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056781055,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781772
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 60000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 30000,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 50000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/streams-after-alo-restart/sink-read_committed.jsonl",
+            "bytes": 10945560,
+            "sha256": "fdca11c4da9b13f3e8fcab16ed1eac32d107fa7988b6ebb3f211e25c734bfdf3"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056781438
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781494
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781738
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792056780995,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056781751
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056781055,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781770
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056781055,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056781772
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/streams-after-alo-restart/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "94be2dd1c9e93f025df4de2027699c4b028304cd978b77bf516452add3390133",
+          "gzip_sha256": "fb328341ea8b2f9b53401f38b7bcc83112592e093ea61c2d4eb4321477637b4c"
+        },
+        {
+          "path": "data/streams-after-alo-restart/output-read_uncommitted.jsonl.gz",
+          "rows": 60000,
+          "uncompressed_sha256": "b324fc161d49498e07f50599d0d0299a0b8ea8875a1bf68b7b50a1d0fce938c9",
+          "gzip_sha256": "be23d765e1b767dcc3960c983177e0e23ffd12a8ce175beb4affb5bca68d4199"
+        },
+        {
+          "path": "data/streams-after-alo-restart/output-read_committed.jsonl.gz",
+          "rows": 60000,
+          "uncompressed_sha256": "b324fc161d49498e07f50599d0d0299a0b8ea8875a1bf68b7b50a1d0fce938c9",
+          "gzip_sha256": "ff5ce745a41a6a32ca4ef935a01119ff3176136c31ee8df6dc7d2645b07e8bce"
+        }
+      ]
+    },
+    {
+      "name": "state-eos-restart",
+      "mode": "eos",
+      "failure_kind": "snapshot-error",
+      "source_topic": "recovery-82e768085f-state-eos-restart-in",
+      "output_topic": "recovery-82e768085f-state-eos-restart-out",
+      "staging_topic": null,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792056864051,
+        "send_duration_ms": 10003.611175,
+        "acknowledged_duration_ms": 10010.843273,
+        "achieved_send_rate_per_sec": 2998.917038576322,
+        "send_buckets_per_second": {
+          "0": 1573,
+          "1": 4424,
+          "10": 2,
+          "2": 2978,
+          "3": 3023,
+          "4": 2995,
+          "5": 2984,
+          "6": 3003,
+          "7": 3015,
+          "8": 3005,
+          "9": 2998
+        }
+      },
+      "checkpoint_interval_ms": 30000,
+      "checkpoint_timeout_ms": 120000,
+      "tolerable_checkpoint_failures": 0,
+      "deduplication_ttl_ms": 3600000,
+      "flink_jvm_pid": 2035,
+      "failure_action": "native snapshot IOException; automatic job restart",
+      "controller_kill_during_failure": false,
+      "initial_checkpoint": {
+        "checkpoint_id": 1,
+        "attempt": 0,
+        "processed": 0,
+        "completed_at_ms": 1792056862507
+      },
+      "fault": {
+        "checkpoint_id": 2,
+        "attempt": 0,
+        "processed_before_failure": 30000,
+        "at_ms": 1792056892386,
+        "fault_kind": "snapshot-error",
+        "reason": "injected actual snapshotState snapshot-error"
+      },
+      "initialized_attempts": [
+        {
+          "attempt": 0,
+          "is_restored": false,
+          "at_ms": 1792056859657
+        },
+        {
+          "attempt": 1,
+          "is_restored": true,
+          "at_ms": 1792056894325
+        }
+      ],
+      "aborted_checkpoints": [],
+      "completed_checkpoints": [
+        {
+          "checkpoint_id": 1,
+          "attempt": 0,
+          "processed": 0,
+          "completed_at_ms": 1792056862507
+        },
+        {
+          "checkpoint_id": 3,
+          "attempt": 1,
+          "processed": 30000,
+          "completed_at_ms": 1792056898858
+        }
+      ],
+      "worker_directory": "/app/recovery-runs/recovery-82e768085f/state-eos-restart/flink",
+      "input_file": {
+        "path": "/app/recovery-runs/recovery-82e768085f/state-eos-restart/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "4ce13b715f52637d71dcb70f290e5df226d30202560c1670449d67f2898d9848"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 60000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 30000,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 10000,
+            "invalid_flag_types": 0,
+            "false_markers": 20000,
+            "true_markers": 40000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 10000,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-eos-restart/sink-read_uncommitted.jsonl",
+            "bytes": 10955560,
+            "sha256": "e05d3c36a363bb62d408b95068680c57e204499b1a255ab0e374b827deadbffb"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864064,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056864297
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864163,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056864423
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 9,
+              "payload": {
+                "source": "synthetic",
+                "value": 9,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864164,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056864430
+            },
+            {
+              "event_id": "event-00004",
+              "input_seq": 13,
+              "payload": {
+                "source": "synthetic",
+                "value": 13,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864165,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056864431
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056864064,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056864436
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056864165,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056864437
+            }
+          ]
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 30000,
+            "output_arrivals": 30000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 10000,
+            "true_markers": 20000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/recovery-runs/recovery-82e768085f/state-eos-restart/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "41177342fe4659aea60a5073a17e6e8de072f452837158f882b80c6e2e723551"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864064,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056894332
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864163,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056894334
+            },
+            {
+              "event_id": "event-00003",
+              "input_seq": 9,
+              "payload": {
+                "source": "synthetic",
+                "value": 9,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864164,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056894334
+            },
+            {
+              "event_id": "event-00004",
+              "input_seq": 13,
+              "payload": {
+                "source": "synthetic",
+                "value": 13,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792056864165,
+              "is_duplicate": false,
+              "marked_at_ms": 1792056894334
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056864064,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056894334
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792056864165,
+              "is_duplicate": true,
+              "marked_at_ms": 1792056894334
+            }
+          ]
+        }
+      },
+      "exported_jsonl": [
+        {
+          "path": "data/state-eos-restart/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "6ea67d02ceb021b1b9abab7f35713d68a6eff5e9e66553612487024e1052b296",
+          "gzip_sha256": "ba1b7e2f9030a4bc5750288902da9beef425b395aaf5b8d2ffc98787b34bda8b"
+        },
+        {
+          "path": "data/state-eos-restart/output-read_uncommitted.jsonl.gz",
+          "rows": 60000,
+          "uncompressed_sha256": "49a5ecd11f1dbaa5e38be95385a05dd97d71aba9274e743c3c8d2cea1cd9d8a8",
+          "gzip_sha256": "b0a9396ddfa96dbe461a5cab55995374f21e164e390ffd0371cdce87c9e7fb70"
+        },
+        {
+          "path": "data/state-eos-restart/output-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "f24a06609f7228905f73f32228b2de2aedc58eb130117a9be5a201e179c5793e",
+          "gzip_sha256": "2f6d613dbafec13c1240a8d42c0a4a2413735121b9610483026a55b7e135a09f"
+        }
+      ]
+    }
+  ]
+}

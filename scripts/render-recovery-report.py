@@ -16,7 +16,10 @@ def main():
     results=ROOT/'results';evidence=results/'recovery-evidence';evidence.mkdir(exist_ok=True)
     manifest=results/'recovery-inputs.sha256.json'
     for name,digest in json.loads(manifest.read_text()).items():
-        assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
+        current=ROOT/name
+        if hashlib.sha256(current.read_bytes()).hexdigest()!=digest:
+            archived=evidence/'inputs'/name
+            assert archived.exists() and hashlib.sha256(archived.read_bytes()).hexdigest()==digest,name
     metadata=[];reports=[]
     for name,reward in [(args.baseline,0),*((n,1) for n in args.oracle)]:
         trial=results/'trials'/name
@@ -77,7 +80,8 @@ def main():
         '这就是两个 tolerated-timeout 对照的作用。',
         '- Flink state＋非事务 sink：恢复点之后的输出不能随状态一起回滚；'
         '重放可能多写记录，回滚后的 seen 状态也可能再次产生 false。',
-        '- Flink 内 Redis 标记＋非事务 sink：Redis 状态不随 CK 回滚；'
+        '- Flink 内 Redis 标记＋非事务 sink：这是 sink 前登记 seen 的旧标记方案，'
+        '不代表 Kafka 已成功输出；Redis 状态不随 CK 回滚。'
         '重放与输出的标记可能不同。需分别看额外记录、重复 false，以及有没有 ID 从未获得 false。'
         '当前 Redis 是逐条同步 Lua＋AOF/always，吞吐与排空速度不是方案上限。',
         '- 非事务 Flink→Streams EOS：下游事务保护中间 Kafka 的读取与输出，'
@@ -95,7 +99,13 @@ def main():
         'harbor trials start -p harbor/id-marking-recovery -a oracle \\',
         '  --trial-name my-recovery --trials-dir results/trials','```','',
         '每个场景的 `verifier/data/<case>/` 包含 input.jsonl.gz、output-read_committed.jsonl.gz、'
-        'output-read_uncommitted.jsonl.gz。这些文件来自实际消费者，已逐条核对完整 JSON。', '']
+        'output-read_uncommitted.jsonl.gz。这些文件来自实际消费者，已逐条核对完整 JSON。', '',
+        '离线检查恢复数据（退出码1表示发现交付或标记缺陷，非报告无效）：', '',
+        '```bash',
+        'python3 scripts/compare-recovery-jsonl.py --input DATA/input.jsonl.gz \\',
+        '  --output DATA/output-read_committed.jsonl.gz', '```', '',
+        '正常一对一负载使用 compare-jsonl.py；恢复检查按最终输出顺序判断标记，'
+        '同时独立统计源序号重放。两种标记统计口径不能混用。','']
     (results/'RECOVERY.md').write_text('\n'.join(lines))
     print(json.dumps({'report':'results/RECOVERY.md','runs':args.oracle,'cases_per_run':6}))
 

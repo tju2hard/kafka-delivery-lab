@@ -1,0 +1,74 @@
+[
+  {
+    "trial": "recovery-oracle-01",
+    "case": "state-alo-timeout",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "case": "state-eos-timeout",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "case": "state-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "case": "redis-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "case": "streams-after-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-01",
+    "case": "state-eos-restart",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "state-alo-timeout",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "state-eos-timeout",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "state-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "redis-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "streams-after-alo-restart",
+    "exit_code": 1,
+    "exact_native_audit_match": true
+  },
+  {
+    "trial": "recovery-oracle-02",
+    "case": "state-eos-restart",
+    "exit_code": 0,
+    "exact_native_audit_match": true
+  }
+]
