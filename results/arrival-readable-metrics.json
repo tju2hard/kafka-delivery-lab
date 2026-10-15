@@ -1,0 +1,181 @@
+{
+  "measurement": "input send to first read_committed observation; mean/p99 over all actual output rows",
+  "rows": [
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 27773.12111111111,
+      "p99_visibility_ms": 29132,
+      "observations_gzip_sha256": "ed4c45edacdf07362bbf480e4ce6addec1252c1656b26d81c4f91a397d0b03d8"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 26720.953444444443,
+      "p99_visibility_ms": 28193,
+      "observations_gzip_sha256": "e547be2cf0796bcb1b6d8f4e2b0aaf31089a5631f9794288ac99fb08ee158b4f"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-recovery",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 33737.81222222222,
+      "p99_visibility_ms": 35137,
+      "observations_gzip_sha256": "962da89855f19036447bd200facc7cf77db2e7ada17fc04083b6ea9a8c763bde"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-recovery",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 48399.66711111111,
+      "p99_visibility_ms": 49820,
+      "observations_gzip_sha256": "396cab868634c0cc4469073a55aa5e2efe379bed95d1a8a97dc98efa2fa12b5c"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 2058.9507777777776,
+      "p99_visibility_ms": 2574,
+      "observations_gzip_sha256": "9619ab3ead4e761c799cf8780c94f62937581c962ca349735e425e344deb4b56"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 2189.387222222222,
+      "p99_visibility_ms": 2805,
+      "observations_gzip_sha256": "53734807eb13f81250b89c994549c12da625142c163cecce2189ba7456481de5"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-recovery",
+      "source_arrivals": 9000,
+      "output_records": 18000,
+      "first_markers": 6000,
+      "repeat_markers": 12000,
+      "mean_visibility_ms": 14964.461444444445,
+      "p99_visibility_ms": 29134,
+      "observations_gzip_sha256": "f09f4f2d5fd0846a751829a8dfe4354ccbdb09e89323067e6091bf78e7053d77"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-recovery",
+      "source_arrivals": 9000,
+      "output_records": 18000,
+      "first_markers": 6000,
+      "repeat_markers": 12000,
+      "mean_visibility_ms": 14721.673333333334,
+      "p99_visibility_ms": 29049,
+      "observations_gzip_sha256": "9092bb66b224bc46a12997c7504a843409bcf43e5e930a98e6c2c80ce3b9e3f2"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 39958.02255555556,
+      "p99_visibility_ms": 71798,
+      "observations_gzip_sha256": "528ba0c507a722968f9da2e6e7908251a8295502dc41d3e8dc6963d12e6303ed"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 37366.72822222222,
+      "p99_visibility_ms": 68538,
+      "observations_gzip_sha256": "08d3fccef13980904b5d832ed04cba8663ef5c39a80fa6669e983a587735c6a5"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-recovery",
+      "source_arrivals": 9000,
+      "output_records": 14402,
+      "first_markers": 3000,
+      "repeat_markers": 11402,
+      "mean_visibility_ms": 55709.598875156225,
+      "p99_visibility_ms": 103893,
+      "observations_gzip_sha256": "4d1caba85db5db3cbfcf9e2418d0d8bf336d0f41ab407294deee73ae8c412d86"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-recovery",
+      "source_arrivals": 9000,
+      "output_records": 14402,
+      "first_markers": 3000,
+      "repeat_markers": 11402,
+      "mean_visibility_ms": 52360.594778502986,
+      "p99_visibility_ms": 99296,
+      "observations_gzip_sha256": "58c195d581d2d860300d8f647b8b823ffea939a001270a044f3cd2030485365b"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 5508.418555555556,
+      "p99_visibility_ms": 6864,
+      "observations_gzip_sha256": "d2ee3e485314fd4ce84b2e4109790edfc779da46648872d1972ca7339e2e452a"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-normal",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 5562.926222222222,
+      "p99_visibility_ms": 6547,
+      "observations_gzip_sha256": "3c81a9f9b0b36271be0a0b23ee4371b54a60f032bdc0bd2e32d6438988f728cd"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-recovery",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 18241.141666666666,
+      "p99_visibility_ms": 18643,
+      "observations_gzip_sha256": "91a642ddb3d2d46b8b5934454d9ff832f105a96b773892ef4fe7371ce66cd177"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-recovery",
+      "source_arrivals": 9000,
+      "output_records": 9000,
+      "first_markers": 3000,
+      "repeat_markers": 6000,
+      "mean_visibility_ms": 19836.156444444445,
+      "p99_visibility_ms": 20309,
+      "observations_gzip_sha256": "3e3b131cd129e91b797c7c1c4436f5827a51a4be33fca98db6760abe5b9ec46d"
+    }
+  ]
+}

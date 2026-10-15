@@ -43,3 +43,10 @@ Report total rows, distinct IDs, false/true counts, missing input_seq, recovery
 replays, complete payload/marker errors and measured sink committed visibility.
 Compare normal and recovery separately. Redis seen check/update and Kafka
 send belong in sink.invoke; they remain separate non-atomic systems.
+
+Keep the primary arrival report focused on the human's columns: transactional
+output, nontransactional output, Redis marking, direct Streams EOS; total rows,
+first/repeat markers, arithmetic mean and p99 send-to-committed-visibility time.
+Separate normal and recovery rows. Keep state-store/continuous-load diagnostics
+in an appendix and label their 90000-row fixture and predeclared time windows;
+do not substitute a late warm window for the original 9000-row whole-batch result.

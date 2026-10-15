@@ -10,14 +10,15 @@ Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，
 各出现三次；要全部输出，3000条标首次、6000条标重复，故障恢复不能额外多写。
 
 两轮实验中，Flink 事务写入和直接 Streams EOS 在故障恢复后仍是9000条、标记正确；
-Redis“先登记、再发送”恢复后变成14402条。Redis“发送成功后再登记”尚未做本次全量标记实验。
+Flink 非事务输出恢复后变成18000条，Redis“先登记、再发送”变成14402条。
+Redis“发送成功后再登记”尚未做本次全量标记实验。
 直接 Streams 正常运行时99%的消息在6.5～6.9秒内可见；Flink 事务在本次30秒 CK 配置下为
-28.2～29.1秒。这是短批次实测，当前尚未证明1秒以内可见。
+28.2～29.1秒。这是9000条短批次实测；持续负载的分段定位见单独附录。
 
-[通俗对比报告](results/ARRIVAL_COMPARISON.md) 先说明最后收到多少条、标记对不对、
-下游多久能看到；[两轮完整明细](results/ARRIVAL_DETAILS.md) 保留所有方案和额外对照。
-Flink 普通转发后再接 Streams 的串联对照单独解释；它的18000条来自上游恢复时又写了一遍。
-
+[主报告](results/ARRIVAL_COMPARISON.md) 用一张表比较事务输出、非事务输出、Redis 标记和直接 Streams EOS：
+消息总数、首次/重复标记数、从发送输入到下游可见的平均时间和 p99。正常运行与故障恢复分行。
+[完整明细](results/ARRIVAL_DETAILS.md) 保留额外串联对照；
+[状态后端与持续输入定位](results/STATE_STORE_PROBE.md) 单独记录性能调查。
 实际 JSON 小样：[9条输入](results/examples/arrival-marked-input.jsonl)、
 [9条带标记输出](results/examples/arrival-marked-output.jsonl)。可复现入口为
 `harbor/arrival-marking-comparison`。下面的 ID 过滤实验会跳过重复消息，属于另一种语义。

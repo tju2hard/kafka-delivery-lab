@@ -1,0 +1,7 @@
+services:
+  main:
+    image: kafka-delivery-lab/streams-state-probe:local
+    command: [sleep, '1800']
+    init: true
+    cpus: 4
+    mem_limit: 4g

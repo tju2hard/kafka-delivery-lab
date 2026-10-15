@@ -1,0 +1,1643 @@
+{
+  "run_directory": "/app/state-probe-runs/state-b6862177",
+  "contract": "preserve all arrivals, correct flags, EOSv2, 1h state",
+  "fixture": "90000 arrivals/30s for ABBA normal cases, 9000 arrivals/3s for ACK-before-commit crash",
+  "fixed_normal_windows_ms": [
+    [
+      0,
+      3000
+    ],
+    [
+      10000,
+      20000
+    ],
+    [
+      20000,
+      30000
+    ]
+  ],
+  "cases": [
+    {
+      "name": "streams-rocksdb-long-1",
+      "engine": "Kafka Streams",
+      "source_topic": "state-b6862177-streams-rocksdb-long-1-in",
+      "output_topic": "state-b6862177-streams-rocksdb-long-1-out",
+      "generation": {
+        "records": 90000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792068013955,
+        "send_duration_ms": 30016.278182,
+        "acknowledged_duration_ms": 30107.063837,
+        "achieved_send_rate_per_sec": 2998.373064585026,
+        "send_buckets_per_second": {
+          "0": 2985,
+          "1": 3011,
+          "10": 3001,
+          "11": 3001,
+          "12": 2997,
+          "13": 3003,
+          "14": 3000,
+          "15": 3000,
+          "16": 2999,
+          "17": 3000,
+          "18": 2999,
+          "19": 3002,
+          "2": 3000,
+          "20": 3000,
+          "21": 2999,
+          "22": 2997,
+          "23": 3004,
+          "24": 3000,
+          "25": 3000,
+          "26": 3000,
+          "27": 3000,
+          "28": 2997,
+          "29": 3001,
+          "3": 3003,
+          "30": 2,
+          "4": 2993,
+          "5": 3008,
+          "6": 3000,
+          "7": 3000,
+          "8": 3000,
+          "9": 2998
+        }
+      },
+      "configuration": {
+        "application_id": "state-b6862177-streams-rocksdb-long-1-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": false,
+        "store_backend": "rocksdb"
+      },
+      "worker_directory": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/streams",
+      "worker_pids": [
+        163
+      ],
+      "failure": null,
+      "source_committed_offset": 90001,
+      "lifecycle": [
+        {
+          "pid": 163,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068010642
+        },
+        {
+          "pid": 163,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068012642
+        }
+      ],
+      "restore": [
+        {
+          "pid": 163,
+          "topic": "state-b6862177-streams-rocksdb-long-1-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 163,
+          "topic": "state-b6862177-streams-rocksdb-long-1-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        }
+      ],
+      "input_file": {
+        "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/input.jsonl",
+        "bytes": 12037780,
+        "sha256": "073c15d150f3162f03fb5b0b9a42f43d2f5cc41cab9c0873bcea25ba24e6a844"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/sink-read_uncommitted.jsonl",
+            "bytes": 16477780,
+            "sha256": "7cba41aa173cf81bafb0524cbf528198458d917a082cb856898dc7766f1a6cd9"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/observations-read_uncommitted.jsonl",
+            "bytes": 28256746,
+            "sha256": "feae22f2bd96fe8d32d68e25feb7772b63667e8b6145e5ea2bfd57144c19f262"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 537,
+            "p50": 7258,
+            "p95": 11166,
+            "p99": 11267,
+            "max": 11327,
+            "within_100ms": 0
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/sink-read_committed.jsonl",
+            "bytes": 16477780,
+            "sha256": "7cba41aa173cf81bafb0524cbf528198458d917a082cb856898dc7766f1a6cd9"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-1/observations-read_committed.jsonl",
+            "bytes": 28076746,
+            "sha256": "26ce9e1e2245bf1b47324ceacc73458c8a30ec917d05352f63a02203c61ba506"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 682,
+            "p50": 7389,
+            "p95": 11364,
+            "p99": 11519,
+            "max": 11707,
+            "within_100ms": 0
+          }
+        }
+      },
+      "exports": [
+        {
+          "file": "streams-rocksdb-long-1/input.jsonl.gz",
+          "sha256": "d8de4a99cc6a8106c41bbd2e5dab919b065e190c2e509c75a75f15253e6b4d18",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-1/sink-read_uncommitted.jsonl.gz",
+          "sha256": "28ddab21472a7e5d748fd43bdab9b54d3641b1598607da8a66ec4625e85782d4",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-1/sink-read_committed.jsonl.gz",
+          "sha256": "67635db0833fe02744956d9485dd89c4f0dee5216b958cafeb77632f347b4b4d",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-1/observations-read_uncommitted.jsonl.gz",
+          "sha256": "2feddc57444cb91b12a951eb67755635f94bd3c3dd58659a4a876397dfedb83f",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-1/observations-read_committed.jsonl.gz",
+          "sha256": "47f5b9463951d1dcc974f07dbaea47afe76b0d239da79281f90edcbf957fd27e",
+          "rows": 90000
+        }
+      ],
+      "fixed_windows": [
+        {
+          "source_send_window_ms": [
+            0,
+            3000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 8995,
+              "min": 206,
+              "p50": 9401,
+              "p99": 9765,
+              "max": 9776,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 8995,
+              "min": 23,
+              "p50": 79,
+              "p99": 189,
+              "max": 331,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 8995,
+              "min": 64,
+              "p50": 128,
+              "p99": 225,
+              "max": 287,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 8995,
+              "min": 682,
+              "p50": 9606,
+              "p99": 9985,
+              "max": 10017,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            10000,
+            20000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 29998,
+              "min": 4546,
+              "p50": 7390,
+              "p99": 10181,
+              "max": 10269,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 29998,
+              "min": 30,
+              "p50": 70,
+              "p99": 190,
+              "max": 218,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 29998,
+              "min": 33,
+              "p50": 102,
+              "p99": 258,
+              "max": 272,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 29998,
+              "min": 4686,
+              "p50": 7588,
+              "p99": 10413,
+              "max": 10489,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            20000,
+            30000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 30002,
+              "min": 1173,
+              "p50": 2307,
+              "p99": 4544,
+              "max": 4618,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 30002,
+              "min": 25,
+              "p50": 76,
+              "p99": 289,
+              "max": 308,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 30002,
+              "min": 39,
+              "p50": 123,
+              "p99": 336,
+              "max": 386,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 30002,
+              "min": 1316,
+              "p50": 2607,
+              "p99": 4707,
+              "max": 4802,
+              "negative_samples": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "streams-memory-long-2",
+      "engine": "Kafka Streams",
+      "source_topic": "state-b6862177-streams-memory-long-2-in",
+      "output_topic": "state-b6862177-streams-memory-long-2-out",
+      "generation": {
+        "records": 90000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792068098962,
+        "send_duration_ms": 30001.550797,
+        "acknowledged_duration_ms": 30016.369914,
+        "achieved_send_rate_per_sec": 2999.8449283161567,
+        "send_buckets_per_second": {
+          "0": 2999,
+          "1": 2993,
+          "10": 3000,
+          "11": 3002,
+          "12": 2998,
+          "13": 3002,
+          "14": 3000,
+          "15": 2999,
+          "16": 3001,
+          "17": 2990,
+          "18": 3008,
+          "19": 2999,
+          "2": 3004,
+          "20": 2997,
+          "21": 3006,
+          "22": 2998,
+          "23": 3002,
+          "24": 2999,
+          "25": 3001,
+          "26": 2999,
+          "27": 3001,
+          "28": 2999,
+          "29": 2999,
+          "3": 3004,
+          "30": 2,
+          "4": 2999,
+          "5": 2991,
+          "6": 3007,
+          "7": 2994,
+          "8": 3008,
+          "9": 2999
+        }
+      },
+      "configuration": {
+        "application_id": "state-b6862177-streams-memory-long-2-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": false,
+        "store_backend": "memory"
+      },
+      "worker_directory": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/streams",
+      "worker_pids": [
+        563
+      ],
+      "failure": null,
+      "source_committed_offset": 90001,
+      "lifecycle": [
+        {
+          "pid": 563,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068096567
+        },
+        {
+          "pid": 563,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068097374
+        }
+      ],
+      "restore": [
+        {
+          "pid": 563,
+          "topic": "state-b6862177-streams-memory-long-2-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 563,
+          "topic": "state-b6862177-streams-memory-long-2-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        }
+      ],
+      "input_file": {
+        "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/input.jsonl",
+        "bytes": 12037780,
+        "sha256": "75adfba52f8567fccbc8c88ebff393486c75d35073a2c456a91235cae9ff5eb8"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/sink-read_uncommitted.jsonl",
+            "bytes": 16477780,
+            "sha256": "6a6d3a21f9f5779824ecf0eb9e58ddb04ec981feb554ac72df4a42b2fd02149a"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/observations-read_uncommitted.jsonl",
+            "bytes": 28256749,
+            "sha256": "309d216192207a5b0827b664ecad09d54e145baf765120cd1ca6608bfb4b6b77"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 7,
+            "p50": 3804,
+            "p95": 8847,
+            "p99": 9000,
+            "max": 9155,
+            "within_100ms": 22805
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/sink-read_committed.jsonl",
+            "bytes": 16477780,
+            "sha256": "6a6d3a21f9f5779824ecf0eb9e58ddb04ec981feb554ac72df4a42b2fd02149a"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-2/observations-read_committed.jsonl",
+            "bytes": 28076749,
+            "sha256": "f788a061f613fd2ce36d49c12f70b83cf0c2fdb608a98c13d129066273049ebb"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 32,
+            "p50": 3943,
+            "p95": 8941,
+            "p99": 9129,
+            "max": 9287,
+            "within_100ms": 4104
+          }
+        }
+      },
+      "exports": [
+        {
+          "file": "streams-memory-long-2/input.jsonl.gz",
+          "sha256": "0c64ded563c2682fd3016ec316128579307db0263276a62344aa1cc38ca48c78",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-2/sink-read_uncommitted.jsonl.gz",
+          "sha256": "b0fe8699f261293305c37e68e54f8c133c2f9f8c7999635dee592b048f09d806",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-2/sink-read_committed.jsonl.gz",
+          "sha256": "e444471aa6e97cb712d485a99102c77e30893c891cd7a33b91c470bd7ac037b4",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-2/observations-read_uncommitted.jsonl.gz",
+          "sha256": "22026086ac6e069c606d0c0c54388309eab16ef5057721fe4759e7ae0aec476e",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-2/observations-read_committed.jsonl.gz",
+          "sha256": "9eae261a69c3632f5428dc35a9f407a38f50aca455ed071d6529dfb25831cde5",
+          "rows": 90000
+        }
+      ],
+      "fixed_windows": [
+        {
+          "source_send_window_ms": [
+            0,
+            3000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 8995,
+              "min": 1203,
+              "p50": 7385,
+              "p99": 8472,
+              "max": 8485,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 8995,
+              "min": 9,
+              "p50": 52,
+              "p99": 129,
+              "max": 292,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 8995,
+              "min": 8,
+              "p50": 108,
+              "p99": 211,
+              "max": 222,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 8995,
+              "min": 1506,
+              "p50": 7568,
+              "p99": 8646,
+              "max": 8668,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            10000,
+            20000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 29998,
+              "min": 635,
+              "p50": 3757,
+              "p99": 6434,
+              "max": 6529,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 29998,
+              "min": 32,
+              "p50": 79,
+              "p99": 218,
+              "max": 254,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 29998,
+              "min": 33,
+              "p50": 108,
+              "p99": 328,
+              "max": 352,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 29998,
+              "min": 784,
+              "p50": 3986,
+              "p99": 6734,
+              "max": 6838,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            20000,
+            30000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 30001,
+              "min": 2,
+              "p50": 24,
+              "p99": 620,
+              "max": 708,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 30001,
+              "min": 3,
+              "p50": 37,
+              "p99": 85,
+              "max": 97,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 30001,
+              "min": 15,
+              "p50": 92,
+              "p99": 173,
+              "max": 186,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 30001,
+              "min": 32,
+              "p50": 165,
+              "p99": 756,
+              "max": 853,
+              "negative_samples": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "streams-memory-long-3",
+      "engine": "Kafka Streams",
+      "source_topic": "state-b6862177-streams-memory-long-3-in",
+      "output_topic": "state-b6862177-streams-memory-long-3-out",
+      "generation": {
+        "records": 90000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792068184190,
+        "send_duration_ms": 30002.252466,
+        "acknowledged_duration_ms": 30015.134092,
+        "achieved_send_rate_per_sec": 2999.77477031074,
+        "send_buckets_per_second": {
+          "0": 2996,
+          "1": 3001,
+          "10": 2993,
+          "11": 3007,
+          "12": 2999,
+          "13": 3001,
+          "14": 3000,
+          "15": 3000,
+          "16": 2998,
+          "17": 2999,
+          "18": 3003,
+          "19": 2999,
+          "2": 3003,
+          "20": 2998,
+          "21": 3002,
+          "22": 3001,
+          "23": 3000,
+          "24": 3000,
+          "25": 2999,
+          "26": 2995,
+          "27": 3006,
+          "28": 3000,
+          "29": 2998,
+          "3": 2998,
+          "30": 2,
+          "4": 3000,
+          "5": 3002,
+          "6": 2998,
+          "7": 3002,
+          "8": 2997,
+          "9": 3003
+        }
+      },
+      "configuration": {
+        "application_id": "state-b6862177-streams-memory-long-3-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": false,
+        "store_backend": "memory"
+      },
+      "worker_directory": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/streams",
+      "worker_pids": [
+        924
+      ],
+      "failure": null,
+      "source_committed_offset": 90001,
+      "lifecycle": [
+        {
+          "pid": 924,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068181964
+        },
+        {
+          "pid": 924,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068182879
+        }
+      ],
+      "restore": [
+        {
+          "pid": 924,
+          "topic": "state-b6862177-streams-memory-long-3-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 924,
+          "topic": "state-b6862177-streams-memory-long-3-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        }
+      ],
+      "input_file": {
+        "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/input.jsonl",
+        "bytes": 12037780,
+        "sha256": "d79046016c205494e3e650d121f24549f1e3ad4f7f5900037dbddc87707d5632"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/sink-read_uncommitted.jsonl",
+            "bytes": 16477780,
+            "sha256": "daba9fc756ac9ef081a9bfe6b238754bb4df3cb35b3e3f7aa41169d49d8fd1cf"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/observations-read_uncommitted.jsonl",
+            "bytes": 28256733,
+            "sha256": "a7ed795c2a4b8a07f937b33ee2f2e98d0250c3c46a1ace558149a4bdc10053ac"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 5,
+            "p50": 134,
+            "p95": 5094,
+            "p99": 5183,
+            "max": 5282,
+            "within_100ms": 38248
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/sink-read_committed.jsonl",
+            "bytes": 16477780,
+            "sha256": "daba9fc756ac9ef081a9bfe6b238754bb4df3cb35b3e3f7aa41169d49d8fd1cf"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-long-3/observations-read_committed.jsonl",
+            "bytes": 28076733,
+            "sha256": "43bee7e8713f2ea6cc639fee0d178e8a0092a5a6fe20d493c90508ea2da4c0d3"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 19,
+            "p50": 218,
+            "p95": 5185,
+            "p99": 5302,
+            "max": 5408,
+            "within_100ms": 12896
+          }
+        }
+      },
+      "exports": [
+        {
+          "file": "streams-memory-long-3/input.jsonl.gz",
+          "sha256": "97c1210371fa3258a749ea5cd1215948057efddca6703ce4c65e76ddadf1ba26",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-3/sink-read_uncommitted.jsonl.gz",
+          "sha256": "b0fdf7dc30c21e6bca285425154173aa2f73e2ff39f7a03aff57a92cd1a8551b",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-3/sink-read_committed.jsonl.gz",
+          "sha256": "20ff975b83d0c7a8a7239c25aba8ef35058cb13e4bec166d253fbee70e266d8f",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-3/observations-read_uncommitted.jsonl.gz",
+          "sha256": "cfb411eb0e446af20663d9b89848081f98e01a805321800a9dd5eb164e15372d",
+          "rows": 90000
+        },
+        {
+          "file": "streams-memory-long-3/observations-read_committed.jsonl.gz",
+          "sha256": "08e0f2e366e79df7ce822604e2c42fc4369739e58f8f0cd1e805de7547e1756d",
+          "rows": 90000
+        }
+      ],
+      "fixed_windows": [
+        {
+          "source_send_window_ms": [
+            0,
+            3000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 8998,
+              "min": 793,
+              "p50": 5015,
+              "p99": 5155,
+              "max": 5176,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 8998,
+              "min": 12,
+              "p50": 73,
+              "p99": 172,
+              "max": 287,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 8998,
+              "min": 2,
+              "p50": 83,
+              "p99": 202,
+              "max": 211,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 8998,
+              "min": 1083,
+              "p50": 5181,
+              "p99": 5379,
+              "max": 5408,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            10000,
+            20000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 30000,
+              "min": 2,
+              "p50": 47,
+              "p99": 1991,
+              "max": 2029,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 30000,
+              "min": 4,
+              "p50": 67,
+              "p99": 163,
+              "max": 169,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 30000,
+              "min": 18,
+              "p50": 83,
+              "p99": 215,
+              "max": 239,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 30000,
+              "min": 38,
+              "p50": 211,
+              "p99": 2191,
+              "max": 2277,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            20000,
+            30000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 29999,
+              "min": 1,
+              "p50": 10,
+              "p99": 85,
+              "max": 108,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 29999,
+              "min": 1,
+              "p50": 38,
+              "p99": 112,
+              "max": 124,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 29999,
+              "min": 12,
+              "p50": 68,
+              "p99": 122,
+              "max": 138,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 29999,
+              "min": 19,
+              "p50": 122,
+              "p99": 232,
+              "max": 289,
+              "negative_samples": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "streams-rocksdb-long-4",
+      "engine": "Kafka Streams",
+      "source_topic": "state-b6862177-streams-rocksdb-long-4-in",
+      "output_topic": "state-b6862177-streams-rocksdb-long-4-out",
+      "generation": {
+        "records": 90000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792068269114,
+        "send_duration_ms": 30001.171103,
+        "acknowledged_duration_ms": 30007.961583,
+        "achieved_send_rate_per_sec": 2999.882894271429,
+        "send_buckets_per_second": {
+          "0": 2999,
+          "1": 2998,
+          "10": 3001,
+          "11": 3000,
+          "12": 2998,
+          "13": 3002,
+          "14": 3000,
+          "15": 2996,
+          "16": 3003,
+          "17": 3000,
+          "18": 3001,
+          "19": 3000,
+          "2": 3000,
+          "20": 2995,
+          "21": 3004,
+          "22": 3001,
+          "23": 3000,
+          "24": 3000,
+          "25": 2998,
+          "26": 3002,
+          "27": 3000,
+          "28": 3000,
+          "29": 3000,
+          "3": 3001,
+          "4": 3001,
+          "5": 2998,
+          "6": 2999,
+          "7": 3001,
+          "8": 2994,
+          "9": 3008
+        }
+      },
+      "configuration": {
+        "application_id": "state-b6862177-streams-rocksdb-long-4-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": false,
+        "store_backend": "rocksdb"
+      },
+      "worker_directory": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/streams",
+      "worker_pids": [
+        1287
+      ],
+      "failure": null,
+      "source_committed_offset": 90001,
+      "lifecycle": [
+        {
+          "pid": 1287,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068266545
+        },
+        {
+          "pid": 1287,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068267537
+        }
+      ],
+      "restore": [
+        {
+          "pid": 1287,
+          "topic": "state-b6862177-streams-rocksdb-long-4-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 1287,
+          "topic": "state-b6862177-streams-rocksdb-long-4-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        }
+      ],
+      "input_file": {
+        "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/input.jsonl",
+        "bytes": 12037780,
+        "sha256": "eaa483ee60ed4ef0e3f45790e50df6c30b1d03b87c6d1b419c20ef65d53a35ba"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/sink-read_uncommitted.jsonl",
+            "bytes": 16477780,
+            "sha256": "dc0743f9b48a87ec9d523570e4db5cc47ffe57024fd58bde1faeecdc3c6b96e7"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/observations-read_uncommitted.jsonl",
+            "bytes": 28256742,
+            "sha256": "f816f91c3dc63ec1bf7703f97df0f2546b3b46ec43911259fca4c5acac3a70a3"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 5,
+            "p50": 82,
+            "p95": 5484,
+            "p99": 5817,
+            "max": 5917,
+            "within_100ms": 49629
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 90000,
+            "unique_business_ids": 30000,
+            "output_unique_business_ids": 30000,
+            "output_arrivals": 90000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 30000,
+            "true_markers": 60000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/sink-read_committed.jsonl",
+            "bytes": 16477780,
+            "sha256": "dc0743f9b48a87ec9d523570e4db5cc47ffe57024fd58bde1faeecdc3c6b96e7"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-rocksdb-long-4/observations-read_committed.jsonl",
+            "bytes": 28076742,
+            "sha256": "c32254c908051d6994875d02b9f98452bca4d4f4ab053978ec28329b2617e805"
+          },
+          "visibility_ms": {
+            "samples": 90000,
+            "min": 18,
+            "p50": 158,
+            "p95": 5558,
+            "p99": 5900,
+            "max": 5999,
+            "within_100ms": 22669
+          }
+        }
+      },
+      "exports": [
+        {
+          "file": "streams-rocksdb-long-4/input.jsonl.gz",
+          "sha256": "d7ddc867ad7551e8c72958f941ad31074eec41552b61be850e33ba0d31da88de",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-4/sink-read_uncommitted.jsonl.gz",
+          "sha256": "4acf553b5e618657f00a47ed8e60dbe0472488bed46bff3819b9ccbae95373e7",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-4/sink-read_committed.jsonl.gz",
+          "sha256": "c76be2724dfdc9f23ac315b2a00c035aca0cf4126ab6d0a183aa2f455e367227",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-4/observations-read_uncommitted.jsonl.gz",
+          "sha256": "46b15d0f80ae5a45002755ae0ca8666151624a014d93d9d4c1dcc59977fd2304",
+          "rows": 90000
+        },
+        {
+          "file": "streams-rocksdb-long-4/observations-read_committed.jsonl.gz",
+          "sha256": "71c3962642277704ff1cbefc05a1f539558e627d4c48a337f640237ffc9e7969",
+          "rows": 90000
+        }
+      ],
+      "fixed_windows": [
+        {
+          "source_send_window_ms": [
+            0,
+            3000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 8997,
+              "min": 192,
+              "p50": 4965,
+              "p99": 5828,
+              "max": 5842,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 8997,
+              "min": 9,
+              "p50": 57,
+              "p99": 110,
+              "max": 257,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 8997,
+              "min": -34,
+              "p50": 86,
+              "p99": 160,
+              "max": 174,
+              "negative_samples": 2
+            },
+            "end_to_end_ms": {
+              "samples": 8997,
+              "min": 415,
+              "p50": 5091,
+              "p99": 5972,
+              "max": 5999,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            10000,
+            20000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 30000,
+              "min": 2,
+              "p50": 14,
+              "p99": 1299,
+              "max": 1372,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 30000,
+              "min": 2,
+              "p50": 44,
+              "p99": 122,
+              "max": 135,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 30000,
+              "min": 11,
+              "p50": 66,
+              "p99": 125,
+              "max": 132,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 30000,
+              "min": 22,
+              "p50": 137,
+              "p99": 1449,
+              "max": 1502,
+              "negative_samples": 0
+            }
+          }
+        },
+        {
+          "source_send_window_ms": [
+            20000,
+            30000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 30000,
+              "min": 1,
+              "p50": 7,
+              "p99": 59,
+              "max": 85,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 30000,
+              "min": 1,
+              "p50": 28,
+              "p99": 88,
+              "max": 119,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 30000,
+              "min": 9,
+              "p50": 64,
+              "p99": 111,
+              "max": 114,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 30000,
+              "min": 18,
+              "p50": 104,
+              "p99": 204,
+              "max": 229,
+              "negative_samples": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "streams-memory-recovery",
+      "engine": "Kafka Streams",
+      "source_topic": "state-b6862177-streams-memory-recovery-in",
+      "output_topic": "state-b6862177-streams-memory-recovery-out",
+      "generation": {
+        "records": 9000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792068356047,
+        "send_duration_ms": 2999.986432,
+        "acknowledged_duration_ms": 3003.257232,
+        "achieved_send_rate_per_sec": 3000.013568061364,
+        "send_buckets_per_second": {
+          "0": 2997,
+          "1": 3003,
+          "2": 3000
+        }
+      },
+      "configuration": {
+        "application_id": "state-b6862177-streams-memory-recovery-out-filter-app",
+        "commit_interval_ms": 100,
+        "transaction_timeout_ms": 10000,
+        "ttl_ms": 3600000,
+        "processing_guarantee": "exactly_once_v2",
+        "input_key": "event_id",
+        "filter_duplicates": false,
+        "store_backend": "memory"
+      },
+      "worker_directory": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/streams",
+      "worker_pids": [
+        1671,
+        1809
+      ],
+      "failure": {
+        "kind": "SIGKILL after native output ACK, before transaction commit",
+        "witness": {
+          "pid": 1671,
+          "topic": "state-b6862177-streams-memory-recovery-out",
+          "partition": 0,
+          "offset": 0,
+          "value": {
+            "event_id": "event-00000",
+            "input_seq": 2,
+            "payload": {
+              "source": "synthetic",
+              "value": 2,
+              "worker": 2
+            },
+            "ingested_at_ms": 1792068356062,
+            "is_duplicate": false,
+            "marked_at_ms": 1792068356905
+          },
+          "at_ms": 1792068357084
+        },
+        "killed_pid": 1671,
+        "exit_code": -9,
+        "raw_records_before_kill": 2,
+        "committed_records_before_kill": 0
+      },
+      "source_committed_offset": 9001,
+      "lifecycle": [
+        {
+          "pid": 1671,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068353294
+        },
+        {
+          "pid": 1671,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068354385
+        },
+        {
+          "pid": 1809,
+          "previous": "CREATED",
+          "state": "REBALANCING",
+          "at_ms": 1792068364464
+        },
+        {
+          "pid": 1809,
+          "previous": "REBALANCING",
+          "state": "RUNNING",
+          "at_ms": 1792068372211
+        }
+      ],
+      "restore": [
+        {
+          "pid": 1671,
+          "topic": "state-b6862177-streams-memory-recovery-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 1671,
+          "topic": "state-b6862177-streams-memory-recovery-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 0
+        },
+        {
+          "pid": 1809,
+          "topic": "state-b6862177-streams-memory-recovery-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "restored_records": 0
+        },
+        {
+          "pid": 1809,
+          "topic": "state-b6862177-streams-memory-recovery-out-filter-app-seen-ids-changelog",
+          "store": "seen-ids",
+          "start_offset": 0,
+          "end_offset": 3
+        }
+      ],
+      "input_file": {
+        "path": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/input.jsonl",
+        "bytes": 1185780,
+        "sha256": "c6f69d80f49226312155121dbc898b736478a5273a45a5142386391ed6ff3a9f"
+      },
+      "views": {
+        "read_uncommitted": {
+          "audit": {
+            "source_arrivals": 9000,
+            "unique_business_ids": 3000,
+            "output_unique_business_ids": 3000,
+            "output_arrivals": 9002,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 2,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 2,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 3002,
+            "true_markers": 6000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 2,
+            "maximum_input_sequence_multiplicity": 2,
+            "arrival_contract_pass": false
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/sink-read_uncommitted.jsonl",
+            "bytes": 1630132,
+            "sha256": "fa7123ab3fb53ede5b7a5e3fdee6e234eb9747cfffae85f83dd814d236612167"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/observations-read_uncommitted.jsonl",
+            "bytes": 2799295,
+            "sha256": "e36e8c15d47c46df796f93e323b9da4ac8c98e906ced5d44121be5c5111c4faa"
+          },
+          "visibility_ms": {
+            "samples": 9002,
+            "min": 1071,
+            "p50": 16849,
+            "p95": 17325,
+            "p99": 17344,
+            "max": 17356,
+            "within_100ms": 0
+          }
+        },
+        "read_committed": {
+          "audit": {
+            "source_arrivals": 9000,
+            "unique_business_ids": 3000,
+            "output_unique_business_ids": 3000,
+            "output_arrivals": 9000,
+            "missing_arrivals": 0,
+            "unexpected_arrivals": 0,
+            "replayed_arrival_records": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches_in_output_order": 0,
+            "flag_mismatches_against_source": 0,
+            "invalid_flag_types": 0,
+            "false_markers": 3000,
+            "true_markers": 6000,
+            "business_ids_without_false": 0,
+            "business_ids_with_multiple_false": 0,
+            "maximum_input_sequence_multiplicity": 1,
+            "arrival_contract_pass": true
+          },
+          "sink_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/sink-read_committed.jsonl",
+            "bytes": 1629780,
+            "sha256": "3f2bf74dc27ad721dbeaff630712368381ff92f52399530f509a943304e37f74"
+          },
+          "observation_file": {
+            "path": "/app/state-probe-runs/state-b6862177/streams-memory-recovery/observations-read_committed.jsonl",
+            "bytes": 2780689,
+            "sha256": "efb45bf09f98450fe73e7dca5a7bdb53e118074c32366b7b398220238dbe2743"
+          },
+          "visibility_ms": {
+            "samples": 9000,
+            "min": 15990,
+            "p50": 16930,
+            "p95": 17388,
+            "p99": 17422,
+            "max": 17435,
+            "within_100ms": 0
+          }
+        }
+      },
+      "exports": [
+        {
+          "file": "streams-memory-recovery/input.jsonl.gz",
+          "sha256": "cbc60f0c71426a7c536976fb7cc2a59327eaef55bc6de6c8d21937a562f25d89",
+          "rows": 9000
+        },
+        {
+          "file": "streams-memory-recovery/sink-read_uncommitted.jsonl.gz",
+          "sha256": "bded1c9fd3f601dd6a16c9f6a3e768afd8ff0a311c8d4f7bf773cbc063a3a6a3",
+          "rows": 9002
+        },
+        {
+          "file": "streams-memory-recovery/sink-read_committed.jsonl.gz",
+          "sha256": "26633709424046c4796ded2acd86814db8a1563baa08d1029654e42468d63ba3",
+          "rows": 9000
+        },
+        {
+          "file": "streams-memory-recovery/observations-read_uncommitted.jsonl.gz",
+          "sha256": "95ef4bd2cb357d9d3a4e6210c04c9588c09f5f7612bd1812314a767637190c4f",
+          "rows": 9002
+        },
+        {
+          "file": "streams-memory-recovery/observations-read_committed.jsonl.gz",
+          "sha256": "0cd21d8d11f83e98307e49d498c829ab962d754fdd3ad0f529bc70628c623ee3",
+          "rows": 9000
+        }
+      ],
+      "fixed_windows": [
+        {
+          "source_send_window_ms": [
+            0,
+            3000
+          ],
+          "metrics": {
+            "send_to_mark_ms": {
+              "samples": 8999,
+              "min": 15863,
+              "p50": 16802,
+              "p99": 17256,
+              "max": 17281,
+              "negative_samples": 0
+            },
+            "mark_to_raw_observed_ms": {
+              "samples": 8999,
+              "min": 18,
+              "p50": 62,
+              "p99": 99,
+              "max": 130,
+              "negative_samples": 0
+            },
+            "raw_to_committed_observed_ms": {
+              "samples": 8999,
+              "min": 18,
+              "p50": 65,
+              "p99": 150,
+              "max": 156,
+              "negative_samples": 0
+            },
+            "end_to_end_ms": {
+              "samples": 8999,
+              "min": 15991,
+              "p50": 16931,
+              "p99": 17422,
+              "max": 17435,
+              "negative_samples": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "case": "streams-rocksdb-long-1",
+      "native_counts_markers_and_fixed_window_metrics_verified": true
+    },
+    {
+      "case": "streams-memory-long-2",
+      "native_counts_markers_and_fixed_window_metrics_verified": true
+    },
+    {
+      "case": "streams-memory-long-3",
+      "native_counts_markers_and_fixed_window_metrics_verified": true
+    },
+    {
+      "case": "streams-rocksdb-long-4",
+      "native_counts_markers_and_fixed_window_metrics_verified": true
+    },
+    {
+      "case": "streams-memory-recovery",
+      "native_counts_markers_and_fixed_window_metrics_verified": true
+    }
+  ],
+  "source_sha256": {
+    "src/main/java/lab/StreamsStateProbe.java": "36409650bf14452acafc001fe877c679e667a319e9211d47c307eb0f155bf30e",
+    "scripts/profile-streams-state.py": "6eb0ebaf9e4697be121dc8ff29d8d6a93fdc6a6c70157dac773c182205620f91",
+    "scripts/run-streams-state-probe.sh": "ffb5edde2dc7bb023fca81bc33aabcf3cf49722c3fd804d6f6a815b6290c5c68",
+    "experiments/streams-state-probe/compose.yaml": "9109bdef5ef6027aaada6b63150634a04d2dc4fca487f1e2474c80fae1422cb0"
+  },
+  "base_runtime_manifest_sha256": "9bd223916825295ebff0eafd3e0955bc36a7188ee93aaef2dc90d6b45c3b7d0b",
+  "probe_class_sha256": {
+    "StreamsStateProbe$1.class": "d8853295a823d0b483e79f41f7c1c0800e2ac81711ff49eadb062b59ff931176",
+    "StreamsStateProbe$BeforeCommitAck.class": "55bafc432b8613dbe99eac420042717a51798e360e98e4a293f9e1c6493afdb2",
+    "StreamsStateProbe$Filter.class": "35553f3358de7b169cae0567b2ebe948a17ce6723a627972ce960d4b19dea47e",
+    "StreamsStateProbe.class": "8a3284cd0b7adcf2f7c7bbdbc4be4f19d458f6f765d8cc05284acb839d7ea728"
+  }
+}
