@@ -1,0 +1,194 @@
+[
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-normal",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-normal",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-checkpoint",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-before-gap",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-before-gap",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-gap",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "redis-after-gap",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "state-alo-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "state-alo-checkpoint",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "state-eos-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "case": "state-eos-checkpoint",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-normal",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-normal",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-checkpoint",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-before-gap",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-before-gap",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-gap",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "redis-after-gap",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "state-alo-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "state-alo-checkpoint",
+    "view": "read_committed",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "state-eos-checkpoint",
+    "view": "read_uncommitted",
+    "exit_code": 1,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "case": "state-eos-checkpoint",
+    "view": "read_committed",
+    "exit_code": 0,
+    "exact_native_audit_match": true,
+    "strict_typed_payloads_match": true
+  }
+]

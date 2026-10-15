@@ -1,0 +1,35 @@
+[
+  {
+    "trial": "deduplication-baseline-02",
+    "started_at": "2026-10-15T09:48:46.300658Z",
+    "finished_at": "2026-10-15T09:49:24.599721Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 0.0
+      }
+    }
+  },
+  {
+    "trial": "deduplication-oracle-02",
+    "started_at": "2026-10-15T09:50:10.659262Z",
+    "finished_at": "2026-10-15T10:01:16.812568Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  },
+  {
+    "trial": "deduplication-oracle-03",
+    "started_at": "2026-10-15T10:01:52.662028Z",
+    "finished_at": "2026-10-15T10:12:45.507485Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  }
+]

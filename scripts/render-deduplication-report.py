@@ -90,6 +90,10 @@ def main():
         '合成输入、单机、单分区、parallelism=1；没有测试并发同 ID writer、Redis 数据丢失、'
         'Broker/磁盘故障或实际等待1小时到期。Redis 开启 AOF/always，串行同步写，未做吞吐优化。'
         '这些定点故障证明窗口的后果，不能估算生产自然故障概率，也不证明任意故障安全。','',
+        '实现入口：[sink 与 state 过滤](../src/main/java/lab/DeduplicationDemo.java)、'
+        '[实验 controller](../harbor/id-deduplication/environment/deduplication.py)、'
+        '[独立验证器](../harbor/id-deduplication/tests/verify.py)、'
+        '[9条输入/3条输出小例子](examples/deduplication.md)。','',
         '```bash','bash scripts/build.sh',
         'harbor trials start -p harbor/id-deduplication -a oracle \\',
         '  --trial-name business-deduplication --trials-dir results/trials',

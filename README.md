@@ -23,6 +23,11 @@ Redis 检查、Kafka 发送和 Redis 登记都在 `RedisSink.invoke()` 内：
 Redis 使用精确键而非 Bloom filter，重复到达刷新 TTL，单分区、parallelism=1。
 “窗口很短”是风险大小问题，不等于 exactly-once 保证；本实验不估算自然故障概率。
 
+两轮原生复验结果见 [不重不漏对比报告](results/DEDUPLICATION.md)，正常过滤的小例子
+见 [9次输入与3条输出](results/examples/deduplication.md)。
+可行路线及其条件见 [Kafka EOS 与 MQ 原生幂等追加](docs/feasible-exactly-once.md)；
+其中 RabbitMQ Streams/Pulsar 是已核实官方机制的设计，尚未在本仓库实测。
+
 事务对照的“不重不漏”只针对 `read_committed`；Kafka 原始日志仍可能存在中止事务
 的数据。两种视图分别核对，避免把事务可见性称为原始日志物理不重复。
 
@@ -57,7 +62,7 @@ python3 scripts/compare-recovery-jsonl.py \
 
 ## JSON 标记与负载实验
 
-最新例子保留每次到达，按 `event_id` 标记 `is_duplicate`，并非删除重复消息。
+此前的标记例子保留每次到达，按 `event_id` 标记 `is_duplicate`，并非删除重复消息。
 去重有效期为滚动1小时处理时间，每次到达刷新；连续1小时未出现后重新标记首次。
 Flink 使用 `keyBy(event_id)`＋带 TTL 的 `ValueState`；Streams 用 last-seen state；
 Redis 用 Lua 原子检查并刷新 TTL。此旧标记实现登记的是“见过”，发生在 Kafka
@@ -153,7 +158,8 @@ Kafka Connector3.4.0-1.20、Python3.10.12、主运行容器 Java17.0.19。
 新增标记实验使用 Kafka Streams3.4.0。构建新增依赖前的原始实验输入哈希保留在
 `results/validation-inputs.sha256.json`，原 `pom.xml` 和构建脚本存于
 `results/evidence/delivery-matrix-inputs/`；新增实验有独立输入清单和原生报告。
-这些是可复现的实验版本，不是生产版本推荐。三个基础镜像固定 digest。
+这些是可复现的实验版本，不是生产版本推荐。主镜像各构建阶段及 Kafka/Redis
+服务镜像均固定 digest。
 
 实验不证明任意故障下的正确性。当前未测 Broker 宕机、磁盘丢失、扩分区、
 保留期过期及生产吞吐；可见延迟是此拓扑下的观察值。
