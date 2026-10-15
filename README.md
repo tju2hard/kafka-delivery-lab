@@ -4,7 +4,35 @@
 Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，不是生产库，
 也不是 TalentAI 出题包；不调用模型。
 
-## CK 失败实验（当前重点）
+## 按业务 ID 过滤：模拟事务的不重不漏（当前重点）
+
+当前目标是同一个业务 ID 最终只输出首次到达的一条完整 JSON，重复 ID 直接跳过
+sink。新实现见 [DeduplicationDemo](src/main/java/lab/DeduplicationDemo.java)，
+Harbor 入口为 `harbor/id-deduplication`。本轮每场景四线程目标3000条/秒，输入
+9000条、3000个 ID 各三次；按完整业务 ID 集合和首次 JSON 核对，不能只比总数。
+
+Redis 检查、Kafka 发送和 Redis 登记都在 `RedisSink.invoke()` 内：
+
+```text
+查 Redis sent → 已有则跳过 → 无则发送 Kafka → 等待 ACK → SET sent（1小时 TTL）
+```
+
+同一函数并不形成跨 Redis/Kafka 的原子提交。ACK 后、登记前发生故障，恢复会
+重发；先登记再发则可能漏发。新实验在两个窗口分别抛真实任务异常，由 Flink
+从初始 CK 自动恢复；另测真实 CK 失败及 state＋非事务/事务 sink。CK=30秒，
+Redis 使用精确键而非 Bloom filter，重复到达刷新 TTL，单分区、parallelism=1。
+“窗口很短”是风险大小问题，不等于 exactly-once 保证；本实验不估算自然故障概率。
+
+事务对照的“不重不漏”只针对 `read_committed`；Kafka 原始日志仍可能存在中止事务
+的数据。两种视图分别核对，避免把事务可见性称为原始日志物理不重复。
+
+```bash
+bash scripts/build.sh
+harbor trials start -p harbor/id-deduplication -a oracle \
+  --trial-name business-deduplication --trials-dir results/trials
+```
+
+## CK 失败与重复标记实验
 
 新增 [失败与恢复报告](results/RECOVERY.md) 区分两种故障：真实 snapshot 延迟导致
 checkpoint 超时但作业继续；以及 snapshot IOException 导致 Flink 自动从上次成功
@@ -19,14 +47,21 @@ Flink 事务 sink。逐条统计丢失、源序号重放、负载错误和标记
 bash scripts/build.sh
 harbor trials start -p harbor/id-marking-recovery -a oracle \
   --trial-name checkpoint-failure --trials-dir results/trials
+python3 scripts/compare-recovery-jsonl.py \
+  --input results/trials/checkpoint-failure/verifier/data/state-alo-restart/input.jsonl.gz \
+  --output results/trials/checkpoint-failure/verifier/data/state-alo-restart/output-read_committed.jsonl.gz
 ```
+
+离线检查退出码1表示发现预期的交付/标记缺陷。恢复检查的标记按最终输出顺序
+判断，源序号重放另计；正常一对一负载使用下面的 `compare-jsonl.py`。
 
 ## JSON 标记与负载实验
 
 最新例子保留每次到达，按 `event_id` 标记 `is_duplicate`，并非删除重复消息。
 去重有效期为滚动1小时处理时间，每次到达刷新；连续1小时未出现后重新标记首次。
 Flink 使用 `keyBy(event_id)`＋带 TTL 的 `ValueState`；Streams 用 last-seen state；
-Redis 用 Lua 原子检查并刷新 TTL。
+Redis 用 Lua 原子检查并刷新 TTL。此旧标记实现登记的是“见过”，发生在 Kafka
+sink 前，不能把它理解成上面新实现的“Kafka 已成功输出”。
 
 四个线程目标每秒3000条，共30000条 JSON，10000个 ID 各出现三次。对比普通
 Java 状态、Redis、Streams EOS/100ms、Flink 非事务/30s CK、Flink 非事务→

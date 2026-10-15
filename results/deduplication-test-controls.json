@@ -1,0 +1,27 @@
+{
+  "unit_controls": {
+    "tests": 11,
+    "passed": 11,
+    "scope": "normal JSON marking and business-ID conservation; equal counts do not imply completeness"
+  },
+  "native_redis_reader_smoke": {
+    "trial": "deduplication-oracle-02",
+    "operations": [
+      "GET missing",
+      "SET PX",
+      "GET bulk",
+      "PTTL",
+      "DEL"
+    ],
+    "passed": true
+  },
+  "maven_build": {
+    "command": "bash scripts/build.sh",
+    "exit_code": 0,
+    "tests_run_by_maven": false
+  },
+  "task_audit": {
+    "errors": 0,
+    "warnings": 0
+  }
+}

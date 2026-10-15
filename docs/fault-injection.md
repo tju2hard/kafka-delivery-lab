@@ -1,5 +1,14 @@
 # 异常如何模拟
 
+`id-deduplication` 是新的业务 ID 过滤实验，重复到达直接跳过 sink。Redis 检查
+及确认全部放在真实 `RichSinkFunction.invoke()` 中；先完成空 CK，再注入两种
+确定性异常：Redis 占位成功但尚未调用 Kafka send；Kafka send 已收到 ACK 但
+尚未登记 sent。它们分别验证漏发与重发窗口。异常由 Flink 自身自动恢复，不靠
+controller 强杀作为触发；异常 witness 包含事件 JSON、Redis 值及 ACK/offset。
+同一实验还包含真实 CK snapshot 异常，以及非事务/事务 KafkaSink 的对照。
+这证明窗口能发生什么，不能据此估算生产环境发生概率。两种 Kafka 消费视图
+分别导出完整 JSONL；首次事件以源分区 offset 顺序确定。
+
 `id-marking-latency` 的每秒3000条 JSON 实验目前只测正常运行。它证明本轮输入、
 标记和落盘结果是否一致，不证明故障恢复后也一致。1小时 TTL 同样没有通过
 实际等待一小时来验证到期。

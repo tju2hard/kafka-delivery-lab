@@ -1,0 +1,76 @@
+{
+  "source_trial": "deduplication-oracle-02",
+  "source_case": "redis-after-normal",
+  "input_sha256": "4781a4d18d8ee604cdcdef5e603c5fffa97a58cce098ddb629627a2381c3d88a",
+  "native_sink_sha256": "6853e440559dc030e3fb6fd3d4f8045a1219fe4308735fe6ec5ef7a6b94d94ec",
+  "controls": [
+    {
+      "control": "valid",
+      "expected_accepted": true,
+      "exit_code": 0,
+      "audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 0,
+        "business_contract_pass": true
+      }
+    },
+    {
+      "control": "same_total_missing_plus_duplicate",
+      "expected_accepted": false,
+      "exit_code": 1,
+      "audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [
+          "event-02999"
+        ],
+        "unexpected_business_ids": [],
+        "duplicate_records": 1,
+        "duplicated_business_ids": {
+          "event-00000": 2
+        },
+        "payload_or_first_arrival_mismatches": 0,
+        "business_contract_pass": false
+      }
+    },
+    {
+      "control": "corrupted_payload",
+      "expected_accepted": false,
+      "exit_code": 1,
+      "audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 1,
+        "business_contract_pass": false
+      }
+    },
+    {
+      "control": "wrong_first_arrival",
+      "expected_accepted": false,
+      "exit_code": 1,
+      "audit": {
+        "source_arrivals": 9000,
+        "expected_business_events": 3000,
+        "output_records": 3000,
+        "missing_business_ids": [],
+        "unexpected_business_ids": [],
+        "duplicate_records": 0,
+        "duplicated_business_ids": {},
+        "payload_or_first_arrival_mismatches": 1,
+        "business_contract_pass": false
+      }
+    }
+  ]
+}

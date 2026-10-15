@@ -1,0 +1,29 @@
+[
+  {
+    "trial": "deduplication-oracle-01",
+    "status": "interrupted_invalid",
+    "reason": "controller Redis status reader lacked bulk GET response support; stopped before treating partial run as complete",
+    "source_manifest": {
+      "pom.xml": "7d5e0dedb88c8f7a6197c1ec72445f9bdde2baea03e6c2d7d031ff7a07de39e8",
+      "scripts/build.sh": "a2c712858a879cd62752448d2bd4973ed0cc5e7c4962160ceb9973870f8492cd",
+      "src/main/java/lab/CheckpointFailureDemo.java": "38de04f688bbb210e1f952a681136826245d7fe548b981b53198c98523e7fc1d",
+      "src/main/java/lab/DeduplicationDemo.java": "e3a2508b1caee404fd2f4a4cd4fc0be0a7dd7595082d36fc71441e5fb20d93f2",
+      "src/main/java/lab/FlinkRun.java": "e9420ea4cf6dcb8f38d25a77f17e1bf2322446dc76c8b67510f9abebe0a886aa",
+      "src/main/java/lab/FlinkTagging.java": "0a69c9f41a5750dc1d0e247ca1a946060cc993ed7ec0509e65f3cd3ad2af5c60",
+      "src/main/java/lab/Lab.java": "2ae0aacebd59d1fc98e821206e4719202b023ff189e0b9ddbd78548a3dbe7958",
+      "src/main/java/lab/TaggingDemo.java": "8eb284d4bc55c2f7a46960ae865cf17cf12cec095ad6d582406646d42b54e205",
+      "harbor/id-deduplication/environment/Dockerfile": "bb3e3ba531de0483220b65242eb1e40d28fbc4f164d44ef75a33d0fbe05932f7",
+      "harbor/id-deduplication/environment/deduplication.py": "4d23edeba5b3091504b74592b21ba42e5f988ed8c47f9798d4167a5f08733055",
+      "harbor/id-deduplication/environment/docker-compose.yaml": "f94072a823e67d43b187e6923d341a464d7f67215ef6979f5273841dda68865d",
+      "harbor/id-deduplication/environment/latency.py": "d04e66af5cf96df4cacfe4505f32ccb014d73ff69a2fb19c330ae4b58b57a294",
+      "harbor/id-deduplication/environment/run_lab.py": "1c58193a5b1e3ddd79377c1d7964cee9d5d786fbb3116d074266b61ed3825d34",
+      "harbor/id-deduplication/environment/state.py": "6734c4f049ddd7427ee78e2b0baf2caa61771a233ea725901515cea5bd6f18dd",
+      "harbor/id-deduplication/environment/wire_proxy.py": "14d5db7f5cedbdbb8d189c6b95bf68cfbd2332d12e07c2fceaa3c3955b688236",
+      "harbor/id-deduplication/instruction.md": "06afdcdafce246c646a8d83935e0cf7d6708465a4ee0e5077589b6625d90c804",
+      "harbor/id-deduplication/solution/solve.sh": "5acfe9533cdc168e280ea314d362052bb9acec84cb6d3355b3de6a3d90358511",
+      "harbor/id-deduplication/task.toml": "0f1a97897ea146228218f67010573bfa37e74f1d3580528f40f85448cf18ff14",
+      "harbor/id-deduplication/tests/test.sh": "08a284c360de6d3d23a77cc9b9f9a300090cdfe09f4bc8ee6b971597dcb262ba",
+      "harbor/id-deduplication/tests/verify.py": "cbf2478b2de6228bc2c98a76fceb5da7df056e4bb1a18e989929cc5fa5fd699a"
+    }
+  }
+]
