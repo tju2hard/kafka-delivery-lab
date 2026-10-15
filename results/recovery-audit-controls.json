@@ -1,0 +1,72 @@
+{
+  "native_source_trial": "json-hour-oracle-02",
+  "native_source_case": "local-marker",
+  "synthetic_lab_inputs": true,
+  "input_sha256": "0e73a4b1ff840f041c925e87fef100483e1e82401eeb9d5aebba467afbcad94b",
+  "controls": {
+    "valid": {
+      "source_arrivals": 30000,
+      "output_arrivals": 30000,
+      "missing_arrivals": 0,
+      "unexpected_arrivals": 0,
+      "replayed_arrival_records": 0,
+      "payload_mismatches": 0,
+      "flag_mismatches_in_output_order": 0,
+      "invalid_flag_types": 0,
+      "false_markers": 10000,
+      "true_markers": 20000,
+      "business_ids_without_false": 0,
+      "business_ids_with_multiple_false": 0,
+      "maximum_input_sequence_multiplicity": 1,
+      "arrival_contract_pass": true
+    },
+    "full_replay_with_rolled_back_marker_state": {
+      "source_arrivals": 30000,
+      "output_arrivals": 60000,
+      "missing_arrivals": 0,
+      "unexpected_arrivals": 0,
+      "replayed_arrival_records": 30000,
+      "payload_mismatches": 0,
+      "flag_mismatches_in_output_order": 10000,
+      "invalid_flag_types": 0,
+      "false_markers": 20000,
+      "true_markers": 40000,
+      "business_ids_without_false": 0,
+      "business_ids_with_multiple_false": 10000,
+      "maximum_input_sequence_multiplicity": 2,
+      "arrival_contract_pass": false
+    },
+    "full_replay_with_external_retained_state": {
+      "source_arrivals": 30000,
+      "output_arrivals": 60000,
+      "missing_arrivals": 0,
+      "unexpected_arrivals": 0,
+      "replayed_arrival_records": 30000,
+      "payload_mismatches": 0,
+      "flag_mismatches_in_output_order": 0,
+      "invalid_flag_types": 0,
+      "false_markers": 10000,
+      "true_markers": 50000,
+      "business_ids_without_false": 0,
+      "business_ids_with_multiple_false": 0,
+      "maximum_input_sequence_multiplicity": 2,
+      "arrival_contract_pass": false
+    },
+    "missing_arrival": {
+      "source_arrivals": 30000,
+      "output_arrivals": 29999,
+      "missing_arrivals": 1,
+      "unexpected_arrivals": 0,
+      "replayed_arrival_records": 0,
+      "payload_mismatches": 0,
+      "flag_mismatches_in_output_order": 0,
+      "invalid_flag_types": 0,
+      "false_markers": 10000,
+      "true_markers": 19999,
+      "business_ids_without_false": 0,
+      "business_ids_with_multiple_false": 0,
+      "maximum_input_sequence_multiplicity": 1,
+      "arrival_contract_pass": false
+    }
+  }
+}

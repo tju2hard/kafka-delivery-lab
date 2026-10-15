@@ -1,0 +1,8 @@
+{
+  "report_validation_reward": 0.0,
+  "meaning": "truthful complete engineering experiment; not strategy exactly-once certification",
+  "checks": [],
+  "errors": [
+    "FileNotFoundError: [Errno 2] No such file or directory: '/app/report.json'"
+  ]
+}

@@ -1,0 +1,4876 @@
+{
+  "schema_version": 1,
+  "experiment_valid": true,
+  "run_id": "run-856c6853e3cd",
+  "contract": "one physical Kafka payload record per accepted business event, no loss",
+  "versions": {
+    "kafka_broker": "3.7.0",
+    "kafka_java_client": "3.4.0",
+    "redis": "7.2.6",
+    "flink": "1.20.4",
+    "flink_kafka_connector": "3.4.0-1.20",
+    "python": "3.10.12"
+  },
+  "topology": {
+    "brokers": 3,
+    "replication_factor": 3,
+    "min_insync_replicas": 2,
+    "acks": "all",
+    "output_partitions_per_case": 1
+  },
+  "limitations": [
+    "bounded deterministic fault matrix, not an impossibility proof or a general correctness proof",
+    "synthetic ordered event batches; no production throughput claim",
+    "broker outages, disk loss, partition expansion and retention expiry not tested"
+  ],
+  "cases": [
+    {
+      "name": "plain-normal",
+      "strategy": "plain",
+      "topic": "run-856c6853e3cd-plain-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 32,
+        "p95": 186
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 32,
+        "p95": 183
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050969852,
+          "observed_at_ms": 1792050970038
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050970058,
+          "observed_at_ms": 1792050970090
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050970104,
+          "observed_at_ms": 1792050970132
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050970141,
+          "observed_at_ms": 1792050970165
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050970166,
+          "observed_at_ms": 1792050970196
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050970201,
+          "observed_at_ms": 1792050970227
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050970230,
+          "observed_at_ms": 1792050970271
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050970274,
+          "observed_at_ms": 1792050970330
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050969852,
+          "observed_at_ms": 1792050970035
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050970058,
+          "observed_at_ms": 1792050970092
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050970104,
+          "observed_at_ms": 1792050970136
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050970141,
+          "observed_at_ms": 1792050970165
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050970166,
+          "observed_at_ms": 1792050970193
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050970201,
+          "observed_at_ms": 1792050970223
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050970230,
+          "observed_at_ms": 1792050970259
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050970274,
+          "observed_at_ms": 1792050970321
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050969852,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050970058,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050970104,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050970141,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050970166,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050970201,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050970230,
+          "observed_at_ms": 1792050972130
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050970274,
+          "observed_at_ms": 1792050972130
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050969852,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050970058,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050970104,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050970141,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050970166,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050970201,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050970230,
+          "observed_at_ms": 1792050973128
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050970274,
+          "observed_at_ms": 1792050973128
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "idempotent-normal",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 12,
+        "p95": 295
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 12,
+        "p95": 295
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050976487,
+          "observed_at_ms": 1792050976782
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050976780,
+          "observed_at_ms": 1792050976793
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050976797,
+          "observed_at_ms": 1792050976807
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050976811,
+          "observed_at_ms": 1792050976823
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050976830,
+          "observed_at_ms": 1792050976838
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050976842,
+          "observed_at_ms": 1792050976853
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050976857,
+          "observed_at_ms": 1792050976865
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050976874,
+          "observed_at_ms": 1792050976886
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050976487,
+          "observed_at_ms": 1792050976782
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050976780,
+          "observed_at_ms": 1792050976793
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050976797,
+          "observed_at_ms": 1792050976808
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050976811,
+          "observed_at_ms": 1792050976823
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050976830,
+          "observed_at_ms": 1792050976838
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050976842,
+          "observed_at_ms": 1792050976854
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050976857,
+          "observed_at_ms": 1792050976867
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050976874,
+          "observed_at_ms": 1792050976887
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050976487,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050976780,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050976797,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050976811,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050976830,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050976842,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050976857,
+          "observed_at_ms": 1792050978148
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050976874,
+          "observed_at_ms": 1792050978148
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050976487,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050976780,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050976797,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050976811,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050976830,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050976842,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050976857,
+          "observed_at_ms": 1792050980208
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050976874,
+          "observed_at_ms": 1792050980208
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "plain-ack-drop",
+      "strategy": "plain",
+      "topic": "run-856c6853e3cd-plain-ack-drop",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "successful ACK dropped",
+      "fault_witnesses": [
+        {
+          "fault": "successful_produce_response_dropped",
+          "at_ns": 288647618897960,
+          "error_code": 0,
+          "api_version": 9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050981854,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050981854,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050982042,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050982053,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050982064,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050982076,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050982087,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050982099,
+          "observed_at_ms": 1792050983008
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050982111,
+          "observed_at_ms": 1792050983008
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050981854,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050981854,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050982042,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050982053,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050982064,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050982076,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050982087,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050982099,
+          "observed_at_ms": 1792050983945
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050982111,
+          "observed_at_ms": 1792050983945
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-ack-drop",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-ack-drop",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "successful ACK dropped",
+      "fault_witnesses": [
+        {
+          "fault": "successful_produce_response_dropped",
+          "at_ns": 288651259498469,
+          "error_code": 0,
+          "api_version": 9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050985484,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050985682,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050985694,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050985705,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050985715,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050985724,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050985736,
+          "observed_at_ms": 1792050987441
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050985748,
+          "observed_at_ms": 1792050987441
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050985484,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050985682,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050985694,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050985705,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050985715,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050985724,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050985736,
+          "observed_at_ms": 1792050989018
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050985748,
+          "observed_at_ms": 1792050989018
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "application-replay",
+      "strategy": "application-replay",
+      "topic": "run-856c6853e3cd-application-replay",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050990522,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050990579,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050990589,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050990598,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050990608,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050990617,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050990628,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050990639,
+          "observed_at_ms": 1792050991541
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050990650,
+          "observed_at_ms": 1792050991541
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050990522,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050990579,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050990589,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050990598,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050990608,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050990617,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050990628,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050990639,
+          "observed_at_ms": 1792050992341
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050990650,
+          "observed_at_ms": 1792050992341
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "compacted-key",
+      "strategy": "compacted-key",
+      "topic": "run-856c6853e3cd-compacted-key",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050993841,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050993900,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050993909,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050993919,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050993928,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050993937,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050993946,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050993956,
+          "observed_at_ms": 1792050995620
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050993965,
+          "observed_at_ms": 1792050995620
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050993841,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050993900,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050993909,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050993919,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050993928,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050993937,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050993946,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050993956,
+          "observed_at_ms": 1792050997352
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050993965,
+          "observed_at_ms": 1792050997352
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-restart",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 654,
+          "observed_at_ms": 1792050998883,
+          "worker_witness": "1792050998870",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050998813,
+          "observed_at_ms": 1792051000664
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050999570,
+          "observed_at_ms": 1792051000664
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050999620,
+          "observed_at_ms": 1792051000664
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050999630,
+          "observed_at_ms": 1792051000665
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050999639,
+          "observed_at_ms": 1792051000665
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050999648,
+          "observed_at_ms": 1792051000665
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050999657,
+          "observed_at_ms": 1792051000665
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050999666,
+          "observed_at_ms": 1792051000665
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050999675,
+          "observed_at_ms": 1792051000665
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792050998813,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792050999570,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792050999620,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792050999630,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792050999639,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792050999648,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792050999657,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792050999666,
+          "observed_at_ms": 1792051001583
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792050999675,
+          "observed_at_ms": 1792051001583
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-before-restart",
+      "strategy": "redis-before",
+      "topic": "run-856c6853e3cd-redis-before-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "reserved",
+      "fault_witnesses": [
+        {
+          "stage": "reserved",
+          "writer_pid": 761,
+          "observed_at_ms": 1792051003173,
+          "worker_witness": "1792051003155",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 7,
+        "unique_ids": 7,
+        "duplicate_records": 0,
+        "missing_ids": [
+          "event-0000"
+        ],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051004935,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051005081,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051005102,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051005123,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051005141,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051005159,
+          "observed_at_ms": 1792051006196
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051005187,
+          "observed_at_ms": 1792051006196
+        }
+      ],
+      "read_committed": {
+        "records": 7,
+        "unique_ids": 7,
+        "duplicate_records": 0,
+        "missing_ids": [
+          "event-0000"
+        ],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051004935,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051005081,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051005102,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051005123,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051005141,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051005159,
+          "observed_at_ms": 1792051007032
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051005187,
+          "observed_at_ms": 1792051007032
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-after-restart",
+      "strategy": "redis-after",
+      "topic": "run-856c6853e3cd-redis-after-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 868,
+          "observed_at_ms": 1792051008603,
+          "worker_witness": "1792051008600",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051008529,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051009339,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051009400,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051009418,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051009433,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051009446,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051009461,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051009475,
+          "observed_at_ms": 1792051010296
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051009489,
+          "observed_at_ms": 1792051010296
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051008529,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051009339,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051009400,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051009418,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051009433,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051009446,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051009461,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051009475,
+          "observed_at_ms": 1792051011554
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051009489,
+          "observed_at_ms": 1792051011554
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "outbox-restart",
+      "strategy": "outbox",
+      "topic": "run-856c6853e3cd-outbox-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 976,
+          "observed_at_ms": 1792051014773,
+          "worker_witness": "1792051014772",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051014722,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051015543,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051015744,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051015912,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051016090,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051016278,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051016457,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051016636,
+          "observed_at_ms": 1792051017702
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051016816,
+          "observed_at_ms": 1792051017702
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051014722,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051015543,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051015744,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051015912,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051016090,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051016278,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051016457,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051016636,
+          "observed_at_ms": 1792051018679
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051016816,
+          "observed_at_ms": 1792051018679
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-acked-restart",
+      "strategy": "reconcile",
+      "topic": "run-856c6853e3cd-reconcile-acked-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 1102,
+          "observed_at_ms": 1792051021976,
+          "worker_witness": "1792051021956",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051021878,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051023115,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051023146,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051023154,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051023163,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051023171,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051023182,
+          "observed_at_ms": 1792051024130
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051023193,
+          "observed_at_ms": 1792051024130
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051021878,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051023115,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051023146,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051023154,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051023163,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051023171,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051023182,
+          "observed_at_ms": 1792051025140
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051023193,
+          "observed_at_ms": 1792051025140
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-external-restart",
+      "strategy": "transaction-external",
+      "topic": "run-856c6853e3cd-transaction-external-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-commit",
+      "fault_witnesses": [
+        {
+          "stage": "after-commit",
+          "writer_pid": 1209,
+          "observed_at_ms": 1792051028084,
+          "worker_witness": "1792051028081",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051027873,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051029857,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051030017,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051030102,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051030183,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 10,
+          "producer_timestamp_ms": 1792051030262,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 12,
+          "producer_timestamp_ms": 1792051030343,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 14,
+          "producer_timestamp_ms": 1792051030404,
+          "observed_at_ms": 1792051031488
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 16,
+          "producer_timestamp_ms": 1792051030483,
+          "observed_at_ms": 1792051031488
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051027873,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051029857,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051030017,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051030102,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051030183,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 10,
+          "producer_timestamp_ms": 1792051030262,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 12,
+          "producer_timestamp_ms": 1792051030343,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 14,
+          "producer_timestamp_ms": 1792051030404,
+          "observed_at_ms": 1792051032319
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 16,
+          "producer_timestamp_ms": 1792051030483,
+          "observed_at_ms": 1792051032319
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-expired-owner",
+      "strategy": "redis-lease",
+      "topic": "run-856c6853e3cd-redis-expired-owner",
+      "expected_ids": [
+        "event-0000"
+      ],
+      "fault": "lease expires after final ownership check",
+      "fault_witnesses": [
+        {
+          "stage": "final lease check then actual Redis expiry then replacement publish then old-owner publish",
+          "expired_key_pttl": -2
+        }
+      ],
+      "read_uncommitted": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051034604,
+          "observed_at_ms": 1792051035912
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051034717,
+          "observed_at_ms": 1792051035912
+        }
+      ],
+      "read_committed": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051034604,
+          "observed_at_ms": 1792051037741
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051034717,
+          "observed_at_ms": 1792051037741
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-late-old-request",
+      "strategy": "reconcile",
+      "topic": "run-856c6853e3cd-reconcile-late-old-request",
+      "expected_ids": [
+        "event-0000"
+      ],
+      "fault": "old received request delivered after restart and scan",
+      "fault_witnesses": [
+        {
+          "fault": "produce_request_received_but_not_forwarded",
+          "at_ns": 288705658125274
+        },
+        {
+          "fault": "old_request_forwarded_after_new_writer",
+          "at_ns": 288706583459231
+        },
+        {
+          "old_writer_terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051040769,
+          "observed_at_ms": 1792051041662
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051039908,
+          "observed_at_ms": 1792051041662
+        }
+      ],
+      "read_committed": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051040769,
+          "observed_at_ms": 1792051042552
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051039908,
+          "observed_at_ms": 1792051042552
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "atomic-offsets-before-commit",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-atomic-offsets-before-commit",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "before-commit",
+      "fault_witnesses": [
+        {
+          "stage": "before-commit",
+          "pre_kill_raw": 8,
+          "pre_kill_committed": 0,
+          "terminated_exit": -9
+        }
+      ],
+      "source_topic": "run-856c6853e3cd-atomic-offsets-before-commit-input",
+      "source_committed_offset_after_recovery": 8,
+      "read_uncommitted": {
+        "records": 16,
+        "unique_ids": 8,
+        "duplicate_records": 8,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 2,
+          "event-0002": 2,
+          "event-0003": 2,
+          "event-0004": 2,
+          "event-0005": 2,
+          "event-0006": 2,
+          "event-0007": 2
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051048046,
+          "observed_at_ms": 1792051054317
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051048104,
+          "observed_at_ms": 1792051054317
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051048111,
+          "observed_at_ms": 1792051054317
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051048117,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051048123,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051048128,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051048134,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051048145,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051051602,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 10,
+          "producer_timestamp_ms": 1792051051636,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 11,
+          "producer_timestamp_ms": 1792051051641,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 12,
+          "producer_timestamp_ms": 1792051051647,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 13,
+          "producer_timestamp_ms": 1792051051652,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 14,
+          "producer_timestamp_ms": 1792051051658,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 15,
+          "producer_timestamp_ms": 1792051051667,
+          "observed_at_ms": 1792051054318
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 16,
+          "producer_timestamp_ms": 1792051051673,
+          "observed_at_ms": 1792051054318
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051051602,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 10,
+          "producer_timestamp_ms": 1792051051636,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 11,
+          "producer_timestamp_ms": 1792051051641,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 12,
+          "producer_timestamp_ms": 1792051051647,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 13,
+          "producer_timestamp_ms": 1792051051652,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 14,
+          "producer_timestamp_ms": 1792051051658,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 15,
+          "producer_timestamp_ms": 1792051051667,
+          "observed_at_ms": 1792051055440
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 16,
+          "producer_timestamp_ms": 1792051051673,
+          "observed_at_ms": 1792051055440
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "atomic-offsets-after-commit",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-atomic-offsets-after-commit",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-commit",
+      "fault_witnesses": [
+        {
+          "stage": "after-commit",
+          "pre_kill_raw": 8,
+          "pre_kill_committed": 8,
+          "terminated_exit": -9
+        }
+      ],
+      "source_topic": "run-856c6853e3cd-atomic-offsets-after-commit-input",
+      "source_committed_offset_after_recovery": 8,
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051059290,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051059334,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051059339,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051059344,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051059349,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051059354,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051059360,
+          "observed_at_ms": 1792051065443
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051059364,
+          "observed_at_ms": 1792051065443
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051059290,
+          "observed_at_ms": 1792051066716
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051059334,
+          "observed_at_ms": 1792051066716
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051059339,
+          "observed_at_ms": 1792051066717
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051059344,
+          "observed_at_ms": 1792051066717
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051059349,
+          "observed_at_ms": 1792051066717
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051059354,
+          "observed_at_ms": 1792051066717
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051059360,
+          "observed_at_ms": 1792051066717
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051059364,
+          "observed_at_ms": 1792051066717
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-visibility",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-transaction-visibility",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "explicit commit barrier",
+      "fault_witnesses": [
+        {
+          "stage": "raw records visible while committed view empty",
+          "committed_before_release": 0,
+          "minimum_explicit_hold_ms": 250,
+          "hold_started_at_ns": 288739786038692
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 13,
+        "p95": 58
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 1780,
+        "p95": 1843
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051072509,
+          "observed_at_ms": 1792051072567
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051072558,
+          "observed_at_ms": 1792051072573
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051072565,
+          "observed_at_ms": 1792051072576
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051072574,
+          "observed_at_ms": 1792051072582
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051072582,
+          "observed_at_ms": 1792051072591
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051072590,
+          "observed_at_ms": 1792051072598
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051072597,
+          "observed_at_ms": 1792051072610
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051072607,
+          "observed_at_ms": 1792051072622
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051072509,
+          "observed_at_ms": 1792051074352
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051072558,
+          "observed_at_ms": 1792051074353
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051072565,
+          "observed_at_ms": 1792051074354
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051072574,
+          "observed_at_ms": 1792051074354
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051072582,
+          "observed_at_ms": 1792051074355
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051072590,
+          "observed_at_ms": 1792051074355
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051072597,
+          "observed_at_ms": 1792051074356
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051072607,
+          "observed_at_ms": 1792051074357
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051072509,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051072558,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051072565,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051072574,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051072582,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051072590,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051072597,
+          "observed_at_ms": 1792051075299
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051072607,
+          "observed_at_ms": 1792051075299
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051072509,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051072558,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051072565,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051072574,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051072582,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051072590,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051072597,
+          "observed_at_ms": 1792051076251
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051072607,
+          "observed_at_ms": 1792051076251
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-normal",
+      "strategy": "flink-keyed-state-at-least-once",
+      "topic": "run-856c6853e3cd-flink-at-least-once-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 76,
+        "p95": 85
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 76,
+        "p95": 86
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051085425,
+          "observed_at_ms": 1792051085510
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085514
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085515
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085515
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085521
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051085445,
+          "observed_at_ms": 1792051085521
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051085522
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051085522
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051085425,
+          "observed_at_ms": 1792051085511
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085514
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085516
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085516
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051085521
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051085445,
+          "observed_at_ms": 1792051085521
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051085521
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051085522
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051085425,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051085445,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051087516
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051087516
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051085425,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051085441,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051085445,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051088699
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051085446,
+          "observed_at_ms": 1792051088699
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-exactly-once-normal",
+      "strategy": "flink-keyed-state-exactly-once",
+      "topic": "run-856c6853e3cd-flink-exactly-once-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 40,
+        "p95": 50
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 1053,
+        "p95": 1063
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051097912,
+          "observed_at_ms": 1792051097962
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051097922,
+          "observed_at_ms": 1792051097963
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097963
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097963
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097964
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097964
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097964
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051097964
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051097912,
+          "observed_at_ms": 1792051098975
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051097922,
+          "observed_at_ms": 1792051098976
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098976
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098976
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098976
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098976
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098977
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051098977
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051097912,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051097922,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051100244
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051097912,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051097922,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051097924,
+          "observed_at_ms": 1792051101724
+        }
+      ],
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-restore",
+      "strategy": "flink-keyed-state-at-least-once",
+      "topic": "run-856c6853e3cd-flink-at-least-once-restore",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "kill after Kafka append before completed checkpoint",
+      "fault_witnesses": [
+        {
+          "stage": "native append then blocked next checkpoint",
+          "restored_metadata": "/app/runs/run-856c6853e3cd/flink-at-least-once-restore/checkpoints/55e08949ef944530e1012cda4bfac756/chk-1/_metadata",
+          "checkpoint_id": 1,
+          "raw_records_before_kill": 1,
+          "terminated_exit": -9,
+          "native_is_restored": true
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 9,
+        "p50": 83,
+        "p95": 103
+      },
+      "read_committed_visibility_ms": {
+        "samples": 9,
+        "p50": 80,
+        "p95": 102
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051111292,
+          "observed_at_ms": 1792051111345
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051116693,
+          "observed_at_ms": 1792051116796
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116800
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116800
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116801
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116801
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116801
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116801
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051116722,
+          "observed_at_ms": 1792051116801
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051111292,
+          "observed_at_ms": 1792051111345
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051116693,
+          "observed_at_ms": 1792051116795
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116795
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116797
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051116797
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116799
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116799
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051116799
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051116722,
+          "observed_at_ms": 1792051116799
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051111292,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051116693,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051118543
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051116722,
+          "observed_at_ms": 1792051118543
+        }
+      ],
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051111292,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 1,
+          "producer_timestamp_ms": 1792051116693,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051116717,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051116718,
+          "observed_at_ms": 1792051119341
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051116722,
+          "observed_at_ms": 1792051119341
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "flink-exactly-once-restore",
+      "strategy": "flink-keyed-state-exactly-once",
+      "topic": "run-856c6853e3cd-flink-exactly-once-restore",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "kill after Kafka append before completed checkpoint",
+      "fault_witnesses": [
+        {
+          "stage": "native append then blocked next checkpoint",
+          "restored_metadata": "/app/runs/run-856c6853e3cd/flink-exactly-once-restore/checkpoints/05b04ddd9072b8f2050808fd616dda30/chk-1/_metadata",
+          "checkpoint_id": 1,
+          "raw_records_before_kill": 1,
+          "terminated_exit": -9,
+          "native_is_restored": true
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 9,
+        "p50": 24,
+        "p95": 57
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 502,
+        "p95": 516
+      },
+      "live_observations": [
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051129298,
+          "observed_at_ms": 1792051129355
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051135960,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0001",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051135973,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0002",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0003",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0004",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0005",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051135999
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0006",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051136000
+        },
+        {
+          "isolation": "read_uncommitted",
+          "id": "event-0007",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051136000
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051135960,
+          "observed_at_ms": 1792051136476
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0001",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051135973,
+          "observed_at_ms": 1792051136476
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0002",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051136476
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0003",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051136476
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0004",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051136477
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0005",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051136477
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0006",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051136477
+        },
+        {
+          "isolation": "read_committed",
+          "id": "event-0007",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051136477
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_uncommitted_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 0,
+          "producer_timestamp_ms": 1792051129298,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051135960,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051135973,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051137412
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051137412
+        }
+      ],
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed_rows": [
+        {
+          "id": "event-0000",
+          "value": "event-0000|synthetic-payload-0000",
+          "key": "event-0000|synthetic-payload-0000",
+          "offset": 2,
+          "producer_timestamp_ms": 1792051135960,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0001",
+          "value": "event-0001|synthetic-payload-0001",
+          "key": "event-0001|synthetic-payload-0001",
+          "offset": 3,
+          "producer_timestamp_ms": 1792051135973,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0002",
+          "value": "event-0002|synthetic-payload-0002",
+          "key": "event-0002|synthetic-payload-0002",
+          "offset": 4,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0003",
+          "value": "event-0003|synthetic-payload-0003",
+          "key": "event-0003|synthetic-payload-0003",
+          "offset": 5,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0004",
+          "value": "event-0004|synthetic-payload-0004",
+          "key": "event-0004|synthetic-payload-0004",
+          "offset": 6,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0005",
+          "value": "event-0005|synthetic-payload-0005",
+          "key": "event-0005|synthetic-payload-0005",
+          "offset": 7,
+          "producer_timestamp_ms": 1792051135975,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0006",
+          "value": "event-0006|synthetic-payload-0006",
+          "key": "event-0006|synthetic-payload-0006",
+          "offset": 8,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051138263
+        },
+        {
+          "id": "event-0007",
+          "value": "event-0007|synthetic-payload-0007",
+          "key": "event-0007|synthetic-payload-0007",
+          "offset": 9,
+          "producer_timestamp_ms": 1792051135976,
+          "observed_at_ms": 1792051138263
+        }
+      ],
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    }
+  ]
+}

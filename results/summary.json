@@ -1,0 +1,1535 @@
+{
+  "contract": "one physical Kafka payload record per accepted business event, no loss",
+  "report_reward_meaning": "complete truthful report, not universal exactly-once certification",
+  "validation": {
+    "baseline": "closure-baseline",
+    "baseline_reward": 0,
+    "oracle_runs": [
+      "development-01",
+      "closure-oracle-01"
+    ],
+    "oracle_rewards": [
+      1,
+      1
+    ],
+    "independently_verified_cases_per_run": 21,
+    "count_outcomes_identical": true,
+    "native_trials": [
+      {
+        "trial": "closure-baseline",
+        "started_at": "2026-10-15T07:55:11.307368Z",
+        "finished_at": "2026-10-15T07:55:38.960083Z",
+        "exception_info": null,
+        "verifier_result": {
+          "rewards": {
+            "reward": 0.0
+          }
+        }
+      },
+      {
+        "trial": "development-01",
+        "started_at": "2026-10-15T07:50:29.494175Z",
+        "finished_at": "2026-10-15T07:54:47.888403Z",
+        "exception_info": null,
+        "verifier_result": {
+          "rewards": {
+            "reward": 1.0
+          }
+        }
+      },
+      {
+        "trial": "closure-oracle-01",
+        "started_at": "2026-10-15T07:55:49.406963Z",
+        "finished_at": "2026-10-15T07:59:57.295630Z",
+        "exception_info": null,
+        "verifier_result": {
+          "rewards": {
+            "reward": 1.0
+          }
+        }
+      }
+    ],
+    "input_manifest_sha256": "31bbb87a322322f977a8676e173ff3de943381e48a1bb8ae9f5c528bec50bbd0"
+  },
+  "versions": {
+    "kafka_broker": "3.7.0",
+    "kafka_java_client": "3.4.0",
+    "redis": "7.2.6",
+    "flink": "1.20.4",
+    "flink_kafka_connector": "3.4.0-1.20",
+    "python": "3.10.12"
+  },
+  "topology": {
+    "brokers": 3,
+    "replication_factor": 3,
+    "min_insync_replicas": 2,
+    "acks": "all",
+    "output_partitions_per_case": 1
+  },
+  "limitations": [
+    "bounded deterministic fault matrix, not an impossibility proof or a general correctness proof",
+    "synthetic ordered event batches; no production throughput claim",
+    "broker outages, disk loss, partition expansion and retention expiry not tested"
+  ],
+  "cases": [
+    {
+      "name": "plain-normal",
+      "strategy": "plain",
+      "topic": "run-856c6853e3cd-plain-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 32,
+        "p95": 186
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 32,
+        "p95": 183
+      },
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "idempotent-normal",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 12,
+        "p95": 295
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 12,
+        "p95": 295
+      },
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "plain-ack-drop",
+      "strategy": "plain",
+      "topic": "run-856c6853e3cd-plain-ack-drop",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "successful ACK dropped",
+      "fault_witnesses": [
+        {
+          "fault": "successful_produce_response_dropped",
+          "at_ns": 288647618897960,
+          "error_code": 0,
+          "api_version": 9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-ack-drop",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-ack-drop",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "successful ACK dropped",
+      "fault_witnesses": [
+        {
+          "fault": "successful_produce_response_dropped",
+          "at_ns": 288651259498469,
+          "error_code": 0,
+          "api_version": 9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "application-replay",
+      "strategy": "application-replay",
+      "topic": "run-856c6853e3cd-application-replay",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "compacted-key",
+      "strategy": "compacted-key",
+      "topic": "run-856c6853e3cd-compacted-key",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-restart",
+      "strategy": "idempotent",
+      "topic": "run-856c6853e3cd-idempotent-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 654,
+          "observed_at_ms": 1792050998883,
+          "worker_witness": "1792050998870",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-before-restart",
+      "strategy": "redis-before",
+      "topic": "run-856c6853e3cd-redis-before-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "reserved",
+      "fault_witnesses": [
+        {
+          "stage": "reserved",
+          "writer_pid": 761,
+          "observed_at_ms": 1792051003173,
+          "worker_witness": "1792051003155",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 7,
+        "unique_ids": 7,
+        "duplicate_records": 0,
+        "missing_ids": [
+          "event-0000"
+        ],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 7,
+        "unique_ids": 7,
+        "duplicate_records": 0,
+        "missing_ids": [
+          "event-0000"
+        ],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-after-restart",
+      "strategy": "redis-after",
+      "topic": "run-856c6853e3cd-redis-after-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 868,
+          "observed_at_ms": 1792051008603,
+          "worker_witness": "1792051008600",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "outbox-restart",
+      "strategy": "outbox",
+      "topic": "run-856c6853e3cd-outbox-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 976,
+          "observed_at_ms": 1792051014773,
+          "worker_witness": "1792051014772",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-acked-restart",
+      "strategy": "reconcile",
+      "topic": "run-856c6853e3cd-reconcile-acked-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-append",
+      "fault_witnesses": [
+        {
+          "stage": "after-append",
+          "writer_pid": 1102,
+          "observed_at_ms": 1792051021976,
+          "worker_witness": "1792051021956",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-external-restart",
+      "strategy": "transaction-external",
+      "topic": "run-856c6853e3cd-transaction-external-restart",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-commit",
+      "fault_witnesses": [
+        {
+          "stage": "after-commit",
+          "writer_pid": 1209,
+          "observed_at_ms": 1792051028084,
+          "worker_witness": "1792051028081",
+          "terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-expired-owner",
+      "strategy": "redis-lease",
+      "topic": "run-856c6853e3cd-redis-expired-owner",
+      "expected_ids": [
+        "event-0000"
+      ],
+      "fault": "lease expires after final ownership check",
+      "fault_witnesses": [
+        {
+          "stage": "final lease check then actual Redis expiry then replacement publish then old-owner publish",
+          "expired_key_pttl": -2
+        }
+      ],
+      "read_uncommitted": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_committed": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-late-old-request",
+      "strategy": "reconcile",
+      "topic": "run-856c6853e3cd-reconcile-late-old-request",
+      "expected_ids": [
+        "event-0000"
+      ],
+      "fault": "old received request delivered after restart and scan",
+      "fault_witnesses": [
+        {
+          "fault": "produce_request_received_but_not_forwarded",
+          "at_ns": 288705658125274
+        },
+        {
+          "fault": "old_request_forwarded_after_new_writer",
+          "at_ns": 288706583459231
+        },
+        {
+          "old_writer_terminated_exit": -9
+        }
+      ],
+      "read_uncommitted": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "read_committed": {
+        "records": 2,
+        "unique_ids": 1,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "atomic-offsets-before-commit",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-atomic-offsets-before-commit",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "before-commit",
+      "fault_witnesses": [
+        {
+          "stage": "before-commit",
+          "pre_kill_raw": 8,
+          "pre_kill_committed": 0,
+          "terminated_exit": -9
+        }
+      ],
+      "source_topic": "run-856c6853e3cd-atomic-offsets-before-commit-input",
+      "source_committed_offset_after_recovery": 8,
+      "read_uncommitted": {
+        "records": 16,
+        "unique_ids": 8,
+        "duplicate_records": 8,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 2,
+          "event-0002": 2,
+          "event-0003": 2,
+          "event-0004": 2,
+          "event-0005": 2,
+          "event-0006": 2,
+          "event-0007": 2
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "atomic-offsets-after-commit",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-atomic-offsets-after-commit",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "after-commit",
+      "fault_witnesses": [
+        {
+          "stage": "after-commit",
+          "pre_kill_raw": 8,
+          "pre_kill_committed": 8,
+          "terminated_exit": -9
+        }
+      ],
+      "source_topic": "run-856c6853e3cd-atomic-offsets-after-commit-input",
+      "source_committed_offset_after_recovery": 8,
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-visibility",
+      "strategy": "kafka-transaction-offsets",
+      "topic": "run-856c6853e3cd-transaction-visibility",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "explicit commit barrier",
+      "fault_witnesses": [
+        {
+          "stage": "raw records visible while committed view empty",
+          "committed_before_release": 0,
+          "minimum_explicit_hold_ms": 250,
+          "hold_started_at_ns": 288739786038692
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 13,
+        "p95": 58
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 1780,
+        "p95": 1843
+      },
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-normal",
+      "strategy": "flink-keyed-state-at-least-once",
+      "topic": "run-856c6853e3cd-flink-at-least-once-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 76,
+        "p95": 85
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 76,
+        "p95": 86
+      },
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-exactly-once-normal",
+      "strategy": "flink-keyed-state-exactly-once",
+      "topic": "run-856c6853e3cd-flink-exactly-once-normal",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "none",
+      "fault_witnesses": [],
+      "read_uncommitted_visibility_ms": {
+        "samples": 8,
+        "p50": 40,
+        "p95": 50
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 1053,
+        "p95": 1063
+      },
+      "read_uncommitted": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-restore",
+      "strategy": "flink-keyed-state-at-least-once",
+      "topic": "run-856c6853e3cd-flink-at-least-once-restore",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "kill after Kafka append before completed checkpoint",
+      "fault_witnesses": [
+        {
+          "stage": "native append then blocked next checkpoint",
+          "restored_metadata": "/app/runs/run-856c6853e3cd/flink-at-least-once-restore/checkpoints/55e08949ef944530e1012cda4bfac756/chk-1/_metadata",
+          "checkpoint_id": 1,
+          "raw_records_before_kill": 1,
+          "terminated_exit": -9,
+          "native_is_restored": true
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 9,
+        "p50": 83,
+        "p95": 103
+      },
+      "read_committed_visibility_ms": {
+        "samples": 9,
+        "p50": 80,
+        "p95": 102
+      },
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "flink-exactly-once-restore",
+      "strategy": "flink-keyed-state-exactly-once",
+      "topic": "run-856c6853e3cd-flink-exactly-once-restore",
+      "expected_ids": [
+        "event-0000",
+        "event-0001",
+        "event-0002",
+        "event-0003",
+        "event-0004",
+        "event-0005",
+        "event-0006",
+        "event-0007"
+      ],
+      "fault": "kill after Kafka append before completed checkpoint",
+      "fault_witnesses": [
+        {
+          "stage": "native append then blocked next checkpoint",
+          "restored_metadata": "/app/runs/run-856c6853e3cd/flink-exactly-once-restore/checkpoints/05b04ddd9072b8f2050808fd616dda30/chk-1/_metadata",
+          "checkpoint_id": 1,
+          "raw_records_before_kill": 1,
+          "terminated_exit": -9,
+          "native_is_restored": true
+        }
+      ],
+      "read_uncommitted_visibility_ms": {
+        "samples": 9,
+        "p50": 24,
+        "p95": 57
+      },
+      "read_committed_visibility_ms": {
+        "samples": 8,
+        "p50": 502,
+        "p95": 516
+      },
+      "read_uncommitted": {
+        "records": 9,
+        "unique_ids": 8,
+        "duplicate_records": 1,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 2,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "read_committed": {
+        "records": 8,
+        "unique_ids": 8,
+        "duplicate_records": 0,
+        "missing_ids": [],
+        "unexpected_ids": [],
+        "counts": {
+          "event-0000": 1,
+          "event-0001": 1,
+          "event-0002": 1,
+          "event-0003": 1,
+          "event-0004": 1,
+          "event-0005": 1,
+          "event-0006": 1,
+          "event-0007": 1
+        }
+      },
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    }
+  ],
+  "visibility_runs": [
+    {
+      "trial": "development-01",
+      "cases": [
+        {
+          "name": "plain-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 19,
+            "p95": 115
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 19,
+            "p95": 116
+          }
+        },
+        {
+          "name": "idempotent-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 13,
+            "p95": 354
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 14,
+            "p95": 354
+          }
+        },
+        {
+          "name": "transaction-visibility",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 8,
+            "p95": 58
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 1339,
+            "p95": 1401
+          }
+        },
+        {
+          "name": "flink-at-least-once-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 56,
+            "p95": 57
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 57,
+            "p95": 58
+          }
+        },
+        {
+          "name": "flink-exactly-once-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 58,
+            "p95": 79
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 685,
+            "p95": 707
+          }
+        },
+        {
+          "name": "flink-at-least-once-restore",
+          "read_uncommitted_visibility_ms": {
+            "samples": 9,
+            "p50": 19,
+            "p95": 59
+          },
+          "read_committed_visibility_ms": {
+            "samples": 9,
+            "p50": 20,
+            "p95": 59
+          }
+        },
+        {
+          "name": "flink-exactly-once-restore",
+          "read_uncommitted_visibility_ms": {
+            "samples": 9,
+            "p50": 27,
+            "p95": 86
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 756,
+            "p95": 774
+          }
+        }
+      ]
+    },
+    {
+      "trial": "closure-oracle-01",
+      "cases": [
+        {
+          "name": "plain-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 32,
+            "p95": 186
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 32,
+            "p95": 183
+          }
+        },
+        {
+          "name": "idempotent-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 12,
+            "p95": 295
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 12,
+            "p95": 295
+          }
+        },
+        {
+          "name": "transaction-visibility",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 13,
+            "p95": 58
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 1780,
+            "p95": 1843
+          }
+        },
+        {
+          "name": "flink-at-least-once-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 76,
+            "p95": 85
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 76,
+            "p95": 86
+          }
+        },
+        {
+          "name": "flink-exactly-once-normal",
+          "read_uncommitted_visibility_ms": {
+            "samples": 8,
+            "p50": 40,
+            "p95": 50
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 1053,
+            "p95": 1063
+          }
+        },
+        {
+          "name": "flink-at-least-once-restore",
+          "read_uncommitted_visibility_ms": {
+            "samples": 9,
+            "p50": 83,
+            "p95": 103
+          },
+          "read_committed_visibility_ms": {
+            "samples": 9,
+            "p50": 80,
+            "p95": 102
+          }
+        },
+        {
+          "name": "flink-exactly-once-restore",
+          "read_uncommitted_visibility_ms": {
+            "samples": 9,
+            "p50": 24,
+            "p95": 57
+          },
+          "read_committed_visibility_ms": {
+            "samples": 8,
+            "p50": 502,
+            "p95": 516
+          }
+        }
+      ]
+    }
+  ]
+}

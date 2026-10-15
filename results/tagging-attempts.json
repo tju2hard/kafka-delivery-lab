@@ -1,0 +1,16 @@
+[
+  {
+    "trial": "json-hour-oracle-01",
+    "classification": "invalid incomplete experiment: harness timeout",
+    "native_report_reward": 0,
+    "reason": "Redis AOF/always backlog did not drain within the 120-second raw-drain wait; no loss or flag-failure inference",
+    "remedy": "600-second drain wait, 20-minute observer lifetime, 3600-second agent budget; rerun unchanged workloads"
+  },
+  {
+    "trial": "json-hour-oracle-02",
+    "classification": "valid pilot, superseded by user-requested 30s CK and steady-cycle measurement",
+    "native_report_reward": 1,
+    "reason": "30k JSON consistency passed all 6 cases; first periodic Flink checkpoint had startup randomization and was not a steady 180s cycle",
+    "original_input_manifest_sha256": "1638b4b753d7c6e3daad83ab7c4697e9162682c80452310d91692ecd76c41086"
+  }
+]

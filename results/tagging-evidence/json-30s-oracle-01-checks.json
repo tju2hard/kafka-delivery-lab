@@ -1,0 +1,150 @@
+{
+  "report_validation_reward": 1,
+  "checks": [
+    {
+      "name": "local-marker",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3001.2004801920766,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 399,
+        "p50": 2678,
+        "p95": 3785,
+        "p99": 3826,
+        "max": 3853,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "redis-marker",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3002.7024321889703,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 372,
+        "p50": 60117,
+        "p95": 171268,
+        "p99": 182427,
+        "max": 185231,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "streams-eos-100ms",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3003.6043251902283,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 744,
+        "p50": 4968,
+        "p95": 6597,
+        "p99": 6674,
+        "max": 6728,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-alo-30s",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3003.303633997397,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 14,
+        "p50": 484,
+        "p95": 2120,
+        "p99": 2164,
+        "max": 2199,
+        "within_100ms": 9460
+      }
+    },
+    {
+      "name": "flink-alo-to-streams-eos",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3002.101471029721,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 868,
+        "p50": 7407,
+        "p95": 8612,
+        "p99": 8699,
+        "max": 8747,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-eos-30s",
+      "passed": true,
+      "flags": {
+        "arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_arrivals": 10000,
+        "duplicate_arrivals": 20000,
+        "missing_arrivals": 0,
+        "extra_arrivals": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0
+      },
+      "input_rate_per_sec": 3004.5067601402106,
+      "committed_visibility_ms": {
+        "samples": 30000,
+        "min": 17863,
+        "p50": 22752,
+        "p95": 26979,
+        "p99": 27396,
+        "max": 27623,
+        "within_100ms": 0
+      }
+    }
+  ],
+  "errors": []
+}

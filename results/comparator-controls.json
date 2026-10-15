@@ -1,0 +1,111 @@
+{
+  "native_source_trial": "json-hour-oracle-02",
+  "native_source_case": "local-marker",
+  "synthetic_inputs": true,
+  "input_sha256": "0e73a4b1ff840f041c925e87fef100483e1e82401eeb9d5aebba467afbcad94b",
+  "output_sha256": "688917e1e9441ab488da808e0fbde6d36bc1895b201704d735a5ebe94e166150",
+  "controls": [
+    {
+      "control": "valid",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_markers": 10000,
+        "duplicate_markers": 20000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "repeated_arrival_sequences": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0,
+        "schema_errors": 0,
+        "passed": true
+      }
+    },
+    {
+      "control": "missing",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 29999,
+        "unique_business_ids": 10000,
+        "first_markers": 10000,
+        "duplicate_markers": 19999,
+        "missing_arrivals": 1,
+        "unexpected_arrivals": 0,
+        "repeated_arrival_sequences": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0,
+        "schema_errors": 0,
+        "passed": false
+      }
+    },
+    {
+      "control": "repeat-sequence",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 30001,
+        "unique_business_ids": 10000,
+        "first_markers": 10001,
+        "duplicate_markers": 20000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "repeated_arrival_sequences": 1,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0,
+        "schema_errors": 0,
+        "passed": false
+      }
+    },
+    {
+      "control": "wrong-flag",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_markers": 9999,
+        "duplicate_markers": 20001,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "repeated_arrival_sequences": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 1,
+        "schema_errors": 0,
+        "passed": false
+      }
+    },
+    {
+      "control": "corrupt-nested-payload",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 30000,
+        "unique_business_ids": 10000,
+        "first_markers": 10000,
+        "duplicate_markers": 20000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "repeated_arrival_sequences": 0,
+        "payload_mismatches": 1,
+        "flag_mismatches": 0,
+        "schema_errors": 0,
+        "passed": false
+      }
+    },
+    {
+      "control": "extra-sequence",
+      "result": {
+        "input_arrivals": 30000,
+        "output_arrivals": 30001,
+        "unique_business_ids": 10000,
+        "first_markers": 10000,
+        "duplicate_markers": 20000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 1,
+        "repeated_arrival_sequences": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches": 0,
+        "schema_errors": 0,
+        "passed": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "report_validation_reward": 1.0,
+  "meaning": "truthful complete engineering experiment; not strategy exactly-once certification",
+  "checks": [
+    {
+      "name": "plain-normal",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "idempotent-normal",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "plain-ack-drop",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-ack-drop",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "application-replay",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "compacted-key",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "idempotent-restart",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-before-restart",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-after-restart",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "outbox-restart",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-acked-restart",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-external-restart",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "redis-expired-owner",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "reconcile-late-old-request",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "atomic-offsets-before-commit",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "atomic-offsets-after-commit",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "transaction-visibility",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-normal",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-exactly-once-normal",
+      "passed": true,
+      "physical_contract_pass": true,
+      "committed_view_contract_pass": true
+    },
+    {
+      "name": "flink-at-least-once-restore",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": false
+    },
+    {
+      "name": "flink-exactly-once-restore",
+      "passed": true,
+      "physical_contract_pass": false,
+      "committed_view_contract_pass": true
+    }
+  ],
+  "errors": []
+}

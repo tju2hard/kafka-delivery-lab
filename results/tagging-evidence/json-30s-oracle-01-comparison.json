@@ -1,0 +1,1899 @@
+{
+  "experiment_valid": true,
+  "run_id": "tag-30df4786bc3d",
+  "contract": "one annotated JSON output per input arrival; duplicate business IDs are retained",
+  "versions": {
+    "kafka_broker": "3.7.0",
+    "kafka_streams": "3.4.0",
+    "kafka_client": "3.4.0",
+    "flink": "1.20.4",
+    "flink_kafka_connector": "3.4.0-1.20",
+    "python": "3.10.12"
+  },
+  "topology": {
+    "brokers": 3,
+    "replication_factor": 3,
+    "min_insync_replicas": 2,
+    "acks": "all",
+    "input_partitions": 1,
+    "output_partitions": 1
+  },
+  "measurement": {
+    "arrivals_per_case": 30000,
+    "target_rate_per_sec": 3000,
+    "producer_threads": 4,
+    "start": "timestamp immediately before JSON input send",
+    "end": "first output observation by preassigned native consumer",
+    "workers_run_sequentially": true,
+    "cold_start_excluded": true,
+    "first_arrival_order": "input Kafka partition offset, not concurrent input_seq order",
+    "state_ttl_ms": 3600000,
+    "ttl_rule": "rolling processing-time expiry, refreshed on every arrival",
+    "fault_injection": false
+  },
+  "limitations": [
+    "single-machine, one partition; descriptive load experiment, not a production SLA",
+    "no failure/rebalance/restart test in this marking experiment",
+    "100ms commit interval does not guarantee 100ms end-to-end latency",
+    "the 1h expiry boundary was not observed by waiting an actual hour",
+    "Streams/local markers enforce expiry on access; expired key cleanup is not benchmarked",
+    "checkpoint period is independent of nontransactional output visibility"
+  ],
+  "cases": [
+    {
+      "name": "local-marker",
+      "source_topic": "tag-30df4786bc3d-local-marker-in",
+      "output_topic": "tag-30df4786bc3d-local-marker-out",
+      "staging_topic": null,
+      "checkpoint_interval_ms": null,
+      "commit_interval_ms": null,
+      "worker_started_at_ms": 1792054336231,
+      "warmup_ready_at_ms": 1792054339112,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054340764,
+        "send_duration_ms": 10007.355329,
+        "acknowledged_duration_ms": 10075.175525,
+        "achieved_send_rate_per_sec": 2997.7950231330296,
+        "send_buckets_per_second": {
+          "0": 2996,
+          "1": 2999,
+          "10": 3,
+          "2": 3003,
+          "3": 3002,
+          "4": 2989,
+          "5": 3009,
+          "6": 3002,
+          "7": 3000,
+          "8": 2997,
+          "9": 3000
+        }
+      },
+      "initial_periodic_checkpoint": null,
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054352553,
+        "raw_records": 30000,
+        "committed_records": 30000
+      },
+      "checkpoint_notifications": [],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/local-marker/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "cb66ae6c12a006615cf2d549bf42f4962f23292e5d507bcc814f537cc20ad959"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 399,
+            "p50": 2680,
+            "p95": 3785,
+            "p99": 3824,
+            "max": 3855,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 178,
+            "p50": 2593,
+            "p95": 3698,
+            "p99": 3785,
+            "max": 3833,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/local-marker/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "30052df5a1e6ca89c0cc56cca8d6a826a8f5b7a37eb46cb879a63bb09a635fa0"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/local-marker/observations-read_uncommitted.jsonl",
+            "bytes": 9396670,
+            "sha256": "a5f3eec617cec83be333c429c6302db2463710380901e1d8b4765265fabd367f"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054340949
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054341056
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341091
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341092
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054340826,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341093
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054340826,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054341094
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 399,
+            "p50": 2678,
+            "p95": 3785,
+            "p99": 3826,
+            "max": 3853,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 178,
+            "p50": 2593,
+            "p95": 3698,
+            "p99": 3785,
+            "max": 3833,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/local-marker/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "30052df5a1e6ca89c0cc56cca8d6a826a8f5b7a37eb46cb879a63bb09a635fa0"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/local-marker/observations-read_committed.jsonl",
+            "bytes": 9336670,
+            "sha256": "22d0873fb9c12836e1702737a5c9d1aad9168256f4554684ff2a3f1ef6c57863"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054340949
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054341056
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341091
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054340771,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341092
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054340826,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054341093
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054340826,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054341094
+            }
+          ]
+        }
+      },
+      "independent_input_rate_per_sec": 3001.2004801920766,
+      "exported_jsonl": [
+        {
+          "path": "data/local-marker/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "e1829a0f069886c697f2d6dd1d66e6d72658625719b6f5c7aa693841a951d7bc",
+          "gzip_sha256": "4f14008e3e7e58ef8fdce7d5bcf9bb53b6d25a82fe7515d76a2f0bea1f2aed8f"
+        },
+        {
+          "path": "data/local-marker/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "9fcc265ee7d6198252d876945e779670ee5936d521313717e53a959972dc12a8",
+          "gzip_sha256": "5cce295dd42babcbd897bcd1b9a2cd8c89707f0c08219fcc300a11f21de5bf08"
+        },
+        {
+          "path": "data/local-marker/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "25e23358ff3290a28a4fc6f5421b646386f135d6233c87011ffab035bb759af1",
+          "gzip_sha256": "371a01f9f71d6fe415f73f277c20f4c4bd51f82e30e546d64e24dfe5d83d75ba"
+        },
+        {
+          "path": "data/local-marker/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "f1130a76d031d1b310fa4a91210546d09984d2c034673289ccd274dfbdc87abb",
+          "gzip_sha256": "10884cafea5d1acff5d058f8c90d2c3467ddd0569872656dd3d8536d95d14b7e"
+        }
+      ]
+    },
+    {
+      "name": "redis-marker",
+      "source_topic": "tag-30df4786bc3d-redis-marker-in",
+      "output_topic": "tag-30df4786bc3d-redis-marker-out",
+      "staging_topic": null,
+      "checkpoint_interval_ms": null,
+      "commit_interval_ms": null,
+      "worker_started_at_ms": 1792054366114,
+      "warmup_ready_at_ms": 1792054369355,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054370546,
+        "send_duration_ms": 10000.047331,
+        "acknowledged_duration_ms": 10005.090761,
+        "achieved_send_rate_per_sec": 2999.9858007672065,
+        "send_buckets_per_second": {
+          "0": 3000,
+          "1": 3000,
+          "2": 2997,
+          "3": 3001,
+          "4": 3002,
+          "5": 2996,
+          "6": 3003,
+          "7": 2998,
+          "8": 3003,
+          "9": 3000
+        }
+      },
+      "initial_periodic_checkpoint": null,
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054565787,
+        "raw_records": 30000,
+        "committed_records": 30000
+      },
+      "checkpoint_notifications": [],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/redis-marker/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "ba6a101962e96ed186b28398972dfd29e19827af6b7f5a68dca4d0b4fb243115"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 368,
+            "p50": 60114,
+            "p95": 171268,
+            "p99": 182427,
+            "max": 185231,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 139,
+            "p50": 60106,
+            "p95": 171261,
+            "p99": 182417,
+            "max": 185230,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/redis-marker/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "0073502e6ffa4622a5a82736385b597961e7969b02c9d540ed3a88d61c9974ec"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/redis-marker/observations-read_uncommitted.jsonl",
+            "bytes": 9396670,
+            "sha256": "ec4c71be39b5254b485cc4025f1f59c25e9ac591e6de0651bdfad6ecf31c69bc"
+          },
+          "examples": [
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370693
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370833
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370842
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370848
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054370607,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370858
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054370606,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370865
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 372,
+            "p50": 60117,
+            "p95": 171268,
+            "p99": 182427,
+            "max": 185231,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 139,
+            "p50": 60106,
+            "p95": 171261,
+            "p99": 182417,
+            "max": 185230,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/redis-marker/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "0073502e6ffa4622a5a82736385b597961e7969b02c9d540ed3a88d61c9974ec"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/redis-marker/observations-read_committed.jsonl",
+            "bytes": 9336670,
+            "sha256": "39fc998538c2906399f0acc8836950e34ddff1afacaaecca06d9b6960e046272"
+          },
+          "examples": [
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370693
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370833
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370842
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054370554,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370848
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054370607,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054370858
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054370606,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054370865
+            }
+          ]
+        }
+      },
+      "native_redis_remaining_ttl_ms": 3401558,
+      "independent_input_rate_per_sec": 3002.7024321889703,
+      "exported_jsonl": [
+        {
+          "path": "data/redis-marker/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "da8d922ee70614e3cf9a7b41bc379b9ad3d13a646f9e98050ec71fa4e430fc02",
+          "gzip_sha256": "cfaa4eb1e418591b0cc78ec5e8b11052837ffc2e6d647ccc62bfc6fbd97d50ac"
+        },
+        {
+          "path": "data/redis-marker/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "8ef9c2cc5c3453dc6588524b0d2b473e8715f82d6625121ee47f625e1b717a87",
+          "gzip_sha256": "b175f960643f268c09649a4d5d08ce265833df526eb311d30d39c826099ea189"
+        },
+        {
+          "path": "data/redis-marker/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "bbbdce86bcd213e93131776064fe2cfee25a0a944a64e3f98e0c70c8b432322b",
+          "gzip_sha256": "e6484d312160f8c893d88c8969b0eb4a137fd1d5c8fc4a515e3a2eece0e5d8e6"
+        },
+        {
+          "path": "data/redis-marker/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "cc8f132a0c6948c311f9be12e6abf681c7ecb7e75e44a480ba045018be910b0f",
+          "gzip_sha256": "3f4f9a5b3e7f685091353123c0a0482ab6f3d6bcf0e30fbae0c1c4694bf77870"
+        }
+      ]
+    },
+    {
+      "name": "streams-eos-100ms",
+      "source_topic": "tag-30df4786bc3d-streams-eos-100ms-in",
+      "output_topic": "tag-30df4786bc3d-streams-eos-100ms-out",
+      "staging_topic": null,
+      "checkpoint_interval_ms": null,
+      "commit_interval_ms": 100,
+      "worker_started_at_ms": 1792054580387,
+      "warmup_ready_at_ms": 1792054582810,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054585573,
+        "send_duration_ms": 10009.12368,
+        "acknowledged_duration_ms": 10036.814343,
+        "achieved_send_rate_per_sec": 2997.2653909697715,
+        "send_buckets_per_second": {
+          "0": 2997,
+          "1": 2989,
+          "10": 5,
+          "2": 3010,
+          "3": 3001,
+          "4": 2979,
+          "5": 3024,
+          "6": 2994,
+          "7": 2990,
+          "8": 3005,
+          "9": 3006
+        }
+      },
+      "initial_periodic_checkpoint": null,
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054598285,
+        "raw_records": 30000,
+        "committed_records": 27941
+      },
+      "checkpoint_notifications": [],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/streams-eos-100ms/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "6da4191a7456975607b3ba86d11a40622fd7039f17ec8491f8591536f5554e2f"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 708,
+            "p50": 4882,
+            "p95": 6454,
+            "p99": 6505,
+            "max": 6561,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 375,
+            "p50": 4826,
+            "p95": 6340,
+            "p99": 6419,
+            "max": 6471,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/streams-eos-100ms/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "da75d989d5e31669e307cf2c82794fef71488ed5f6d1c38f457d14d65b009218"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/streams-eos-100ms/observations-read_uncommitted.jsonl",
+            "bytes": 9396733,
+            "sha256": "a8c36a3f97306f8251d636200a87a90abee29c5d41de27def9255db8a11c2c51"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054585587,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054585962
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054585591,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586042
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054585590,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586290
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054585597,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054586298
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054585706,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054586321
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054585705,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586337
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 744,
+            "p50": 4968,
+            "p95": 6597,
+            "p99": 6674,
+            "max": 6728,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 375,
+            "p50": 4826,
+            "p95": 6340,
+            "p99": 6419,
+            "max": 6471,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/streams-eos-100ms/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "da75d989d5e31669e307cf2c82794fef71488ed5f6d1c38f457d14d65b009218"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/streams-eos-100ms/observations-read_committed.jsonl",
+            "bytes": 9336733,
+            "sha256": "2967614787583f4e82e166af89159fb35472bc7f6ab3ea4ba66d6cb6f8a4c549"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054585587,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054585962
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054585591,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586042
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054585590,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586290
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054585597,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054586298
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054585706,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054586321
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054585705,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054586337
+            }
+          ]
+        }
+      },
+      "independent_input_rate_per_sec": 3003.6043251902283,
+      "exported_jsonl": [
+        {
+          "path": "data/streams-eos-100ms/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "4fb357bc9e390d7aa1d5986682ff942b74207eae9b7ce6a9498328554c461448",
+          "gzip_sha256": "6a9930f67080cf3443e6d4b363a7c5f7575202e1456106c8a9750c602a0f52c1"
+        },
+        {
+          "path": "data/streams-eos-100ms/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "b2068cb2f2d9888c907ed83a449d08bcda4d4416ed09d9641560c26e8d73a9ec",
+          "gzip_sha256": "f8cdcf2d13ff3b9e4f728364c57a4fca291d9e46db145ec3ca21e6c1468fe783"
+        },
+        {
+          "path": "data/streams-eos-100ms/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "8a94c9f518beb3040ab5bfbb8f9b6bca72dc3951cdfa47b62dc83ce65085001c",
+          "gzip_sha256": "e083b6208b7728c3c6580b3b0a569e093fec58509aca8ecf47ffdf0e4ad9edff"
+        },
+        {
+          "path": "data/streams-eos-100ms/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "38f92192e4e25ab8bef8c19d26565795231357cdb8fa7d731c59a48261b3bae2",
+          "gzip_sha256": "2b6d6341a126343c9cd31daa4fe4435c13ad3acf9819818b1967ef3c745bb399"
+        }
+      ]
+    },
+    {
+      "name": "flink-alo-30s",
+      "source_topic": "tag-30df4786bc3d-flink-alo-30s-in",
+      "output_topic": "tag-30df4786bc3d-flink-alo-30s-out",
+      "staging_topic": null,
+      "checkpoint_interval_ms": 30000,
+      "commit_interval_ms": null,
+      "worker_started_at_ms": 1792054612884,
+      "warmup_ready_at_ms": 1792054617743,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054619206,
+        "send_duration_ms": 10001.154914,
+        "acknowledged_duration_ms": 10004.380942,
+        "achieved_send_rate_per_sec": 2999.6535658101693,
+        "send_buckets_per_second": {
+          "0": 2898,
+          "1": 3077,
+          "2": 3018,
+          "3": 3002,
+          "4": 3000,
+          "5": 2951,
+          "6": 3035,
+          "7": 3014,
+          "8": 2991,
+          "9": 3014
+        }
+      },
+      "initial_periodic_checkpoint": null,
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054629306,
+        "raw_records": 30000,
+        "committed_records": 30000
+      },
+      "checkpoint_notifications": [],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-30s/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "645ad8fca9c2d74ae4aa51a8da638b67f4f4efdb8400b626f96ffd72124c00fc"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 13,
+            "p50": 482,
+            "p95": 2103,
+            "p99": 2189,
+            "max": 2227,
+            "within_100ms": 9593
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 8,
+            "p50": 411,
+            "p95": 2068,
+            "p99": 2117,
+            "max": 2152,
+            "within_100ms": 11749
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-30s/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "4eb1c475e399bc5e5fd304e85ce50be1f4042615dc9230aebab3626b50286bf1"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-30s/observations-read_uncommitted.jsonl",
+            "bytes": 9396670,
+            "sha256": "8f40e58c0f7985153ad8357c7b02b5b63158ad253819c7e3f00f6875526f114d"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619453
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619676
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619685
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619687
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054619277,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619699
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054619277,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619728
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 14,
+            "p50": 484,
+            "p95": 2120,
+            "p99": 2164,
+            "max": 2199,
+            "within_100ms": 9460
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 8,
+            "p50": 411,
+            "p95": 2068,
+            "p99": 2117,
+            "max": 2152,
+            "within_100ms": 11749
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-30s/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "4eb1c475e399bc5e5fd304e85ce50be1f4042615dc9230aebab3626b50286bf1"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-30s/observations-read_committed.jsonl",
+            "bytes": 9336670,
+            "sha256": "f3e006889689c2641d122bdab5ea2ef6af7f62fd824ca1f35376aadddbf8ea44"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619453
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619676
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619685
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054619217,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619687
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 5,
+              "payload": {
+                "source": "synthetic",
+                "value": 5,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054619277,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054619699
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 6,
+              "payload": {
+                "source": "synthetic",
+                "value": 6,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054619277,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054619728
+            }
+          ]
+        }
+      },
+      "independent_input_rate_per_sec": 3003.303633997397,
+      "exported_jsonl": [
+        {
+          "path": "data/flink-alo-30s/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "ed493cc4e079888f8d3704af158796c4f4bcf9baa5285a2083f90aea46c2f42d",
+          "gzip_sha256": "2cbc5cb02bb430795dbe14d104baa891ea84a9d029c731254f16886b0c2d0d4f"
+        },
+        {
+          "path": "data/flink-alo-30s/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "46470482fad0744f128200505e9ffcf8945b439d7ea08af3af7e1d5fe988acbb",
+          "gzip_sha256": "040c05172da5bdf2dd0195d042363ee9b0ac9f63eb65491bcaea812f4d4a385b"
+        },
+        {
+          "path": "data/flink-alo-30s/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "4ac61073c0807e21c3b0591ac8ec6adf5cc2b1da0117e90dc1fa9e1abe2676fb",
+          "gzip_sha256": "278ec8fe88dd3cd823c0899c9dd1e64583a8151e6c1984d3e55d93f1a21f8eb4"
+        },
+        {
+          "path": "data/flink-alo-30s/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "5752c721a33dc20903713ef7458f6a50a37fe32c7418bab42759798d512cd7de",
+          "gzip_sha256": "3997974e7843150ad5b73cf5106f8ea69085493322c74501a39b6475baf90527"
+        }
+      ]
+    },
+    {
+      "name": "flink-alo-to-streams-eos",
+      "source_topic": "tag-30df4786bc3d-flink-alo-to-streams-eos-in",
+      "output_topic": "tag-30df4786bc3d-flink-alo-to-streams-eos-out",
+      "staging_topic": "tag-30df4786bc3d-flink-alo-to-streams-eos-out-staging",
+      "checkpoint_interval_ms": 30000,
+      "commit_interval_ms": 100,
+      "worker_started_at_ms": 1792054644808,
+      "warmup_ready_at_ms": 1792054654110,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054656278,
+        "send_duration_ms": 10009.288305,
+        "acknowledged_duration_ms": 10031.716797,
+        "achieved_send_rate_per_sec": 2997.216094276545,
+        "send_buckets_per_second": {
+          "0": 2952,
+          "1": 3043,
+          "10": 2,
+          "2": 3001,
+          "3": 3001,
+          "4": 3001,
+          "5": 3002,
+          "6": 2999,
+          "7": 2994,
+          "8": 3006,
+          "9": 2999
+        }
+      },
+      "initial_periodic_checkpoint": null,
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054670982,
+        "raw_records": 30000,
+        "committed_records": 28296
+      },
+      "checkpoint_notifications": [],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-to-streams-eos/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "b7b4566c2af0adb970797f99dbb4c82e878cb4cc0ed5fbed85c19353cc6f5d7b"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 861,
+            "p50": 7338,
+            "p95": 8534,
+            "p99": 8612,
+            "max": 8656,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 549,
+            "p50": 7270,
+            "p95": 8444,
+            "p99": 8521,
+            "max": 8548,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-to-streams-eos/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "6b40bf20303764282ee7489c89c5fb3dab2b4bda21397b97c83ab5e3bcdc9c1a"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-to-streams-eos/observations-read_uncommitted.jsonl",
+            "bytes": 9396760,
+            "sha256": "065ec4c9b2d9bb58a747e1d7da07dbd8bd73e05966a91732af4a8ea2d9b2a640"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054656287,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054656836
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054656983
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054657142
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054657154
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054656345,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054657181
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054656345,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054657224
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 868,
+            "p50": 7407,
+            "p95": 8612,
+            "p99": 8699,
+            "max": 8747,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 549,
+            "p50": 7270,
+            "p95": 8444,
+            "p99": 8521,
+            "max": 8548,
+            "within_100ms": 0
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-to-streams-eos/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "6b40bf20303764282ee7489c89c5fb3dab2b4bda21397b97c83ab5e3bcdc9c1a"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-alo-to-streams-eos/observations-read_committed.jsonl",
+            "bytes": 9336760,
+            "sha256": "998e6b154bba69deabd533467aa6cb51c4b05f3be992441325777dda89aca653"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054656287,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054656836
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054656983
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054657142
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054656286,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054657154
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054656345,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054657181
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054656345,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054657224
+            }
+          ]
+        }
+      },
+      "upstream_ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "independent_input_rate_per_sec": 3002.101471029721,
+      "exported_jsonl": [
+        {
+          "path": "data/flink-alo-to-streams-eos/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "1305f06bdb580828d35ec4c0c5a19622941014728397228258336df2e2181e76",
+          "gzip_sha256": "4fed2b5d0566f24eb5e6297af6fa8174f31e20e8cfd39762d2749eca0c838c5a"
+        },
+        {
+          "path": "data/flink-alo-to-streams-eos/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "f31df295369be28774534e3d2f2b4d2f099cf457da6f03d9ec8c1e3d40bcab67",
+          "gzip_sha256": "85798b735d4419dfe9f8c12a9ea8bb7772ff043aa9071026c37f3c77a0ec1ba6"
+        },
+        {
+          "path": "data/flink-alo-to-streams-eos/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "5932e826ea71f42ec036adc98b67a12bad0763f55b00202be222d4556f3bd615",
+          "gzip_sha256": "13cb60a57b504ba96772a0efb0cb98e472df76117f1a11c675425c808a5703b9"
+        },
+        {
+          "path": "data/flink-alo-to-streams-eos/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "33ae6899ca654215f5b2c6f5cfbbf67cfe41be0665f582e21d609580455013ee",
+          "gzip_sha256": "28ec4997ccabd1706e30e93f1552e3f4b58863e52b0781784efe57f3d105eba3"
+        }
+      ]
+    },
+    {
+      "name": "flink-eos-30s",
+      "source_topic": "tag-30df4786bc3d-flink-eos-30s-in",
+      "output_topic": "tag-30df4786bc3d-flink-eos-30s-out",
+      "staging_topic": null,
+      "checkpoint_interval_ms": 30000,
+      "commit_interval_ms": null,
+      "worker_started_at_ms": 1792054686326,
+      "warmup_ready_at_ms": 1792054691556,
+      "generation": {
+        "records": 30000,
+        "target_rate_per_sec": 3000,
+        "producer_threads": 4,
+        "started_at_ms": 1792054700509,
+        "send_duration_ms": 10003.809805,
+        "acknowledged_duration_ms": 10012.701985,
+        "achieved_send_rate_per_sec": 2998.857493772594,
+        "send_buckets_per_second": {
+          "0": 2624,
+          "1": 3374,
+          "10": 4,
+          "2": 2991,
+          "3": 2932,
+          "4": 3029,
+          "5": 3016,
+          "6": 3033,
+          "7": 3001,
+          "8": 2999,
+          "9": 2997
+        }
+      },
+      "initial_periodic_checkpoint": {
+        "checkpoint_id": 1,
+        "completed_at_ms": 1792054698235,
+        "processed_at_notification": 0
+      },
+      "ttl_configuration": {
+        "ttl_ms": 3600000,
+        "refresh": "every_arrival",
+        "time_basis": "processing"
+      },
+      "early_observation": {
+        "at_ms": 1792054710621,
+        "raw_records": 30000,
+        "committed_records": 0
+      },
+      "checkpoint_notifications": [
+        {
+          "checkpoint_id": 1,
+          "completed_at_ms": 1792054698235,
+          "processed_at_notification": 0
+        },
+        {
+          "checkpoint_id": 2,
+          "completed_at_ms": 1792054728127,
+          "processed_at_notification": 30000
+        }
+      ],
+      "input_file": {
+        "path": "/app/tagging-runs/tag-30df4786bc3d/flink-eos-30s/input.jsonl",
+        "bytes": 3997780,
+        "sha256": "1dcb7a04f96a5918359cea2c158b7dc36ad347e85283198f7686bd870839dcfd"
+      },
+      "views": {
+        "read_uncommitted": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 21,
+            "p50": 116,
+            "p95": 1982,
+            "p99": 2100,
+            "max": 2137,
+            "within_100ms": 13335
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 9,
+            "p50": 93,
+            "p95": 1888,
+            "p99": 2052,
+            "max": 2076,
+            "within_100ms": 15415
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-eos-30s/sink-read_uncommitted.jsonl",
+            "bytes": 5477780,
+            "sha256": "8d5f4607dc5792d891408453ef0ee8edbc2a976e335318e26d3acea4d52e5fb2"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-eos-30s/observations-read_uncommitted.jsonl",
+            "bytes": 9396670,
+            "sha256": "813311208263773fe727f7ea5749282e38a024dcd1870cd723a48de98d233e35"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700777
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700909
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700911
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700922
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054700603,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700923
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054700603,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700927
+            }
+          ]
+        },
+        "read_committed": {
+          "flags": {
+            "arrivals": 30000,
+            "unique_business_ids": 10000,
+            "first_arrivals": 10000,
+            "duplicate_arrivals": 20000,
+            "missing_arrivals": 0,
+            "extra_arrivals": 0,
+            "payload_mismatches": 0,
+            "flag_mismatches": 0
+          },
+          "visibility_ms": {
+            "samples": 30000,
+            "min": 17863,
+            "p50": 22752,
+            "p95": 26979,
+            "p99": 27396,
+            "max": 27623,
+            "within_100ms": 0
+          },
+          "input_to_mark_ms": {
+            "samples": 30000,
+            "min": 9,
+            "p50": 93,
+            "p95": 1888,
+            "p99": 2052,
+            "max": 2076,
+            "within_100ms": 15415
+          },
+          "sink_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-eos-30s/sink-read_committed.jsonl",
+            "bytes": 5477780,
+            "sha256": "8d5f4607dc5792d891408453ef0ee8edbc2a976e335318e26d3acea4d52e5fb2"
+          },
+          "observation_file": {
+            "path": "/app/tagging-runs/tag-30df4786bc3d/flink-eos-30s/observations-read_committed.jsonl",
+            "bytes": 9336670,
+            "sha256": "534cc57b82111a999eb41be21c96a2adc3db5d6a3c579d8459331a6751d834c1"
+          },
+          "examples": [
+            {
+              "event_id": "event-00000",
+              "input_seq": 1,
+              "payload": {
+                "source": "synthetic",
+                "value": 1,
+                "worker": 1
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700777
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 2,
+              "payload": {
+                "source": "synthetic",
+                "value": 2,
+                "worker": 2
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700909
+            },
+            {
+              "event_id": "event-00000",
+              "input_seq": 0,
+              "payload": {
+                "source": "synthetic",
+                "value": 0,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700911
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 3,
+              "payload": {
+                "source": "synthetic",
+                "value": 3,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054700524,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700922
+            },
+            {
+              "event_id": "event-00001",
+              "input_seq": 4,
+              "payload": {
+                "source": "synthetic",
+                "value": 4,
+                "worker": 0
+              },
+              "ingested_at_ms": 1792054700603,
+              "is_duplicate": true,
+              "marked_at_ms": 1792054700923
+            },
+            {
+              "event_id": "event-00002",
+              "input_seq": 7,
+              "payload": {
+                "source": "synthetic",
+                "value": 7,
+                "worker": 3
+              },
+              "ingested_at_ms": 1792054700603,
+              "is_duplicate": false,
+              "marked_at_ms": 1792054700927
+            }
+          ]
+        }
+      },
+      "independent_input_rate_per_sec": 3004.5067601402106,
+      "exported_jsonl": [
+        {
+          "path": "data/flink-eos-30s/input.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "cd4e08e3f154573fd6016d741bca31a92418332a9deb1a0e81ff6f07660b6ba4",
+          "gzip_sha256": "70dabc0170da9eb5c8509191f3d3d479984547dc0f6d6cd7cd0b2c5642271eb8"
+        },
+        {
+          "path": "data/flink-eos-30s/observations-read_uncommitted.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "a7f40fbb4bcb92c2b667cfead4a8f363d22afe8c125a8407269c3a158337708a",
+          "gzip_sha256": "7ba60df5aeb38c92358e59086620804bd58c8bf1eef1b09b3b57710085e1e130"
+        },
+        {
+          "path": "data/flink-eos-30s/output.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "e839731939ef8075534a78a876ddbccc508e94609c1ff600aae764efc2cfc962",
+          "gzip_sha256": "656b5fb609ed1645e18b5970f9c5408686a5b7aed4f18141ee7f58ee5bf8f3f7"
+        },
+        {
+          "path": "data/flink-eos-30s/observations-read_committed.jsonl.gz",
+          "rows": 30000,
+          "uncompressed_sha256": "659f1a7e5a65476caf27fca773d882a59c704d8af4c80a912483425d9e09300a",
+          "gzip_sha256": "2bb86250c1edd4faa76d139b967d27992e028830043727b7d4afb9a4bc14215f"
+        }
+      ]
+    }
+  ]
+}

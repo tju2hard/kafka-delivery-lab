@@ -1,0 +1,6 @@
+{"event_id":"event-00000","ingested_at_ms":1792054340771,"input_seq":2,"is_duplicate":false,"marked_at_ms":1792054340949,"payload":{"source":"synthetic","value":2,"worker":2}}
+{"event_id":"event-00001","ingested_at_ms":1792054340771,"input_seq":3,"is_duplicate":false,"marked_at_ms":1792054341056,"payload":{"source":"synthetic","value":3,"worker":3}}
+{"event_id":"event-00000","ingested_at_ms":1792054340771,"input_seq":0,"is_duplicate":true,"marked_at_ms":1792054341091,"payload":{"source":"synthetic","value":0,"worker":0}}
+{"event_id":"event-00000","ingested_at_ms":1792054340771,"input_seq":1,"is_duplicate":true,"marked_at_ms":1792054341092,"payload":{"source":"synthetic","value":1,"worker":1}}
+{"event_id":"event-00001","ingested_at_ms":1792054340826,"input_seq":4,"is_duplicate":true,"marked_at_ms":1792054341093,"payload":{"source":"synthetic","value":4,"worker":0}}
+{"event_id":"event-00002","ingested_at_ms":1792054340826,"input_seq":6,"is_duplicate":false,"marked_at_ms":1792054341094,"payload":{"source":"synthetic","value":6,"worker":2}}

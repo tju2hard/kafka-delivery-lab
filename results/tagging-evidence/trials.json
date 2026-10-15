@@ -1,0 +1,24 @@
+[
+  {
+    "trial": "json-30s-baseline-02",
+    "started_at": "2026-10-15T08:50:57.134807Z",
+    "finished_at": "2026-10-15T08:51:24.062878Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 0.0
+      }
+    }
+  },
+  {
+    "trial": "json-30s-oracle-01",
+    "started_at": "2026-10-15T08:51:56.976528Z",
+    "finished_at": "2026-10-15T09:00:39.636788Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  }
+]

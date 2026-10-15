@@ -1,0 +1,35 @@
+[
+  {
+    "trial": "closure-baseline",
+    "started_at": "2026-10-15T07:55:11.307368Z",
+    "finished_at": "2026-10-15T07:55:38.960083Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 0.0
+      }
+    }
+  },
+  {
+    "trial": "development-01",
+    "started_at": "2026-10-15T07:50:29.494175Z",
+    "finished_at": "2026-10-15T07:54:47.888403Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  },
+  {
+    "trial": "closure-oracle-01",
+    "started_at": "2026-10-15T07:55:49.406963Z",
+    "finished_at": "2026-10-15T07:59:57.295630Z",
+    "exception_info": null,
+    "verifier_result": {
+      "rewards": {
+        "reward": 1.0
+      }
+    }
+  }
+]

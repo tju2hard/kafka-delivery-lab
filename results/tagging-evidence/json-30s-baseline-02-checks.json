@@ -1,0 +1,7 @@
+{
+  "report_validation_reward": 0,
+  "checks": [],
+  "errors": [
+    "FileNotFoundError: [Errno 2] No such file or directory: '/app/tagging-report.json'"
+  ]
+}
