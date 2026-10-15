@@ -12,6 +12,10 @@ Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，
 重复消息必须输出。下面的 ID 过滤实验是不同语义，不能作为本需求的结果。
 
 两轮原生实验及逐条复核已完成，见 [总量、重复标记与延迟对比](results/ARRIVAL_COMPARISON.md)。
+9000是每场原始输入总数，已包含重复 ID。直接 Streams EOS 恢复后仍输出9000条；
+Flink 非事务转发的恢复链路先向中间 Kafka 写成18000条，下游 Streams 因而读取并输出18000条。
+本次全量标记实验的 Redis 仅测“先登记 Redis、后写 Kafka”；“Kafka ACK 后再登记 Redis”
+尚未纳入该实验。下面的过滤实验测过两种顺序，其结果属于另一种输出语义。
 实际 JSON 小样：[9条输入](results/examples/arrival-marked-input.jsonl)、
 [9条带标记输出](results/examples/arrival-marked-output.jsonl)。
 

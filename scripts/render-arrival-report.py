@@ -38,8 +38,8 @@ def main():
     assert len({r['run_id'] for r in runs})==2
     (results/'arrival-summary.json').write_text(json.dumps({'input_manifest_sha256':digest(manifest),'native_trials':metadata,'runs':runs},ensure_ascii=False,indent=2)+'\n')
     (evidence/'trials.json').write_text(json.dumps(metadata,indent=2)+'\n')
-    labels={'flink-state-alo':'Flink state＋普通 sink','redis-sink-alo':'Redis sink 标记＋普通发送',
-        'streams-direct-eos':'直接 Streams EOS','flink-alo-streams-eos':'Flink 普通转发→Streams EOS','flink-state-eos':'Flink state＋事务 sink'}
+    labels={'flink-state-alo':'Flink state＋普通 sink','redis-sink-alo':'先登记 Redis→普通 Kafka 发送',
+        'streams-direct-eos':'原始 Kafka→Streams EOS','flink-alo-streams-eos':'Flink 非事务转发→中间 Kafka→Streams EOS','flink-state-eos':'Flink state＋事务 sink'}
     lines=['# 全量输出＋重复标记：总量、标记与 Kafka sink 延迟','',
         '**每次输入都输出，重复业务 ID 只增加 is_duplicate=true，绝不因为重复而跳过 sink。**','',
         '每场9000条合成 JSON、3000个 ID 各三次；四线程目标3000次到达/秒，约3秒短批次。'
@@ -48,7 +48,35 @@ def main():
         '滚动1小时处理时间窗口，每次到达刷新。单机、单分区、处理并行度1，三Broker、副本3、minISR2。','',
         f'Harbor 基线 `{args.baseline}` 正常得0；`{args.oracle[0]}`、`{args.oracle[1]}` 两轮正常得1，'
         '每轮10场，由独立原生消费者复读并逐条比较 JSON、源序号、标记和观测时间。'
-        'reward=1表示报告有效，不表示所有被比较方案都满足交付要求。','']
+        'reward=1表示报告有效，不表示所有被比较方案都满足交付要求。','',
+        '## 输入总数与 Streams 的事务范围','',
+        '**9000条是每个场景的原始输入总数，已包含3000个 ID 各出现三次；不是9000条唯一 ID 再加重复消息。**','',
+        '直接 Streams EOS 两轮恢复后都是9000条。串联链路在 Flink 非事务恢复时，'
+        '把原始输入重放写入中间 Kafka，中间 topic 已有18000条不同 offset 的记录。'
+        '下游 Streams 保留每次输入并增加标记，因此读取18000条、输出18000条。'
+        '该串联链路未达到原始9000条输入对应9000条输出的端到端目标。','',
+        '| 运行 | 恢复链路 | 原始输入总数 | Streams 实际入口条数 | 最终已提交输出 |',
+        '|---|---|---:|---:|---:|']
+    for run in runs:
+        for name in ('streams-direct-eos-recovery','flink-alo-streams-eos-recovery'):
+            case=next(c for c in run['cases'] if c['name']==name)
+            audit=case['views']['read_committed']['audit']
+            # For the bridge, the native verifier freshly reread the staging
+            # topic and asserted its business-record count equals output count.
+            entry_count=audit['output_arrivals'] if case.get('staging_topic') else audit['source_arrivals']
+            label='原始 Kafka→Streams EOS' if not case.get('staging_topic') else 'Flink 非事务转发→中间 Kafka→Streams EOS'
+            lines.append(f"| {run['trial']} | {label} | {audit['source_arrivals']} | {entry_count} | {audit['output_arrivals']} |")
+    lines += ['',
+        'EOS 协调的是 Streams 实际入口的 offset、状态和输出；上游向中间 topic 额外写入的新 offset，'
+        '会被视为新的输入记录。业务 ID 重复标记不等于识别并消除原始输入的故障重放。','',
+        '## Redis 两种顺序的实验覆盖','',
+        '| 顺序 | 本次全量输出标记实验 | 关键故障窗口 |',
+        '|---|---|---|',
+        '| 查 Redis→登记 seen/刷新 TTL→写 Kafka | 已测正常与 CK 失败恢复，两轮 | Redis 已更新、Kafka 尚未成功写入时故障，恢复后首次消息可能被错误标为重复 |',
+        '| 查 Redis→写 Kafka→等待 ACK→登记 seen/刷新 TTL | 本次尚未测试 | Kafka 已写入、Redis 尚未更新时故障，重放可能再次写出 false；普通发送也可能额外多写 |','',
+        '本次 Redis 的14402条仅属于“先登记”实现。上表的关键窗口说明不是本次 CK 故障'
+        '已经逐一注入的结果。此前 [ID 过滤实验](DEDUPLICATION.md) 测过先登记和后登记，'
+        '但那里重复 ID 会跳过 sink，与当前保留全部到达的语义不同，不能套用其数字。','']
     for run in runs:
         lines += [f"## {run['trial']}",'',
             f"本轮实际源发送速率 {min(c['generation']['achieved_send_rate_per_sec'] for c in run['cases']):.1f}～{max(c['generation']['achieved_send_rate_per_sec'] for c in run['cases']):.1f} 条/秒；每个 ID 三次到达。",'',
