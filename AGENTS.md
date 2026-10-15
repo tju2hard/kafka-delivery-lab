@@ -35,3 +35,11 @@ checkpoint failure. Its CK30s Flink case is a normal latency reference.
 Keep runtime/image/dependency versions pinned. Test reports must identify exact
 versions, fault witnesses, raw counts, committed counts and visibility times.
 Stop only this lab's owned processes and services. No Docker socket in the image.
+
+`arrival-marking-comparison` restores the current requested contract: EVERY
+source arrival must be output, with is_duplicate=false on the first business-ID
+arrival and true on later arrivals. Never filter these business duplicates.
+Report total rows, distinct IDs, false/true counts, missing input_seq, recovery
+replays, complete payload/marker errors and measured sink committed visibility.
+Compare normal and recovery separately. Redis seen check/update and Kafka
+send belong in sink.invoke; they remain separate non-atomic systems.

@@ -1,0 +1,473 @@
+{
+  "offline_checks": [
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-normal",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-normal",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-recovery",
+      "view": "read_uncommitted",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-recovery",
+      "view": "read_committed",
+      "matches_native_audit": true,
+      "latency_recomputed": true
+    }
+  ],
+  "actual_data_controls": [
+    "actual native data accepted",
+    "equal total with one lost and one replay rejected",
+    "wrong first/duplicate flag rejected",
+    "full payload corruption rejected",
+    "business duplicate filtering rejected"
+  ],
+  "paired_raw_to_committed_observer_differences_ms": [
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-normal",
+      "samples": 9000,
+      "p50": 0,
+      "p99": 16,
+      "negative_samples": 3696,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-normal",
+      "samples": 9000,
+      "p50": 0,
+      "p99": 3,
+      "negative_samples": 1092,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-normal",
+      "samples": 9000,
+      "p50": 130,
+      "p99": 246,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-normal",
+      "samples": 9000,
+      "p50": 89,
+      "p99": 173,
+      "negative_samples": 1,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-normal",
+      "samples": 9000,
+      "p50": 26491,
+      "p99": 28514,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-alo-recovery",
+      "samples": 18000,
+      "p50": 0,
+      "p99": 31,
+      "negative_samples": 8461,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "redis-sink-alo-recovery",
+      "samples": 14402,
+      "p50": 0,
+      "p99": 2,
+      "negative_samples": 1181,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "streams-direct-eos-recovery",
+      "samples": 9000,
+      "p50": 73,
+      "p99": 128,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-alo-streams-eos-recovery",
+      "samples": 18000,
+      "p50": 99,
+      "p99": 182,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "case": "flink-state-eos-recovery",
+      "samples": 9000,
+      "p50": 4409,
+      "p99": 4825,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-normal",
+      "samples": 9000,
+      "p50": -2,
+      "p99": 45,
+      "negative_samples": 5048,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-normal",
+      "samples": 9000,
+      "p50": 0,
+      "p99": 3,
+      "negative_samples": 806,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-normal",
+      "samples": 9000,
+      "p50": 117,
+      "p99": 215,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-normal",
+      "samples": 9000,
+      "p50": 100,
+      "p99": 169,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-normal",
+      "samples": 9000,
+      "p50": 24954,
+      "p99": 27452,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-alo-recovery",
+      "samples": 18000,
+      "p50": 0,
+      "p99": 30,
+      "negative_samples": 5143,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "redis-sink-alo-recovery",
+      "samples": 14402,
+      "p50": 0,
+      "p99": 2,
+      "negative_samples": 1172,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "streams-direct-eos-recovery",
+      "samples": 9000,
+      "p50": 92,
+      "p99": 192,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-alo-streams-eos-recovery",
+      "samples": 18000,
+      "p50": 90,
+      "p99": 189,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "case": "flink-state-eos-recovery",
+      "samples": 9000,
+      "p50": 19618,
+      "p99": 20040,
+      "negative_samples": 0,
+      "meaning": "same-offset observer difference; includes consumer scheduling, not precise broker commit time"
+    }
+  ]
+}

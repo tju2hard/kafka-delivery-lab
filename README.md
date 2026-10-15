@@ -4,6 +4,20 @@
 Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，不是生产库，
 也不是 TalentAI 出题包；不调用模型。
 
+## 当前需求：全量输出，只标记重复
+
+`harbor/arrival-marking-comparison` 对比五种方案在正常与故障恢复时的最终总条数、
+去重后 ID 数、首次/重复标记、输入重放和 Kafka sink 可见延迟。每场9000次到达，
+3000个 ID 各三次，四线程目标3000条/秒；理想输出仍为9000条，3000 false、6000 true。
+重复消息必须输出。下面的 ID 过滤实验是不同语义，不能作为本需求的结果。
+
+两轮原生实验及逐条复核已完成，见 [总量、重复标记与延迟对比](results/ARRIVAL_COMPARISON.md)。
+实际 JSON 小样：[9条输入](results/examples/arrival-marked-input.jsonl)、
+[9条带标记输出](results/examples/arrival-marked-output.jsonl)。
+
+实现：[ArrivalStreamsDemo](src/main/java/lab/ArrivalStreamsDemo.java)、
+[ArrivalCheckpointDemo](src/main/java/lab/ArrivalCheckpointDemo.java)。
+
 ## Kafka Streams：过滤重复 ID＋EOSv2
 
 已实现 [StreamsDeduplicationDemo](src/main/java/lab/StreamsDeduplicationDemo.java)：
@@ -27,7 +41,7 @@ harbor trials start -p harbor/streams-id-filter -a oracle \
 
 ## 按业务 ID 过滤：Redis 能否模拟事务的不重不漏
 
-当前目标是同一个业务 ID 最终只输出首次到达的一条完整 JSON，重复 ID 直接跳过
+该过滤实验要求同一个业务 ID 最终只输出首次到达的一条完整 JSON，重复 ID 直接跳过
 sink。新实现见 [DeduplicationDemo](src/main/java/lab/DeduplicationDemo.java)，
 Harbor 入口为 `harbor/id-deduplication`。本轮每场景四线程目标3000条/秒，输入
 9000条、3000个 ID 各三次；按完整业务 ID 集合和首次 JSON 核对，不能只比总数。

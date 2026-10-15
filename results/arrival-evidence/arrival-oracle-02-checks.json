@@ -1,0 +1,326 @@
+{
+  "report_validation_reward": 1,
+  "checks": [
+    {
+      "name": "flink-state-alo-normal",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 840,
+        "p50": 2298,
+        "p95": 2774,
+        "p99": 2805,
+        "max": 2830,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "redis-sink-alo-normal",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 428,
+        "p50": 37981,
+        "p95": 66183,
+        "p99": 68538,
+        "max": 69256,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "streams-direct-eos-normal",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 495,
+        "p50": 5999,
+        "p95": 6465,
+        "p99": 6547,
+        "max": 6584,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-alo-streams-eos-normal",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 1067,
+        "p50": 4943,
+        "p95": 5180,
+        "p99": 5219,
+        "max": 5243,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-state-eos-normal",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 25478,
+        "p50": 26693,
+        "p95": 27948,
+        "p99": 28193,
+        "max": 28383,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-state-alo-recovery",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 18000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 9000,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 3000,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 6000,
+        "true_markers": 12000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 3000,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      },
+      "visibility_ms": {
+        "samples": 18000,
+        "min": 523,
+        "p50": 1923,
+        "p95": 28843,
+        "p99": 29049,
+        "max": 29167,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "redis-sink-alo-recovery",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 14402,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 5402,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 1801,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 11402,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      },
+      "visibility_ms": {
+        "samples": 14402,
+        "min": 464,
+        "p50": 53423,
+        "p95": 95582,
+        "p99": 99296,
+        "max": 100296,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "streams-direct-eos-recovery",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 17952,
+        "p50": 19943,
+        "p95": 20266,
+        "p99": 20309,
+        "max": 20337,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-alo-streams-eos-recovery",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 18000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 9000,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 3000,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 15000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 2,
+        "arrival_contract_pass": false
+      },
+      "visibility_ms": {
+        "samples": 18000,
+        "min": 944,
+        "p50": 4074,
+        "p95": 28854,
+        "p99": 28934,
+        "max": 29005,
+        "within_100ms": 0
+      }
+    },
+    {
+      "name": "flink-state-eos-recovery",
+      "passed": true,
+      "committed_audit": {
+        "source_arrivals": 9000,
+        "unique_business_ids": 3000,
+        "output_unique_business_ids": 3000,
+        "output_arrivals": 9000,
+        "missing_arrivals": 0,
+        "unexpected_arrivals": 0,
+        "replayed_arrival_records": 0,
+        "payload_mismatches": 0,
+        "flag_mismatches_in_output_order": 0,
+        "flag_mismatches_against_source": 0,
+        "invalid_flag_types": 0,
+        "false_markers": 3000,
+        "true_markers": 6000,
+        "business_ids_without_false": 0,
+        "business_ids_with_multiple_false": 0,
+        "maximum_input_sequence_multiplicity": 1,
+        "arrival_contract_pass": true
+      },
+      "visibility_ms": {
+        "samples": 9000,
+        "min": 47042,
+        "p50": 48491,
+        "p95": 49597,
+        "p99": 49820,
+        "max": 49937,
+        "within_100ms": 0
+      }
+    }
+  ],
+  "errors": []
+}

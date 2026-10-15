@@ -1,0 +1,86 @@
+{
+  "contract": "every source arrival output once with correct business-ID repeat marker; no filtering",
+  "source_manifest_sha256": "5243f77a7fe95e62c86e0b421a815a643aa48d6546cf185bd715ab59201fea43",
+  "runtime_manifest_sha256": "9bd223916825295ebff0eafd3e0955bc36a7188ee93aaef2dc90d6b45c3b7d0b",
+  "bounded_build": {
+    "command": "bash scripts/build.sh",
+    "exit_code": 0,
+    "duration_seconds": 8.209
+  },
+  "audit_controls": {
+    "command": "python3 -m unittest discover -s tests -p test_arrival_marking.py",
+    "exit_code": 0,
+    "tests": 5
+  },
+  "task_static_audit": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "native_trials": [
+    {
+      "trial": "arrival-baseline-01",
+      "started_at": "2026-10-15T10:52:29.402285Z",
+      "finished_at": "2026-10-15T10:53:16.454294Z",
+      "exception_info": null,
+      "verifier_result": {
+        "rewards": {
+          "reward": 0.0
+        }
+      }
+    },
+    {
+      "trial": "arrival-oracle-01",
+      "started_at": "2026-10-15T10:53:43.756086Z",
+      "finished_at": "2026-10-15T11:09:19.768012Z",
+      "exception_info": null,
+      "verifier_result": {
+        "rewards": {
+          "reward": 1.0
+        }
+      }
+    },
+    {
+      "trial": "arrival-oracle-02",
+      "started_at": "2026-10-15T11:09:39.822979Z",
+      "finished_at": "2026-10-15T11:26:33.751633Z",
+      "exception_info": null,
+      "verifier_result": {
+        "rewards": {
+          "reward": 1.0
+        }
+      }
+    }
+  ],
+  "verifier_timeout_calculation": {
+    "base_topic_reads": 30,
+    "extra_staging_reads": 2,
+    "each_read_timeout_sec": 60,
+    "admin_offset_checks": 2,
+    "each_admin_timeout_sec": 30,
+    "sequential_subprocess_limit_sum_sec": 1980,
+    "framework_audit_export_slack_sec": 420,
+    "configured_timeout_sec": 2400
+  },
+  "offline": {
+    "native_output_audits_and_latency_recomputations": 40,
+    "real_data_controls": [
+      "actual native data accepted",
+      "equal total with one lost and one replay rejected",
+      "wrong first/duplicate flag rejected",
+      "full payload corruption rejected",
+      "business duplicate filtering rejected"
+    ],
+    "gzip_sha256_uncompressed_sha256_and_rows_verified": 100
+  },
+  "model_calls": 0,
+  "scope": "local engineering feasibility; not platform task submission or production SLA",
+  "nonsemantic_source_cleanup": {
+    "path": "src/main/java/lab/ArrivalCheckpointDemo.java",
+    "change": "removed spaces from one empty line; same line count and tokens",
+    "native_frozen_source": "results/arrival-evidence/inputs/src/main/java/lab/ArrivalCheckpointDemo.java.gz",
+    "frozen_sha256": "b2e606a38b72e99575a984cc654101d0b78b664e80f3801ad9571fc72a59cbaf",
+    "clean_sha256": "b71507fe148381148b7ba96530bbc9b0afb3a9473f64eb45f6cc69bbf8f7d9bc",
+    "rebuilt_class_and_jar_files_identical_to_native_runs": 85,
+    "frozen_gzip_sha256": "7bdeb2c48526c886d17a5669303a8602e656bb4646e04d7366d2bee535b9592c"
+  }
+}

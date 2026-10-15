@@ -1,0 +1,9 @@
+{"event_id": "event-00000", "ingested_at_ms": 1792061839560, "input_seq": 1, "is_duplicate": false, "marked_at_ms": 1792061839816, "payload": {"source": "synthetic", "value": 1, "worker": 1}}
+{"event_id": "event-00000", "ingested_at_ms": 1792061839560, "input_seq": 2, "is_duplicate": true, "marked_at_ms": 1792061839966, "payload": {"source": "synthetic", "value": 2, "worker": 2}}
+{"event_id": "event-00001", "ingested_at_ms": 1792061839560, "input_seq": 3, "is_duplicate": false, "marked_at_ms": 1792061840249, "payload": {"source": "synthetic", "value": 3, "worker": 3}}
+{"event_id": "event-00000", "ingested_at_ms": 1792061839560, "input_seq": 0, "is_duplicate": true, "marked_at_ms": 1792061840273, "payload": {"source": "synthetic", "value": 0, "worker": 0}}
+{"event_id": "event-00001", "ingested_at_ms": 1792061839613, "input_seq": 4, "is_duplicate": true, "marked_at_ms": 1792061840275, "payload": {"source": "synthetic", "value": 4, "worker": 0}}
+{"event_id": "event-00002", "ingested_at_ms": 1792061839613, "input_seq": 6, "is_duplicate": false, "marked_at_ms": 1792061840279, "payload": {"source": "synthetic", "value": 6, "worker": 2}}
+{"event_id": "event-00001", "ingested_at_ms": 1792061839613, "input_seq": 5, "is_duplicate": true, "marked_at_ms": 1792061840287, "payload": {"source": "synthetic", "value": 5, "worker": 1}}
+{"event_id": "event-00002", "ingested_at_ms": 1792061839613, "input_seq": 7, "is_duplicate": true, "marked_at_ms": 1792061840315, "payload": {"source": "synthetic", "value": 7, "worker": 3}}
+{"event_id": "event-00002", "ingested_at_ms": 1792061839614, "input_seq": 8, "is_duplicate": true, "marked_at_ms": 1792061840349, "payload": {"source": "synthetic", "value": 8, "worker": 0}}
