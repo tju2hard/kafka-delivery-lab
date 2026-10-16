@@ -44,6 +44,18 @@ replays, complete payload/marker errors and measured sink committed visibility.
 Compare normal and recovery separately. Redis seen check/update and Kafka
 send belong in sink.invoke; they remain separate non-atomic systems.
 
+The revised arrival matrix has seven schemes: state marking with transactional
+or nontransactional output, direct Streams EOS, pure Redis marking before/after
+output, and state marking with a Redis send ledger before/after output. Preserve
+all business arrivals in every scheme. Business seen keys use event_id; the
+separate sink send ledger uses input_seq (a stable arrival identity), skipping
+only recovery replays. A before-send reservation is not a confirmed Kafka ACK.
+Inject Redis faults on the first business arrival at the actual write gap,
+independently observe Redis and both Kafka views before releasing a native sink
+exception. Distinguish marker loss with no missing arrival from actual arrival
+loss, and extra false markers from changed flag values. Keep historical bridge
+results separate from the seven-scheme matrix; never relabel old measurements.
+
 Keep the primary arrival report focused on the human's columns: transactional
 output, nontransactional output, Redis marking, direct Streams EOS; total rows,
 first/repeat markers, arithmetic mean and p99 send-to-committed-visibility time.

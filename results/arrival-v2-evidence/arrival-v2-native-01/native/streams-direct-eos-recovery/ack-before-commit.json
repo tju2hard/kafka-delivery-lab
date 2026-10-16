@@ -1,0 +1,1 @@
+{"pid":279121,"topic":"arrival-native-streams-direct-eos-recovery-out","partition":0,"offset":0,"value":{"event_id":"event-00001","input_seq":3,"payload":{"source":"synthetic","value":3,"worker":3},"ingested_at_ms":1792121714753,"is_duplicate":false,"marked_at_ms":1792121714884},"at_ms":1792121715031}

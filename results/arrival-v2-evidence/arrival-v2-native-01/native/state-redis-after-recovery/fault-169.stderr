@@ -1,0 +1,36 @@
+[main] WARN org.apache.flink.configuration.Configuration - Config uses deprecated configuration key 'state.checkpoints.dir' instead of proper key 'execution.checkpointing.dir'
+[main] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - No tokens obtained so skipping notifications
+[main] WARN org.apache.flink.runtime.webmonitor.WebMonitorUtils - Log file environment variable 'log.file' is not set.
+[main] WARN org.apache.flink.runtime.webmonitor.WebMonitorUtils - JobManager log files are unavailable in the web dashboard. Log file location not found in environment variable 'log.file' or configuration key 'web.log.path'.
+[flink-pekko.actor.default-dispatcher-4] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - No tokens obtained so skipping notifications
+[flink-pekko.actor.default-dispatcher-4] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - Tokens update task not started because either no tokens obtained or none of the tokens specified its renewal date
+[SourceCoordinator-Source: durable Kafka input] WARN org.apache.kafka.clients.admin.AdminClientConfig - These configurations '[key.deserializer, value.deserializer, enable.auto.commit, isolation.level, client.id.prefix, group.id, fetch.max.wait.ms, partition.discovery.interval.ms, auto.offset.reset]' were supplied but are not used yet.
+[Source: durable Kafka input (1/1)#0] WARN org.apache.kafka.clients.consumer.ConsumerConfig - These configurations '[client.id.prefix, partition.discovery.interval.ms]' were supplied but are not used yet.
+[KeyedProcess -> Sink: Unnamed (1/1)#0] WARN org.apache.flink.runtime.taskmanager.Task - KeyedProcess -> Sink: Unnamed (1/1)#0 (c3b5af7e3dac2dcf6be79451f7d314d9_930e169e8a9d39293e8d5e361d8c8993_0_0) switched from RUNNING to FAILED with failure cause:
+java.io.IOException: INJECTED_ARRIVAL_SINK_GAP_after-ack
+	at lab.ArrivalCheckpointDemo$RedisSink.inject(ArrivalCheckpointDemo.java:141)
+	at lab.ArrivalCheckpointDemo$RedisSink.invoke(ArrivalCheckpointDemo.java:123)
+	at lab.ArrivalCheckpointDemo$RedisSink.invoke(ArrivalCheckpointDemo.java:84)
+	at org.apache.flink.streaming.api.operators.StreamSink.processElement(StreamSink.java:54)
+	at org.apache.flink.streaming.runtime.tasks.CopyingChainingOutput.pushToOperator(CopyingChainingOutput.java:75)
+	at org.apache.flink.streaming.runtime.tasks.CopyingChainingOutput.collect(CopyingChainingOutput.java:50)
+	at org.apache.flink.streaming.runtime.tasks.CopyingChainingOutput.collect(CopyingChainingOutput.java:29)
+	at org.apache.flink.streaming.api.operators.TimestampedCollector.collect(TimestampedCollector.java:52)
+	at lab.ArrivalCheckpointDemo$Marker.processElement(ArrivalCheckpointDemo.java:59)
+	at lab.ArrivalCheckpointDemo$Marker.processElement(ArrivalCheckpointDemo.java:28)
+	at org.apache.flink.streaming.api.operators.KeyedProcessOperator.processElement(KeyedProcessOperator.java:83)
+	at org.apache.flink.streaming.runtime.io.RecordProcessorUtils.lambda$getRecordProcessor$0(RecordProcessorUtils.java:64)
+	at org.apache.flink.streaming.runtime.tasks.OneInputStreamTask$StreamTaskNetworkOutput.emitRecord(OneInputStreamTask.java:238)
+	at org.apache.flink.streaming.runtime.io.AbstractStreamTaskNetworkInput.processElement(AbstractStreamTaskNetworkInput.java:157)
+	at org.apache.flink.streaming.runtime.io.AbstractStreamTaskNetworkInput.emitNext(AbstractStreamTaskNetworkInput.java:114)
+	at org.apache.flink.streaming.runtime.io.StreamOneInputProcessor.processInput(StreamOneInputProcessor.java:65)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.processInput(StreamTask.java:638)
+	at org.apache.flink.streaming.runtime.tasks.mailbox.MailboxProcessor.runMailboxLoop(MailboxProcessor.java:231)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.runMailboxLoop(StreamTask.java:973)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.invoke(StreamTask.java:917)
+	at org.apache.flink.runtime.taskmanager.Task.runWithSystemExitMonitoring(Task.java:970)
+	at org.apache.flink.runtime.taskmanager.Task.restoreAndInvoke(Task.java:949)
+	at org.apache.flink.runtime.taskmanager.Task.doRun(Task.java:763)
+	at org.apache.flink.runtime.taskmanager.Task.run(Task.java:575)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[Source: durable Kafka input (1/1)#1] WARN org.apache.kafka.clients.consumer.ConsumerConfig - These configurations '[client.id.prefix, partition.discovery.interval.ms]' were supplied but are not used yet.

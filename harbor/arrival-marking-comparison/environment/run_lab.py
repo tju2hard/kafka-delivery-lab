@@ -39,7 +39,7 @@ def wait_for(predicate, seconds, label, process=None):
 
 
 def redis(*args):
-    with socket.create_connection((os.getenv('REDIS_HOST', 'redis'), 6379), 5) as connection:
+    with socket.create_connection((os.getenv('REDIS_HOST', 'redis'), int(os.getenv('REDIS_PORT', '6379'))), 5) as connection:
         connection.sendall(f'*{len(args)}\r\n'.encode() + b''.join(f'${len(str(x).encode())}\r\n'.encode() + str(x).encode() + b'\r\n' for x in args))
         stream = connection.makefile('rb')
         line = stream.readline()

@@ -9,22 +9,51 @@ Flink checkpoint 对消息交付的实际影响。当前是工程实验仓库，
 **目标是不重不漏、标记正确，并让下游在秒级看到消息。** 输入总共9000条，包含3000个 ID
 各出现三次；要全部输出，3000条标首次、6000条标重复，故障恢复不能额外多写。
 
-两轮实验中，Flink 事务写入和直接 Streams EOS 在故障恢复后仍是9000条、标记正确；
-Flink 非事务输出恢复后变成18000条，Redis“先登记、再发送”变成14402条。
-Redis“发送成功后再登记”尚未做本次全量标记实验。
-直接 Streams 正常运行时99%的消息在6.5～6.9秒内可见；Flink 事务在本次30秒 CK 配置下为
-28.2～29.1秒。这是9000条短批次实测；持续负载的分段定位见单独附录。
+当前实验分七种方案，每种分别运行正常与故障恢复：
 
-[主报告](results/ARRIVAL_COMPARISON.md) 用一张表比较事务输出、非事务输出、Redis 标记和直接 Streams EOS：
-消息总数、首次/重复标记数、从发送输入到下游可见的平均时间和 p99。正常运行与故障恢复分行。
-[完整明细](results/ARRIVAL_DETAILS.md) 保留额外串联对照；
-[状态后端与持续输入定位](results/STATE_STORE_PROBE.md) 单独记录性能调查。
-实际 JSON 小样：[9条输入](results/examples/arrival-marked-input.jsonl)、
-[9条带标记输出](results/examples/arrival-marked-output.jsonl)。可复现入口为
-`harbor/arrival-marking-comparison`。下面的 ID 过滤实验会跳过重复消息，属于另一种语义。
+| 方案 | 谁判断业务首次/重复 | Redis 的作用 |
+|---|---|---|
+| Flink 事务输出（CK=30秒） | 上游 keyed state | 无 |
+| Flink 非事务输出 | 上游 keyed state | 无 |
+| 直接 Streams EOSv2 | Streams 持久化 state | 无 |
+| 纯 Redis，先登记再输出 | sink 内 Redis，按 event_id | 发送前更新业务 seen |
+| 纯 Redis，先输出再登记 | sink 内 Redis，按 event_id | 查 seen → 加标记 → send/ACK → 更新 seen |
+| state 标记＋Redis，先登记 | 上游 keyed state，按 event_id | sink 按 input_seq 预约，已有则跳过该次输入 |
+| state 标记＋Redis，后登记 | 上游 keyed state，按 event_id | sink 按 input_seq 查 sent → send/ACK → 登记 sent |
+
+**业务 ID 重复只标记、不过滤。** Redis 的业务 seen 和“该次输入有没有输出”的发送登记是两个用途、两种键。
+“纯 Redis”指业务判断不用 Flink state；Flink 仍负责输入、sink 执行和源进度恢复，没有中间转发 topic。
+纯 Redis 后登记方案可以实现，但 ACK 后、登记前故障可能多输出一条首次消息。
+state＋Redis 的先登记不是发送确认，登记后、发送前故障可能漏掉整条首次消息。
+纯 Redis 先登记则可能保住消息，却把首次错误标成重复。
+
+Redis 四个恢复场景都选中第一条业务输入，在真实两次写入之间停住；独立客户端读取
+Redis、Kafka 原始/已提交视图，确认窗口后释放真实 sink 异常，让 Flink 自动恢复。
+事务/非事务对照仍测 checkpoint 失败；Streams 测 ACK 后、事务提交前进程崩溃。
+
+[主报告](results/ARRIVAL_COMPARISON.md) 比较消息总数、首次/重复标记、平均和 p99 可见延迟；
+[完整明细](results/ARRIVAL_DETAILS.md) 给出缺失输入、额外重放、原始/已提交计数和故障见证。
+旧的“Flink 转发→中间 Kafka→Streams EOS”只用于观察 EOS 的作用范围，已移出本次主矩阵；
+[旧主报告](results/ARRIVAL_LEGACY_COMPARISON.md) 与 [旧明细](results/ARRIVAL_LEGACY_DETAILS.md)
+保留原来的14402条等历史实测，不能当作新方案的数据。
+[90000条状态后端/持续负载诊断](results/STATE_STORE_PROBE.md) 仍单独保留，不替代9000条整批结果。
 
 实现：[ArrivalStreamsDemo](src/main/java/lab/ArrivalStreamsDemo.java)、
 [ArrivalCheckpointDemo](src/main/java/lab/ArrivalCheckpointDemo.java)。
+容器入口为 `harbor/arrival-marking-comparison`；无 Docker 时可运行固定版本的本地三 Broker、
+Redis 和 Flink 进程（入口只停止自己启动的服务）：
+
+```bash
+bash scripts/build.sh
+python3 scripts/run-arrival-native.py --help
+# 指定 Kafka 3.7.0 解压目录、Redis 7.2.6 和 Java 17 的位置及全新输出目录：
+python3 scripts/run-arrival-native.py --kafka-home /path/to/kafka_2.13-3.7.0 \
+  --redis-server /path/to/redis-7.2.6/src/redis-server --java-home /path/to/java17 \
+  --output-dir "$PWD/results/local/arrival-new-run"
+python3 scripts/render-arrival-report.py --verified results/local/arrival-new-run/verified
+```
+
+下面的 ID 过滤实验会跳过重复业务消息，属于另一种语义。
 
 ## Kafka Streams：过滤重复 ID＋EOSv2
 

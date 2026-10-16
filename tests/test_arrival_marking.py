@@ -6,7 +6,7 @@ import sys
 import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'harbor/arrival-marking-comparison/environment'))
-from arrival_comparison import COUNT,audit_arrivals
+from arrival_comparison import COUNT,CASES,SCHEMES,audit_arrivals
 
 class ArrivalAuditTests(unittest.TestCase):
     @classmethod
@@ -31,5 +31,34 @@ class ArrivalAuditTests(unittest.TestCase):
     def test_filtering_is_wrong_contract(self):
         a=audit_arrivals(self.inputs,self.outputs[::3])
         self.assertFalse(a['arrival_contract_pass']);self.assertEqual(a['missing_arrivals'],6000)
+    def test_pure_redis_before_gap_loses_marker_without_losing_arrival(self):
+        rows=self.outputs.copy();v=json.loads(rows[0]['value']);v['is_duplicate']=True
+        rows[0]={**rows[0],'value':json.dumps(v)}
+        a=audit_arrivals(self.inputs,rows)
+        self.assertEqual((a['output_arrivals'],a['false_markers'],a['true_markers']),(9000,2999,6001))
+        self.assertEqual((a['missing_arrivals'],a['replayed_arrival_records']),(0,0))
+        self.assertEqual((a['business_ids_without_false'],a['flag_mismatches_against_source']),(1,1))
+        self.assertFalse(a['arrival_contract_pass'])
+    def test_state_redis_before_gap_loses_first_arrival(self):
+        a=audit_arrivals(self.inputs,self.outputs[1:])
+        self.assertEqual((a['output_arrivals'],a['false_markers'],a['true_markers']),(8999,2999,6000))
+        self.assertEqual((a['missing_arrivals'],a['replayed_arrival_records']),(1,0))
+        self.assertEqual(a['flag_mismatches_against_source'],0)
+        self.assertEqual(a['business_ids_without_false'],1)
+        self.assertFalse(a['arrival_contract_pass'])
+    def test_after_ack_gap_replays_correct_first_marker(self):
+        a=audit_arrivals(self.inputs,self.outputs[:1]+self.outputs)
+        self.assertEqual((a['output_arrivals'],a['false_markers'],a['true_markers']),(9001,3001,6000))
+        self.assertEqual((a['missing_arrivals'],a['replayed_arrival_records']),(0,1))
+        self.assertEqual(a['flag_mismatches_against_source'],0)
+        self.assertEqual(a['business_ids_with_multiple_false'],1)
+        self.assertFalse(a['arrival_contract_pass'])
+    def test_matrix_keeps_marker_and_send_ledger_separate(self):
+        self.assertEqual(len(SCHEMES),7);self.assertEqual(len(CASES),14)
+        self.assertFalse(any(mode=='bridge' for _,mode,_ in CASES))
+        self.assertEqual({mode:fault for _,mode,fault in CASES if fault!='none'},
+            {'eos':'snapshot-error','alo':'snapshot-error','streams':'ack-crash',
+             'redis-mark-before':'after-redis','redis-mark-after':'after-ack',
+             'state-redis-before':'after-redis','state-redis-after':'after-ack'})
 
 if __name__=='__main__':unittest.main()

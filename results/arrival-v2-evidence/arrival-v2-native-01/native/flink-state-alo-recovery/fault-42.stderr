@@ -1,0 +1,107 @@
+[main] WARN org.apache.flink.configuration.Configuration - Config uses deprecated configuration key 'state.checkpoints.dir' instead of proper key 'execution.checkpointing.dir'
+[main] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - No tokens obtained so skipping notifications
+[main] WARN org.apache.flink.runtime.webmonitor.WebMonitorUtils - Log file environment variable 'log.file' is not set.
+[main] WARN org.apache.flink.runtime.webmonitor.WebMonitorUtils - JobManager log files are unavailable in the web dashboard. Log file location not found in environment variable 'log.file' or configuration key 'web.log.path'.
+[flink-pekko.actor.default-dispatcher-5] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - No tokens obtained so skipping notifications
+[flink-pekko.actor.default-dispatcher-5] WARN org.apache.flink.runtime.security.token.DefaultDelegationTokenManager - Tokens update task not started because either no tokens obtained or none of the tokens specified its renewal date
+[SourceCoordinator-Source: durable Kafka input] WARN org.apache.kafka.clients.admin.AdminClientConfig - These configurations '[key.deserializer, value.deserializer, enable.auto.commit, isolation.level, client.id.prefix, group.id, fetch.max.wait.ms, partition.discovery.interval.ms, auto.offset.reset]' were supplied but are not used yet.
+[Source: durable Kafka input (1/1)#0] WARN org.apache.kafka.clients.consumer.ConsumerConfig - These configurations '[client.id.prefix, partition.discovery.interval.ms]' were supplied but are not used yet.
+[KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0] WARN org.apache.flink.metrics.MetricGroup - Name collision: Group already contains a Metric with the name 'pendingCommittables'. Metric will not be reported.[, taskmanager, 5033dbc7-cb17-44a2-bf7f-eb0ec4865a23, checkpoint-failure-alo, Sink: Committer, 0]
+[KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0] WARN org.apache.flink.metrics.MetricGroup - Name collision: Group already contains a Metric with the name 'pendingCommittables'. Metric will not be reported.[, taskmanager, 5033dbc7-cb17-44a2-bf7f-eb0ec4865a23, checkpoint-failure-alo, Sink: Committer, 0]
+[KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0] WARN org.apache.flink.runtime.taskmanager.Task - KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0 (c03320c051c5e8a6b6eda6df789ea2f0_930e169e8a9d39293e8d5e361d8c8993_0_0) switched from RUNNING to FAILED with failure cause:
+java.io.IOException: Could not perform checkpoint 2 for operator KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0.
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.triggerCheckpointOnBarrier(StreamTask.java:1394)
+	at org.apache.flink.streaming.runtime.io.checkpointing.CheckpointBarrierHandler.notifyCheckpoint(CheckpointBarrierHandler.java:147)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler.triggerCheckpoint(SingleCheckpointBarrierHandler.java:287)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler.access$100(SingleCheckpointBarrierHandler.java:64)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler$ControllerImpl.triggerGlobalCheckpoint(SingleCheckpointBarrierHandler.java:488)
+	at org.apache.flink.streaming.runtime.io.checkpointing.AbstractAlignedBarrierHandlerState.triggerGlobalCheckpoint(AbstractAlignedBarrierHandlerState.java:74)
+	at org.apache.flink.streaming.runtime.io.checkpointing.AbstractAlignedBarrierHandlerState.barrierReceived(AbstractAlignedBarrierHandlerState.java:66)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler.lambda$processBarrier$2(SingleCheckpointBarrierHandler.java:234)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler.markCheckpointAlignedAndTransformState(SingleCheckpointBarrierHandler.java:262)
+	at org.apache.flink.streaming.runtime.io.checkpointing.SingleCheckpointBarrierHandler.processBarrier(SingleCheckpointBarrierHandler.java:231)
+	at org.apache.flink.streaming.runtime.io.checkpointing.CheckpointedInputGate.handleEvent(CheckpointedInputGate.java:181)
+	at org.apache.flink.streaming.runtime.io.checkpointing.CheckpointedInputGate.pollNext(CheckpointedInputGate.java:159)
+	at org.apache.flink.streaming.runtime.io.AbstractStreamTaskNetworkInput.emitNext(AbstractStreamTaskNetworkInput.java:122)
+	at org.apache.flink.streaming.runtime.io.StreamOneInputProcessor.processInput(StreamOneInputProcessor.java:65)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.processInput(StreamTask.java:638)
+	at org.apache.flink.streaming.runtime.tasks.mailbox.MailboxProcessor.runMailboxLoop(MailboxProcessor.java:231)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.runMailboxLoop(StreamTask.java:973)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.invoke(StreamTask.java:917)
+	at org.apache.flink.runtime.taskmanager.Task.runWithSystemExitMonitoring(Task.java:970)
+	at org.apache.flink.runtime.taskmanager.Task.restoreAndInvoke(Task.java:949)
+	at org.apache.flink.runtime.taskmanager.Task.doRun(Task.java:763)
+	at org.apache.flink.runtime.taskmanager.Task.run(Task.java:575)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.apache.flink.runtime.checkpoint.CheckpointException: Could not complete snapshot 2 for operator KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#0. Failure reason: Checkpoint was declined.
+	at org.apache.flink.streaming.api.operators.StreamOperatorStateHandler.snapshotState(StreamOperatorStateHandler.java:300)
+	at org.apache.flink.streaming.api.operators.StreamOperatorStateHandler.snapshotState(StreamOperatorStateHandler.java:204)
+	at org.apache.flink.streaming.api.operators.AbstractStreamOperator.snapshotState(AbstractStreamOperator.java:395)
+	at org.apache.flink.streaming.runtime.tasks.RegularOperatorChain.checkpointStreamOperator(RegularOperatorChain.java:228)
+	at org.apache.flink.streaming.runtime.tasks.RegularOperatorChain.buildOperatorSnapshotFutures(RegularOperatorChain.java:213)
+	at org.apache.flink.streaming.runtime.tasks.RegularOperatorChain.snapshotState(RegularOperatorChain.java:192)
+	at org.apache.flink.streaming.runtime.tasks.SubtaskCheckpointCoordinatorImpl.takeSnapshotSync(SubtaskCheckpointCoordinatorImpl.java:751)
+	at org.apache.flink.streaming.runtime.tasks.SubtaskCheckpointCoordinatorImpl.checkpointState(SubtaskCheckpointCoordinatorImpl.java:361)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.lambda$performCheckpoint$18(StreamTask.java:1437)
+	at org.apache.flink.streaming.runtime.tasks.StreamTaskActionExecutor$1.runThrowing(StreamTaskActionExecutor.java:50)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.performCheckpoint(StreamTask.java:1425)
+	at org.apache.flink.streaming.runtime.tasks.StreamTask.triggerCheckpointOnBarrier(StreamTask.java:1382)
+	... 22 more
+Caused by: java.io.IOException: INJECTED_CHECKPOINT_SNAPSHOT_FAILURE
+	at lab.ArrivalCheckpointDemo$Marker.snapshotState(ArrivalCheckpointDemo.java:69)
+	at org.apache.flink.streaming.util.functions.StreamingFunctionUtils.trySnapshotFunctionState(StreamingFunctionUtils.java:118)
+	at org.apache.flink.streaming.util.functions.StreamingFunctionUtils.snapshotFunctionState(StreamingFunctionUtils.java:99)
+	at org.apache.flink.streaming.api.operators.AbstractUdfStreamOperator.snapshotState(AbstractUdfStreamOperator.java:89)
+	at org.apache.flink.streaming.api.operators.StreamOperatorStateHandler.snapshotState(StreamOperatorStateHandler.java:253)
+	... 33 more
+[flink-pekko.actor.default-dispatcher-5] WARN org.apache.flink.runtime.checkpoint.CheckpointFailureManager - Failed to trigger or complete checkpoint 2 for job cb9563c2c908913f373524869310a0b6. (0 consecutive failed attempts so far)
+org.apache.flink.runtime.checkpoint.CheckpointException: Checkpoint Coordinator is suspending.
+	at org.apache.flink.runtime.checkpoint.CheckpointCoordinator.stopCheckpointScheduler(CheckpointCoordinator.java:2068)
+	at org.apache.flink.runtime.checkpoint.CheckpointCoordinatorDeActivator.jobStatusChanges(CheckpointCoordinatorDeActivator.java:49)
+	at org.apache.flink.runtime.executiongraph.DefaultExecutionGraph.notifyJobStatusChange(DefaultExecutionGraph.java:1609)
+	at org.apache.flink.runtime.executiongraph.DefaultExecutionGraph.transitionState(DefaultExecutionGraph.java:1167)
+	at org.apache.flink.runtime.executiongraph.DefaultExecutionGraph.transitionState(DefaultExecutionGraph.java:1139)
+	at org.apache.flink.runtime.scheduler.SchedulerBase.transitionExecutionGraphState(SchedulerBase.java:601)
+	at org.apache.flink.runtime.scheduler.DefaultScheduler.addVerticesToRestartPending(DefaultScheduler.java:386)
+	at org.apache.flink.runtime.scheduler.DefaultScheduler.restartTasksWithDelay(DefaultScheduler.java:362)
+	at org.apache.flink.runtime.scheduler.DefaultScheduler.maybeRestartTasks(DefaultScheduler.java:330)
+	at org.apache.flink.runtime.scheduler.DefaultScheduler.handleTaskFailure(DefaultScheduler.java:272)
+	at org.apache.flink.runtime.scheduler.DefaultScheduler.onTaskFailed(DefaultScheduler.java:265)
+	at org.apache.flink.runtime.scheduler.SchedulerBase.onTaskExecutionStateUpdate(SchedulerBase.java:788)
+	at org.apache.flink.runtime.scheduler.SchedulerBase.updateTaskExecutionState(SchedulerBase.java:765)
+	at org.apache.flink.runtime.scheduler.SchedulerNG.updateTaskExecutionState(SchedulerNG.java:83)
+	at org.apache.flink.runtime.jobmaster.JobMaster.updateTaskExecutionState(JobMaster.java:515)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.apache.flink.runtime.rpc.pekko.PekkoRpcActor.lambda$handleRpcInvocation$1(PekkoRpcActor.java:318)
+	at org.apache.flink.runtime.concurrent.ClassLoadingUtils.runWithContextClassLoader(ClassLoadingUtils.java:83)
+	at org.apache.flink.runtime.rpc.pekko.PekkoRpcActor.handleRpcInvocation(PekkoRpcActor.java:316)
+	at org.apache.flink.runtime.rpc.pekko.PekkoRpcActor.handleRpcMessage(PekkoRpcActor.java:229)
+	at org.apache.flink.runtime.rpc.pekko.FencedPekkoRpcActor.handleRpcMessage(FencedPekkoRpcActor.java:88)
+	at org.apache.flink.runtime.rpc.pekko.PekkoRpcActor.handleMessage(PekkoRpcActor.java:174)
+	at org.apache.pekko.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:33)
+	at org.apache.pekko.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:29)
+	at scala.PartialFunction.applyOrElse(PartialFunction.scala:127)
+	at scala.PartialFunction.applyOrElse$(PartialFunction.scala:126)
+	at org.apache.pekko.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:29)
+	at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:175)
+	at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:176)
+	at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:176)
+	at org.apache.pekko.actor.Actor.aroundReceive(Actor.scala:547)
+	at org.apache.pekko.actor.Actor.aroundReceive$(Actor.scala:545)
+	at org.apache.pekko.actor.AbstractActor.aroundReceive(AbstractActor.scala:229)
+	at org.apache.pekko.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at org.apache.pekko.actor.ActorCell.invoke(ActorCell.scala:557)
+	at org.apache.pekko.dispatch.Mailbox.processMailbox(Mailbox.scala:272)
+	at org.apache.pekko.dispatch.Mailbox.run(Mailbox.scala:233)
+	at org.apache.pekko.dispatch.Mailbox.exec(Mailbox.scala:245)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+[KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#1] WARN org.apache.flink.metrics.MetricGroup - Name collision: Group already contains a Metric with the name 'pendingCommittables'. Metric will not be reported.[, taskmanager, 5033dbc7-cb17-44a2-bf7f-eb0ec4865a23, checkpoint-failure-alo, Sink: Committer, 0]
+[Source: durable Kafka input (1/1)#1] WARN org.apache.kafka.clients.consumer.ConsumerConfig - These configurations '[client.id.prefix, partition.discovery.interval.ms]' were supplied but are not used yet.
+[KeyedProcess -> Sink: Writer -> Sink: Committer (1/1)#1] WARN org.apache.flink.metrics.MetricGroup - Name collision: Group already contains a Metric with the name 'pendingCommittables'. Metric will not be reported.[, taskmanager, 5033dbc7-cb17-44a2-bf7f-eb0ec4865a23, checkpoint-failure-alo, Sink: Committer, 0]

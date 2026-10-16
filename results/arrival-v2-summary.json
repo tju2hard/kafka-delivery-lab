@@ -1,0 +1,4652 @@
+{
+  "runs": [
+    {
+      "trial": "arrival-v2-native-01",
+      "schema_version": 2,
+      "experiment_valid": true,
+      "run_id": "arrival-native",
+      "contract": "all source arrivals preserved and marked; business-ID duplicates are NEVER filtered",
+      "source_arrivals_per_case": 9000,
+      "unique_business_ids": 3000,
+      "producer_threads": 4,
+      "target_rate_per_sec": 3000,
+      "deduplication_ttl_ms": 3600000,
+      "flink_checkpoint_interval_ms": 30000,
+      "streams_commit_interval_ms": 100,
+      "versions": {
+        "kafka_broker": "3.7.0",
+        "kafka_streams": "3.4.0",
+        "flink": "1.20.4",
+        "redis": "7.2.6",
+        "python": "3.10.12"
+      },
+      "limitations": [
+        "single machine, single partition, synthetic 3-second load, no production SLA",
+        "warmup allocates workers; first business state/output path is not separately preheated",
+        "Flink: actual CK IOException with automatic task restore in same JVM; Streams: ACK-before-commit process kill",
+        "Redis business markers keyed by event_id; separate state/Redis send-ledger cases keyed by input_seq",
+        "Redis/Kafka gaps independently checked while task is held, then native IOException and restore",
+        "no atomic Redis/Kafka transaction; single writer, no concurrent check/send race exercised",
+        "one-hour logical expiry configured, not observed for an actual hour; no broker/disk/rescale tests"
+      ],
+      "cases": [
+        {
+          "name": "flink-state-eos-normal",
+          "mode": "eos",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-flink-state-eos-normal-in",
+          "output_topic": "arrival-native-flink-state-eos-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121453746,
+            "send_duration_ms": 3000.270552,
+            "acknowledged_duration_ms": 3042.949996,
+            "achieved_send_rate_per_sec": 2999.7294723972614,
+            "send_buckets_per_second": {
+              "0": 2998,
+              "1": 3002,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 276968,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121452828
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121440693
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121452828
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792121482832
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "4515c80b9d3cd01eaecad1e1b3fd7455797074381b62c8778e9622f2b64b604b"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "52dadd41e520d52ce9df153f357fe124cb5af9e5f14f14eb3ad80bbafb4703a3"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121453922
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121453988
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121453995
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121453996
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121453799,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121454002
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121453799,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121454003
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "6170a954e3a5c287abf83c55f5aa3d0b7b16c8b4d1f784f6a7d1d8ac82e0d18d"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 78,
+                "p50": 528,
+                "p95": 751,
+                "p99": 761,
+                "max": 769,
+                "within_100ms": 398
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "52dadd41e520d52ce9df153f357fe124cb5af9e5f14f14eb3ad80bbafb4703a3"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121453922
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121453988
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121453995
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121453753,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121453996
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121453799,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121454002
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121453799,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121454003
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "e83e9d4700d4fad56813d9c645f2925a8a54a1732f98742a42f6dfcb4cfd94ea"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 26187,
+                "p50": 27652,
+                "p95": 28965,
+                "p99": 29046,
+                "max": 29105,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/flink-state-eos-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "25ac70d6342265a2423fb3750c99b345721b468e4730d04f9b51ef8ee3b4c63f",
+              "gzip_sha256": "9a65c9ba79b39dcc01669f17596c7a0f011a72586487116ee4561f18d4bc7674"
+            },
+            {
+              "path": "data/flink-state-eos-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "f65af6a99ee2c8be93660f2a1d38813f3582abd05abaa96276b3305a10890f73",
+              "gzip_sha256": "182103efbb098344bc3c9f630bf2e8ae14f7da3ec1ebc8eb21b2bed4216de6b3"
+            },
+            {
+              "path": "data/flink-state-eos-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "cae12483fb866739539c86e99b5c9dcbd7b4a1d3ea2ea1e9e2234a66088e86f8",
+              "gzip_sha256": "3363a05e2061e4eacd16fd25584210cea8f75f3b4927146dd96592d2478c540e"
+            },
+            {
+              "path": "data/flink-state-eos-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "f65af6a99ee2c8be93660f2a1d38813f3582abd05abaa96276b3305a10890f73",
+              "gzip_sha256": "3188a5ba77417347d7b5a202a5848f9c9b8a18dffd2545c5bc114edaf8891ad4"
+            },
+            {
+              "path": "data/flink-state-eos-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "62d177e095dd1686591c35a383044decbb80a6a6ce724dde26f2eb3459febeb2",
+              "gzip_sha256": "27ba9f738600e0f6cfa631d82a5aba46a8a2317780386ec151e0fdb944f0120f"
+            }
+          ]
+        },
+        {
+          "name": "flink-state-eos-recovery",
+          "mode": "eos",
+          "failure_kind": "snapshot-error",
+          "source_topic": "arrival-native-flink-state-eos-recovery-in",
+          "output_topic": "arrival-native-flink-state-eos-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121510754,
+            "send_duration_ms": 3001.173005,
+            "acknowledged_duration_ms": 3035.347275,
+            "achieved_send_rate_per_sec": 2998.8274534676484,
+            "send_buckets_per_second": {
+              "0": 2997,
+              "1": 3002,
+              "2": 2997,
+              "3": 4
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 277415,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121509961
+          },
+          "fault": {
+            "checkpoint_id": 2,
+            "attempt": 0,
+            "processed_before_failure": 9000,
+            "at_ms": 1792121539907,
+            "fault_kind": "snapshot-error",
+            "reason": "injected actual snapshotState snapshot-error"
+          },
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121498110
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792121541754
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121509961
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792121547044
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "0c2e27963d81e017c0ca61bdf143863149b9464e7515fcf558f38d37ef9e7a6e"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 18000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 9000,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 3000,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 6000,
+                "true_markers": 12000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 3000,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 3259560,
+                "sha256": "eb7dea1515e95084f486c3ac933cb8d22b110ba4a8b59dd21ee32ae5f8c71664"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121510903
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121511005
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121511011
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121511012
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121510801,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121511013
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121510801,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121511024
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 5606451,
+                "sha256": "8b8507dd97a602fa6d195e1504a4ab115e59762290ea00f650d2963b27bda429"
+              },
+              "visibility_ms": {
+                "samples": 18000,
+                "min": 38,
+                "p50": 611,
+                "p95": 30762,
+                "p99": 30961,
+                "max": 31013,
+                "within_100ms": 2282
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "a4d7927019ff65efb7021486d4b8e7f5790daada04c03648d74a8041f3bfe761"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121541763
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121541765
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121541766
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121510760,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121541766
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121510801,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121541766
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121510801,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121541766
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-eos-recovery/observations-read_committed.jsonl",
+                "bytes": 2789781,
+                "sha256": "4c7bc8c4e6d19b92490df8339690fe55806b34143c7edc04f9e978ffb1093e9d"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 33340,
+                "p50": 34814,
+                "p95": 36144,
+                "p99": 36235,
+                "max": 36287,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/flink-state-eos-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "3125f88879e65f657c53409a571e12a1d41194a10ed756166d22bd89b7462be6",
+              "gzip_sha256": "06abe386ae47c54f9c58f6322ba0200a3298b19c7220c99d861f7b2820da60e3"
+            },
+            {
+              "path": "data/flink-state-eos-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "9d8ae72ab2d1b202cdbc2a765f9290f9295b23935a5a769feb7009d03f59d121",
+              "gzip_sha256": "78bfe9170654d0cf0369ad6476beea2aa2b1cec472178e8c2dce8e6b0f867b8c"
+            },
+            {
+              "path": "data/flink-state-eos-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "25fba768b5f0e263a1d6be26cd127d5b0b13a079d14964697395ff43f4910298",
+              "gzip_sha256": "40a9893dec23c648d0394290bef7beacb6806e085f678ad96c0df137765892ea"
+            },
+            {
+              "path": "data/flink-state-eos-recovery/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "71d37257c479e194d6d678837fb3762d590fd4959b899a172cc71695b4d30886",
+              "gzip_sha256": "de623c30d47b9c759d7c874c673466372bd5e66cc87278ce85314535d6139e6f"
+            },
+            {
+              "path": "data/flink-state-eos-recovery/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "2f9726b656e42fa8074d9b10eb3a0d33f3212799c9302ca34d2ee6bcda16a663",
+              "gzip_sha256": "fe7cca44c603d9ec30aa22799de84bf0397f2e28cf86cd01f036751905456c8b"
+            }
+          ]
+        },
+        {
+          "name": "flink-state-alo-normal",
+          "mode": "alo",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-flink-state-alo-normal-in",
+          "output_topic": "arrival-native-flink-state-alo-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121588297,
+            "send_duration_ms": 3001.728576,
+            "acknowledged_duration_ms": 3015.748915,
+            "achieved_send_rate_per_sec": 2998.2724194181105,
+            "send_buckets_per_second": {
+              "0": 2997,
+              "1": 3003,
+              "2": 2999,
+              "3": 1
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 277873,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121587439
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121563055
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121587439
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792121617414
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "c09e253345a3323ce68c4085ccc1c9f1806dd8094f87e2d6d5b6a7b3e761527b"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "682e1374489887cfa71960c583a389aa9f8cbfd11b2f2425e45c93d7b9a516d3"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588419
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588479
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588481
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588482
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121588337,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588482
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121588337,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588484
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "e9499f86b12f802ca49fac04646a63a0b854213b009b8cfce4d520958281d12f"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 27,
+                "p50": 94,
+                "p95": 491,
+                "p99": 521,
+                "max": 535,
+                "within_100ms": 4842
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "682e1374489887cfa71960c583a389aa9f8cbfd11b2f2425e45c93d7b9a516d3"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588419
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588479
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588481
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121588302,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588482
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121588337,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121588482
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121588337,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121588484
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "2673e2825e895d1ad17566f283ac80268b714fc30cb71b73397130d9609ef254"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 27,
+                "p50": 93,
+                "p95": 494,
+                "p99": 519,
+                "max": 531,
+                "within_100ms": 4875
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/flink-state-alo-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "619c00382c66d5d39037f73c026092d3a8004cb948aa95dedc7e2186fdf3263e",
+              "gzip_sha256": "ce01f6aa6599817edbac91e376191d2fb7e43c4e150aed4bd7be83843587fbb8"
+            },
+            {
+              "path": "data/flink-state-alo-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "b5255121891e7e682f4585e43b6a98282488e942d54e9e6b52a4eface4751bc5",
+              "gzip_sha256": "d6d44ae2ac2ef78a30e6ff268189321ed3781d6e1f408edbce299c88a882266f"
+            },
+            {
+              "path": "data/flink-state-alo-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "38e7923abbea3d68dc0dfd9ec68d7ba5b0138885e99e2b7ae4feb712f4e6c776",
+              "gzip_sha256": "fcace9b95cf4483a6efc34550611cb5281df322d32d993c49fc56afbf4915e1c"
+            },
+            {
+              "path": "data/flink-state-alo-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "b5255121891e7e682f4585e43b6a98282488e942d54e9e6b52a4eface4751bc5",
+              "gzip_sha256": "3bd3d852dfdf5f25c811c53420c241ffead5baba896897281ada715bfc0cd9be"
+            },
+            {
+              "path": "data/flink-state-alo-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "ab60e28e5107edc4b3ea1d51d7acaa48913db27c7ebc8e0131d704f02d91755a",
+              "gzip_sha256": "565607040beaab3dbdea370d99ca1c5df0aa92588eb89a08d90af74478e9ec0b"
+            }
+          ]
+        },
+        {
+          "name": "flink-state-alo-recovery",
+          "mode": "alo",
+          "failure_kind": "snapshot-error",
+          "source_topic": "arrival-native-flink-state-alo-recovery-in",
+          "output_topic": "arrival-native-flink-state-alo-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121635785,
+            "send_duration_ms": 3000.025844,
+            "acknowledged_duration_ms": 3006.259814,
+            "achieved_send_rate_per_sec": 2999.9741562226354,
+            "send_buckets_per_second": {
+              "0": 2997,
+              "1": 2997,
+              "2": 3006
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 278282,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121634920
+          },
+          "fault": {
+            "checkpoint_id": 2,
+            "attempt": 0,
+            "processed_before_failure": 9000,
+            "at_ms": 1792121664826,
+            "fault_kind": "snapshot-error",
+            "reason": "injected actual snapshotState snapshot-error"
+          },
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121631811
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792121665943
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121634920
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792121680973
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "b30a783c81e8ff52cf61d292e8d0d3193d9520950506a11b2af04c75d7233698"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 18000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 9000,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 3000,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 6000,
+                "true_markers": 12000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 3000,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 3259560,
+                "sha256": "983ea7a6e3b136ea34b287535bf16857da3a034aa96e5d1c9fb72539f3c4d19d"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121635932
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121636047
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636049
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636049
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121635838,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636050
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121635838,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121636051
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 5606450,
+                "sha256": "e899a32c512214c1d93aeff4ef65eea86f83e0ad0a79c2aecf5791d5db1d62ae"
+              },
+              "visibility_ms": {
+                "samples": 18000,
+                "min": 18,
+                "p50": 638,
+                "p95": 29934,
+                "p99": 30122,
+                "max": 30181,
+                "within_100ms": 3352
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 18000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 9000,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 3000,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 6000,
+                "true_markers": 12000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 3000,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/sink-read_committed.jsonl",
+                "bytes": 3259560,
+                "sha256": "983ea7a6e3b136ea34b287535bf16857da3a034aa96e5d1c9fb72539f3c4d19d"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121635932
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121636047
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636049
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121635792,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636049
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121635838,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121636050
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121635838,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121636051
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/flink-state-alo-recovery/observations-read_committed.jsonl",
+                "bytes": 5570450,
+                "sha256": "7713bdb5af89d70e56e778137f92468d7b228b4847d348325ed0d0ce5eed55f2"
+              },
+              "visibility_ms": {
+                "samples": 18000,
+                "min": 18,
+                "p50": 639,
+                "p95": 29934,
+                "p99": 30122,
+                "max": 30180,
+                "within_100ms": 3344
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/flink-state-alo-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "18ada95d51d12fd944dcbaaf8b1684b05a6b0534727a642a01e3c147fbcaf73d",
+              "gzip_sha256": "cf61f5b5a9cc411822a5c639515a54bf7370bd20fd2398789bc34bf9c4ab48be"
+            },
+            {
+              "path": "data/flink-state-alo-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "e1ed6e3b8520f7e930475a607ddceba92e1c5338fe6d677a67531d61dd7fda3f",
+              "gzip_sha256": "fd127e523dfc0da8e66786313d021823dddf3b89c570b99587a38f90fc2b139c"
+            },
+            {
+              "path": "data/flink-state-alo-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "167f3768961c51d41150836551fdcfbc3e99f0c963d343def2e33728ae3561ac",
+              "gzip_sha256": "3ed70fa0fa8f4ea51faedb763935f4f7737b5f950cf2013a464aa6c87a8cdb32"
+            },
+            {
+              "path": "data/flink-state-alo-recovery/output-read_committed.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "e1ed6e3b8520f7e930475a607ddceba92e1c5338fe6d677a67531d61dd7fda3f",
+              "gzip_sha256": "fc59b6c706b746064f36f9e7481d74ed3f18b81f2680834cb27175a06b507a4e"
+            },
+            {
+              "path": "data/flink-state-alo-recovery/observations-read_committed.jsonl.gz",
+              "rows": 18000,
+              "uncompressed_sha256": "f65f230efb448885faf3d664aa6dafe4fcc4f9407280df4e14a5eb9e7633b65d",
+              "gzip_sha256": "7e808c2db8522d3e53dce0558d8ad60d140eb29f57916772d216b0947906c77f"
+            }
+          ]
+        },
+        {
+          "name": "streams-direct-eos-normal",
+          "engine": "Kafka Streams",
+          "source_topic": "arrival-native-streams-direct-eos-normal-in",
+          "output_topic": "arrival-native-streams-direct-eos-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121696805,
+            "send_duration_ms": 3001.814463,
+            "acknowledged_duration_ms": 3006.300288,
+            "achieved_send_rate_per_sec": 2998.1866337619813,
+            "send_buckets_per_second": {
+              "0": 2997,
+              "1": 3000,
+              "2": 3000,
+              "3": 3
+            }
+          },
+          "configuration": {
+            "application_id": "arrival-native-streams-direct-eos-normal-out-filter-app",
+            "commit_interval_ms": 100,
+            "transaction_timeout_ms": 10000,
+            "ttl_ms": 3600000,
+            "processing_guarantee": "exactly_once_v2",
+            "input_key": "event_id",
+            "filter_duplicates": false
+          },
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/streams",
+          "worker_pids": [
+            278740
+          ],
+          "failure": null,
+          "source_committed_offset": 9001,
+          "lifecycle": [
+            {
+              "pid": 278740,
+              "previous": "CREATED",
+              "state": "REBALANCING",
+              "at_ms": 1792121694894
+            },
+            {
+              "pid": 278740,
+              "previous": "REBALANCING",
+              "state": "RUNNING",
+              "at_ms": 1792121695809
+            }
+          ],
+          "restore": [
+            {
+              "pid": 278740,
+              "topic": "arrival-native-streams-direct-eos-normal-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "restored_records": 0
+            },
+            {
+              "pid": 278740,
+              "topic": "arrival-native-streams-direct-eos-normal-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "start_offset": 0,
+              "end_offset": 0
+            }
+          ],
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "f0508b8d4b0c17762dddbfa643a3177f75647e4619bf23b64e7d80074130fc88"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "506212710b20c64bc023c3e5e113670ac73d0778e0cdaf284a357ff94ed95110"
+              },
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798686,
+                "sha256": "6291ec91d2d48209975927491ce29c831db519dc737d09d1cfd7e0c4d9047b29"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 317,
+                "p50": 2068,
+                "p95": 2615,
+                "p99": 2650,
+                "max": 2674,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "506212710b20c64bc023c3e5e113670ac73d0778e0cdaf284a357ff94ed95110"
+              },
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-normal/observations-read_committed.jsonl",
+                "bytes": 2780686,
+                "sha256": "73395fa39f9340b256db51b4b9655b3db208f6741774b666fb89f6e676ff9eef"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 469,
+                "p50": 2171,
+                "p95": 2700,
+                "p99": 2757,
+                "max": 2785,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/streams-direct-eos-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "4e32450500e6cbfa981bb53a5b4c100a0d3cf2371e423e665ee348a364350063",
+              "gzip_sha256": "19e9148e839edad4b6cec94250b5862ef3e50511e1952e7bbb2c1faa5c8642b2"
+            },
+            {
+              "path": "data/streams-direct-eos-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "86bb8886e83eb3fae01a1577c468cf1d1a1158c9137d95d4ecd7d5031e807991",
+              "gzip_sha256": "cf3ddf3b56089ed1995f3652c1f06e68b540da8faa4c26dcae49014369ae41d2"
+            },
+            {
+              "path": "data/streams-direct-eos-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "d9be6bc957d5fdea86ddce4121726b6fe602aa5d68f1c551212f18634d19cb6f",
+              "gzip_sha256": "747ef0c74668ee2305028affd2c99c98bd98a8247acc27750f557b0bc1d53f00"
+            },
+            {
+              "path": "data/streams-direct-eos-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "86bb8886e83eb3fae01a1577c468cf1d1a1158c9137d95d4ecd7d5031e807991",
+              "gzip_sha256": "63f04c9e6ae6d22e47f854d447b5f4e0b2ed34637ea22a4b2ea674b67a28ae80"
+            },
+            {
+              "path": "data/streams-direct-eos-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "97847a63c6614e6c9d0d2ac02adfa83160d28b8582f2f0300e6ea82cbcb70c2f",
+              "gzip_sha256": "bea60caf717601a9d85a19a36dbe816e69147ffff6358242b04ab33904d75f2f"
+            }
+          ]
+        },
+        {
+          "name": "streams-direct-eos-recovery",
+          "engine": "Kafka Streams",
+          "source_topic": "arrival-native-streams-direct-eos-recovery-in",
+          "output_topic": "arrival-native-streams-direct-eos-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121714748,
+            "send_duration_ms": 2999.98869,
+            "acknowledged_duration_ms": 3003.269589,
+            "achieved_send_rate_per_sec": 3000.011310042639,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "configuration": {
+            "application_id": "arrival-native-streams-direct-eos-recovery-out-filter-app",
+            "commit_interval_ms": 100,
+            "transaction_timeout_ms": 10000,
+            "ttl_ms": 3600000,
+            "processing_guarantee": "exactly_once_v2",
+            "input_key": "event_id",
+            "filter_duplicates": false
+          },
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/streams",
+          "worker_pids": [
+            279121,
+            279276
+          ],
+          "failure": {
+            "kind": "SIGKILL after native output ACK, before transaction commit",
+            "witness": {
+              "pid": 279121,
+              "topic": "arrival-native-streams-direct-eos-recovery-out",
+              "partition": 0,
+              "offset": 0,
+              "value": {
+                "event_id": "event-00001",
+                "input_seq": 3,
+                "payload": {
+                  "source": "synthetic",
+                  "value": 3,
+                  "worker": 3
+                },
+                "ingested_at_ms": 1792121714753,
+                "is_duplicate": false,
+                "marked_at_ms": 1792121714884
+              },
+              "at_ms": 1792121715031
+            },
+            "killed_pid": 279121,
+            "exit_code": -9,
+            "raw_records_before_kill": 2,
+            "committed_records_before_kill": 0
+          },
+          "source_committed_offset": 9001,
+          "lifecycle": [
+            {
+              "pid": 279121,
+              "previous": "CREATED",
+              "state": "REBALANCING",
+              "at_ms": 1792121712904
+            },
+            {
+              "pid": 279121,
+              "previous": "REBALANCING",
+              "state": "RUNNING",
+              "at_ms": 1792121713804
+            },
+            {
+              "pid": 279276,
+              "previous": "RUNNING",
+              "state": "REBALANCING",
+              "at_ms": 1792121730019
+            },
+            {
+              "pid": 279276,
+              "previous": "REBALANCING",
+              "state": "RUNNING",
+              "at_ms": 1792121730119
+            }
+          ],
+          "restore": [
+            {
+              "pid": 279121,
+              "topic": "arrival-native-streams-direct-eos-recovery-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "restored_records": 0
+            },
+            {
+              "pid": 279121,
+              "topic": "arrival-native-streams-direct-eos-recovery-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "start_offset": 0,
+              "end_offset": 0
+            },
+            {
+              "pid": 279276,
+              "topic": "arrival-native-streams-direct-eos-recovery-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "restored_records": 0
+            },
+            {
+              "pid": 279276,
+              "topic": "arrival-native-streams-direct-eos-recovery-out-filter-app-seen-ids-changelog",
+              "store": "seen-ids",
+              "start_offset": 0,
+              "end_offset": 3
+            }
+          ],
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "c8715529e4b71803a71cdfd9c794b11a16f88f29b27c482b837521fa1655bb60"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9002,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 2,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 2,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3002,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 2,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 1630132,
+                "sha256": "76e2a4c1afc667fc385bc4defd4fd01add0dab9307ec4fbef47da478a9de6832"
+              },
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 2799292,
+                "sha256": "3828b9b3f4ac8a3fbe13e97a3835e4abf2ae37f05bcc39fb53e2d3bc53e899a8"
+              },
+              "visibility_ms": {
+                "samples": 9002,
+                "min": 311,
+                "p50": 15574,
+                "p95": 16151,
+                "p99": 16189,
+                "max": 16215,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "ef24a59e9dcf92ba491d87e75d5c7e70ac01856eeb4a2a5a9d25e5cb7454a241"
+              },
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/streams-direct-eos-recovery/observations-read_committed.jsonl",
+                "bytes": 2780686,
+                "sha256": "2aaefa3f167745876c2b5b6cab77594afb2cdc8d16a50cf4b444836c9de894e1"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 14819,
+                "p50": 15675,
+                "p95": 16210,
+                "p99": 16252,
+                "max": 16274,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/streams-direct-eos-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "a28c455d8596fb691ca7bfd3446648ba8acae4c3e5f7a62e96331d4e37bd1a2b",
+              "gzip_sha256": "4d5e600de2ad6e7c8be67ddbf3cde7388cfc452b98e1efde450e0828286668d5"
+            },
+            {
+              "path": "data/streams-direct-eos-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 9002,
+              "uncompressed_sha256": "ae5023c6ec2b2d9a177833f256f13d19f47a73dbaade5e9d7950f89491f6637f",
+              "gzip_sha256": "b4a70af6203b7cb180a325ce532ba8ad0eb67294964830484ac52f48a6ad37d8"
+            },
+            {
+              "path": "data/streams-direct-eos-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 9002,
+              "uncompressed_sha256": "371ceb0967735944a04c27a392f8b6b9b9e266e67136227251c4568d6ec95d41",
+              "gzip_sha256": "9d9f46b21bf74d462eea1eb15da321c75fcb9e9e7ae5e909d0cc0be42c48ca0c"
+            },
+            {
+              "path": "data/streams-direct-eos-recovery/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "5268367a43c24b7e1dbed9f63571b8e843b10a37e5ac0aa1d8908a5da20d09d1",
+              "gzip_sha256": "774ee8e5d53c025968293e5cf2f96f5e729ba24cf9806683e1d3a0f972dff14f"
+            },
+            {
+              "path": "data/streams-direct-eos-recovery/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "1da551b4eb0d6173a76a0d0fa9f899237ff7b20cade563d45d33778d069f8a8e",
+              "gzip_sha256": "d6549a514725bd02ff76968d73508b92c2fd1d6e8bd54850cb991a5d945d0116"
+            }
+          ]
+        },
+        {
+          "name": "redis-mark-before-normal",
+          "mode": "redis-mark-before",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-redis-mark-before-normal-in",
+          "output_topic": "arrival-native-redis-mark-before-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121771202,
+            "send_duration_ms": 3002.091596,
+            "acknowledged_duration_ms": 3009.005228,
+            "achieved_send_rate_per_sec": 2997.9098612419552,
+            "send_buckets_per_second": {
+              "0": 2999,
+              "1": 2999,
+              "2": 3001,
+              "3": 1
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 279636,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121770366
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "redis",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121746590
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121770366
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 6305,
+              "completed_at_ms": 1792121812641
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792121831786
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "f8e62500c5adf0ff806324238ba48e2ab5fedfb7fb9abd67dff687f53f141f8a"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "4cc2ea9c4bf2cd015c5203c2bcf069b7c51885d90137d8d971d0479fc807feef"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771300
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771456
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771474
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771494
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121771247,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771515
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121771247,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771541
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "e7de01f2da8d1f3329b284a31230cb478c7174740775f8358ccbb7749ff76deb"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 268,
+                "p50": 28143,
+                "p95": 54303,
+                "p99": 56855,
+                "max": 57560,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "4cc2ea9c4bf2cd015c5203c2bcf069b7c51885d90137d8d971d0479fc807feef"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771300
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771456
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771474
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121771211,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771494
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121771247,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121771515
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121771247,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121771541
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "a465fc877078294a394266422bcaaed229f66992ba2b26b648455ec3b2ced0b3"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 266,
+                "p50": 28143,
+                "p95": 54303,
+                "p99": 56855,
+                "max": 57560,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/redis-mark-before-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "4355544cc889e1812d42ac72e4612c8cfafde33f074d22dbd6e5d51438fc8cff",
+              "gzip_sha256": "0b497ab3ca726d78f173b2c06d94d8b2e258a8144f12d4304820b0ca353e64d6"
+            },
+            {
+              "path": "data/redis-mark-before-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "db17633f1e12492da36ea2614dbb317f1e484aa4214c77cf7f4dc9d6e38223cc",
+              "gzip_sha256": "c27f77f509c6e11edc4e7779c893427e760669887a6415841c5b284c195c29fc"
+            },
+            {
+              "path": "data/redis-mark-before-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "62d689bfd10e4bab9ca3a7d27d1fe89bf4c7744e69f68e4c0855aced240e022b",
+              "gzip_sha256": "37bba9a63af2f3ce339e1ce4846dfb81bccee5a750b2a76cf91e4a70b7f819f2"
+            },
+            {
+              "path": "data/redis-mark-before-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "db17633f1e12492da36ea2614dbb317f1e484aa4214c77cf7f4dc9d6e38223cc",
+              "gzip_sha256": "c13c48d23a579b16604dfcca25f29ffb77f823164b09d228edb1c3a1c280321b"
+            },
+            {
+              "path": "data/redis-mark-before-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "0bd5d4d74724afa74689f7983fa8bf930a1fdd5b8aa1446cc3c65274202ed89e",
+              "gzip_sha256": "3d10486d5280bddf50b228c6779e66ddab8e028474f4798ae0056fb179f9e564"
+            }
+          ]
+        },
+        {
+          "name": "redis-mark-before-recovery",
+          "mode": "redis-mark-before",
+          "failure_kind": "after-redis",
+          "source_topic": "arrival-native-redis-mark-before-recovery-in",
+          "output_topic": "arrival-native-redis-mark-before-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121860153,
+            "send_duration_ms": 2999.931976,
+            "acknowledged_duration_ms": 3001.94917,
+            "achieved_send_rate_per_sec": 3000.0680255424563,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 280072,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121859331
+          },
+          "fault": null,
+          "sink_gap": [
+            {
+              "stage": "after-redis",
+              "mode": "redis-mark-before",
+              "attempt": 0,
+              "redis_key": "arrival-native-redis-mark-before-recovery-out:seen:event-00000",
+              "redis_value": "seen",
+              "marked_value": {
+                "event_id": "event-00000",
+                "input_seq": 2,
+                "payload": {
+                  "source": "synthetic",
+                  "value": 2,
+                  "worker": 2
+                },
+                "ingested_at_ms": 1792121860160,
+                "is_duplicate": false,
+                "marked_at_ms": 1792121860285
+              },
+              "kafka_acked": false,
+              "kafka_offset": -1,
+              "at_ms": 1792121860328
+            }
+          ],
+          "boundary_verification": {
+            "redis_value": "seen",
+            "raw_records": 0,
+            "committed_records": 0,
+            "verified_at_ms": 1792121865072
+          },
+          "marker_backend": "redis",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121846523
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792121866215
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121859331
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 1,
+              "processed": 5184,
+              "completed_at_ms": 1792121899433
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792121925068
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "eff2391a72795513f560607a01ad167b674fb836e45154604d9f1a5be7d4df79"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 1,
+                "invalid_flag_types": 0,
+                "false_markers": 2999,
+                "true_markers": 6001,
+                "business_ids_without_false": 1,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 1629779,
+                "sha256": "20fcaf25cd74dc5e2fde83e36861990487aa4a1aa54d431f5e1a8167063f1b8e"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866234
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121866268
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866273
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866280
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121860196,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866286
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121860196,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121866292
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 2798669,
+                "sha256": "ad970e2b64810e6fce241ea0b89f069110ba8def31d5257450f1835b44330bb7"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 6093,
+                "p50": 32809,
+                "p95": 58911,
+                "p99": 61183,
+                "max": 61891,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 1,
+                "invalid_flag_types": 0,
+                "false_markers": 2999,
+                "true_markers": 6001,
+                "business_ids_without_false": 1,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/sink-read_committed.jsonl",
+                "bytes": 1629779,
+                "sha256": "20fcaf25cd74dc5e2fde83e36861990487aa4a1aa54d431f5e1a8167063f1b8e"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866234
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121866268
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866273
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121860160,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866280
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121860196,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121866286
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121860196,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121866292
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-before-recovery/observations-read_committed.jsonl",
+                "bytes": 2780669,
+                "sha256": "12598455fbf77487c8e4c25536311fdb4ceef141ac53ac3920b7c3d0b8b9e899"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 6093,
+                "p50": 32809,
+                "p95": 58911,
+                "p99": 61183,
+                "max": 61891,
+                "within_100ms": 0
+              }
+            }
+          },
+          "final_redis_fault_key_value": "seen",
+          "exported_jsonl": [
+            {
+              "path": "data/redis-mark-before-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "849117c74b97919295bd4e6835c79480b25ab262b629af3e509b650d4bd1b8e3",
+              "gzip_sha256": "f67de530d1318ef6ab250471a7252c16989e1eefca9278077b8139b4f15ccd85"
+            },
+            {
+              "path": "data/redis-mark-before-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "4f60978ef0d292edfbf1ae7c7cc01f713defff5e43c16628cf8e66a9c277e54b",
+              "gzip_sha256": "9a12c31b2e0c3e0009300bc71e4dfe786aacac69da7fa44f07ea767fd4c342a4"
+            },
+            {
+              "path": "data/redis-mark-before-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "cf1d47857c3039a35ea26c6601ccd1902ed27e8f8e453967d5535c76ddf5cf82",
+              "gzip_sha256": "a2ea01957b3fdfd91d2e6ccc9780b87cbb922348ff9b4ee8643b94e9d0571419"
+            },
+            {
+              "path": "data/redis-mark-before-recovery/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "4f60978ef0d292edfbf1ae7c7cc01f713defff5e43c16628cf8e66a9c277e54b",
+              "gzip_sha256": "6ddf1d2e280d302fee4371c0742ef40c3cdfbad32cb9b21cb2cfb0b1e02a60bd"
+            },
+            {
+              "path": "data/redis-mark-before-recovery/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "c1baae2176936364018a77124ed9f2f1db37444bf683219d406a75c52d4dcc14",
+              "gzip_sha256": "5db17b657a0a31a2d91bb6e825e5923029edb9321b8e96232ed9b6dff1162918"
+            }
+          ]
+        },
+        {
+          "name": "redis-mark-after-normal",
+          "mode": "redis-mark-after",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-redis-mark-after-normal-in",
+          "output_topic": "arrival-native-redis-mark-after-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792121968242,
+            "send_duration_ms": 2999.92227,
+            "acknowledged_duration_ms": 3003.355753,
+            "achieved_send_rate_per_sec": 3000.0777320140364,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 280577,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792121967479
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "redis",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792121939894
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792121967479
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 6528,
+              "completed_at_ms": 1792122010726
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792122028344
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "de371f388a53905068bf0b31133ca6ac386ebe1a66914a9a70816b29213ae8d6"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "505fdd212bc4d06770dba380a46b482d5837dab715b98d6884d4c18cf139a37a"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968363
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968473
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968488
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968501
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121968284,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968517
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121968284,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968531
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "e299a55dbc71b6295447a6d0762d504d4905290d68fa610a39956216ec5098c7"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 234,
+                "p50": 27280,
+                "p95": 54264,
+                "p99": 56529,
+                "max": 57083,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "505fdd212bc4d06770dba380a46b482d5837dab715b98d6884d4c18cf139a37a"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968363
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968473
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968488
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121968250,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968501
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792121968284,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792121968517
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792121968284,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792121968531
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "01efeb7f64739b26be6bf0494c4295a60f84e6cf48cb687ccc58dcaa841b5c58"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 232,
+                "p50": 27280,
+                "p95": 54263,
+                "p99": 56529,
+                "max": 57083,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/redis-mark-after-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "f6a8f5588659fe40bd621807092c75a2c344f7b095b6aa0fac4363223ac5a8d5",
+              "gzip_sha256": "fcba532e025f53902e20d6f177d43b863dcd6ab3ee5b1ac633723169ccb392e9"
+            },
+            {
+              "path": "data/redis-mark-after-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "a270487f4db40b58c7799813cbedb0cdc904ee9d1ee731065f13cfac34cc4037",
+              "gzip_sha256": "5041e56003d222e99d880aee846e2013757229438052a390bf96bf61817f6874"
+            },
+            {
+              "path": "data/redis-mark-after-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "f0168d4f9924d95c1229e2a186706c9d1d3ee18e85901edd95518e23ea91df5d",
+              "gzip_sha256": "9cac905741e9aa5b85c2191b17d210724d9d84e568838ce1a5213735e51fd69a"
+            },
+            {
+              "path": "data/redis-mark-after-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "a270487f4db40b58c7799813cbedb0cdc904ee9d1ee731065f13cfac34cc4037",
+              "gzip_sha256": "3c537dc27c03f9def9d298f4c719ef3fc4f6155b470a38cd3eae7f964228e581"
+            },
+            {
+              "path": "data/redis-mark-after-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "94442abbe44c3a92ee6d7279dd2209163e56509fa064f1eef4d1a6a430939e18",
+              "gzip_sha256": "ab86d924922bf8dc333c5574e267e9e3d188bf410b2cd81648b0287690c72fa6"
+            }
+          ]
+        },
+        {
+          "name": "redis-mark-after-recovery",
+          "mode": "redis-mark-after",
+          "failure_kind": "after-ack",
+          "source_topic": "arrival-native-redis-mark-after-recovery-in",
+          "output_topic": "arrival-native-redis-mark-after-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792122068591,
+            "send_duration_ms": 2999.888495,
+            "acknowledged_duration_ms": 3002.270295,
+            "achieved_send_rate_per_sec": 3000.111509144609,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 281041,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792122067809
+          },
+          "fault": null,
+          "sink_gap": [
+            {
+              "stage": "after-ack",
+              "mode": "redis-mark-after",
+              "attempt": 0,
+              "redis_key": "arrival-native-redis-mark-after-recovery-out:seen:event-00000",
+              "redis_value": null,
+              "marked_value": {
+                "event_id": "event-00000",
+                "input_seq": 0,
+                "payload": {
+                  "source": "synthetic",
+                  "value": 0,
+                  "worker": 0
+                },
+                "ingested_at_ms": 1792122068597,
+                "is_duplicate": false,
+                "marked_at_ms": 1792122068713
+              },
+              "kafka_acked": true,
+              "kafka_offset": 0,
+              "at_ms": 1792122068813
+            }
+          ],
+          "boundary_verification": {
+            "redis_value": null,
+            "raw_records": 1,
+            "committed_records": 1,
+            "verified_at_ms": 1792122073490
+          },
+          "marker_backend": "redis",
+          "send_ledger_key": null,
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792122042965
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792122074611
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792122067809
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 1,
+              "processed": 3836,
+              "completed_at_ms": 1792122099549
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 8099,
+              "completed_at_ms": 1792122131276
+            },
+            {
+              "checkpoint_id": 4,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792122146950
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "31d4562060e1164441062dea7f63640696c60d9b806253db342377b345d27d50"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9001,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 1,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3001,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 1,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 1629956,
+                "sha256": "d4483a34d9f94920f80c1ca12710551fafed2a8eb46d86bae2c5c76b5a64fa44"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122068713
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122074627
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074642
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122074649
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074655
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122068631,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074661
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 2798976,
+                "sha256": "425619fbc22b3ba777d68a5ce80d8f07c2dd843e5cc5e4966b74837f9b93f538"
+              },
+              "visibility_ms": {
+                "samples": 9001,
+                "min": 242,
+                "p50": 34277,
+                "p95": 63346,
+                "p99": 66066,
+                "max": 66809,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9001,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 1,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3001,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 1,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/sink-read_committed.jsonl",
+                "bytes": 1629956,
+                "sha256": "d4483a34d9f94920f80c1ca12710551fafed2a8eb46d86bae2c5c76b5a64fa44"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122068713
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122074627
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074642
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122074649
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122068597,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074655
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122068631,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122074661
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/redis-mark-after-recovery/observations-read_committed.jsonl",
+                "bytes": 2780974,
+                "sha256": "f8e792ce2ba4bfd7d3ee491783be8165f7621d7a007a37ab28d3667ac6e8d06b"
+              },
+              "visibility_ms": {
+                "samples": 9001,
+                "min": 243,
+                "p50": 34277,
+                "p95": 63346,
+                "p99": 66066,
+                "max": 66809,
+                "within_100ms": 0
+              }
+            }
+          },
+          "final_redis_fault_key_value": "seen",
+          "exported_jsonl": [
+            {
+              "path": "data/redis-mark-after-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "2ae6415a2308581e95ee70f8bad0c54615559cc080c61c9b538a3f18ec59e602",
+              "gzip_sha256": "2be42808e3b253ef6e2655b429f51691157e043be430d4615686eabe8bff1b20"
+            },
+            {
+              "path": "data/redis-mark-after-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "4dc32a6044372c5d7c51f05544d0463dbcf061367015f4bde0e6a10ffca34d1c",
+              "gzip_sha256": "b548d989c27f4da8bd2073a66b974182a4dfe7118d4e8c54fb469564a1cb1fd5"
+            },
+            {
+              "path": "data/redis-mark-after-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "f2b91b65d7704ea0708712509610cce8da483a6bf42355c9c2d4c03950e7710d",
+              "gzip_sha256": "b7713f0158ae5c401ff22e39b8354295b352800c0de54bb54e0cb36f50d32174"
+            },
+            {
+              "path": "data/redis-mark-after-recovery/output-read_committed.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "4dc32a6044372c5d7c51f05544d0463dbcf061367015f4bde0e6a10ffca34d1c",
+              "gzip_sha256": "4f29e46d75a137593d9223208bc68974b341acf07fa95bdccc38a96ef32e3675"
+            },
+            {
+              "path": "data/redis-mark-after-recovery/observations-read_committed.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "a2e5de42bcf11e1bf80759542fcbfa508e4846a685fa1d3893e1d93b2f5a22d9",
+              "gzip_sha256": "71ffe2e705846d666cba2137ee8627f25eee90b211762928cc3ac2dc0d1ef680"
+            }
+          ]
+        },
+        {
+          "name": "state-redis-before-normal",
+          "mode": "state-redis-before",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-state-redis-before-normal-in",
+          "output_topic": "arrival-native-state-redis-before-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792122189277,
+            "send_duration_ms": 2999.896402,
+            "acknowledged_duration_ms": 3002.06958,
+            "achieved_send_rate_per_sec": 3000.1036015776385,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 281557,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792122188359
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": "input_seq",
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792122161430
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792122188359
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 6310,
+              "completed_at_ms": 1792122232822
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792122252969
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "6ddce10ca2246d0b420c5f5b7bcdd46c1081dea4cfaa361eee82548fb23d90f2"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "c64fd0349f7c036c9c1342bbbf01c4be3a720002d30feaad8ad304bb3d9bc1a1"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189392
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189534
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189557
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189601
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122189324,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189618
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122189324,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189628
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "53d3ff0bd06b78ee84ffd96cacabd1ffb1805b95fbf1557816fa398191e4efac"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 264,
+                "p50": 29054,
+                "p95": 57687,
+                "p99": 60136,
+                "max": 60669,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "c64fd0349f7c036c9c1342bbbf01c4be3a720002d30feaad8ad304bb3d9bc1a1"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189392
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189534
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189557
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122189282,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189601
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 4,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 4,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122189324,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122189618
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122189324,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122189628
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "68e602036aa1aa58b4abff1b202eb7bd45af425f7e6b4a3b8cb33e79ff52a196"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 266,
+                "p50": 29054,
+                "p95": 57687,
+                "p99": 60136,
+                "max": 60669,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/state-redis-before-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "a00409f6af032cd7d761d52af87905312d505ca16469b1c6ef16e3ad97bbddae",
+              "gzip_sha256": "5912666331e0499894510c06fb1fb79c8cae06ec23f5618af15ae10fbff0878a"
+            },
+            {
+              "path": "data/state-redis-before-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "13dc2cd6e729173444f9741fe6abc62f93127b585984979cd8ff3a9959ad6174",
+              "gzip_sha256": "5337051afcbad1a5c2123ef7258ff6e78a7ef782f6ea6cacf2a4e1276214da24"
+            },
+            {
+              "path": "data/state-redis-before-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "69f56f573c132836ebf1a09bc27894b8dadaea442c4fea464aca956834c04e8d",
+              "gzip_sha256": "367e7a2a3925c4d7103eada2be3e85f331cd7f5299fb9b65f9924f9c03768654"
+            },
+            {
+              "path": "data/state-redis-before-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "13dc2cd6e729173444f9741fe6abc62f93127b585984979cd8ff3a9959ad6174",
+              "gzip_sha256": "4c4623c278f3251556f72517c2a247e17336aee0f16ea6f079bb117789079710"
+            },
+            {
+              "path": "data/state-redis-before-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "0273606a4e925d9732732acc34559602a5e1ec7170ce3dcee061eb6702f03189",
+              "gzip_sha256": "66cac6b1a05f9a6a8c4941675035b9727ae0e0eda6a7bc7851d05afb552e3408"
+            }
+          ]
+        },
+        {
+          "name": "state-redis-before-recovery",
+          "mode": "state-redis-before",
+          "failure_kind": "after-redis",
+          "source_topic": "arrival-native-state-redis-before-recovery-in",
+          "output_topic": "arrival-native-state-redis-before-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792122284681,
+            "send_duration_ms": 2999.971993,
+            "acknowledged_duration_ms": 3002.394007,
+            "achieved_send_rate_per_sec": 3000.0280072614664,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 281980,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792122283898
+          },
+          "fault": null,
+          "sink_gap": [
+            {
+              "stage": "after-redis",
+              "mode": "state-redis-before",
+              "attempt": 0,
+              "redis_key": "arrival-native-state-redis-before-recovery-out:sent:0",
+              "redis_value": "reserved",
+              "marked_value": {
+                "event_id": "event-00000",
+                "input_seq": 0,
+                "payload": {
+                  "source": "synthetic",
+                  "value": 0,
+                  "worker": 0
+                },
+                "ingested_at_ms": 1792122284689,
+                "is_duplicate": false,
+                "marked_at_ms": 1792122284807
+              },
+              "kafka_acked": false,
+              "kafka_offset": -1,
+              "at_ms": 1792122284859
+            }
+          ],
+          "boundary_verification": {
+            "redis_value": "reserved",
+            "raw_records": 0,
+            "committed_records": 0,
+            "verified_at_ms": 1792122289414
+          },
+          "marker_backend": "flink-state",
+          "send_ledger_key": "input_seq",
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792122267399
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792122290517
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792122283898
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 1,
+              "processed": 4740,
+              "completed_at_ms": 1792122321350
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 8999,
+              "completed_at_ms": 1792122351414
+            },
+            {
+              "checkpoint_id": 4,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792122368322
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "9bfdbc0a6424ae530f1e585248c9aae67b43cfaf3a968b018c2d5e84ae2f1bcf"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 8999,
+                "missing_arrivals": 1,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 2999,
+                "true_markers": 6000,
+                "business_ids_without_false": 1,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 1629604,
+                "sha256": "923647fdafdd8fa9dab0a689d45177cbfab38303403ddcad04ffdc88707ff14c"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290542
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122290588
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290596
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290605
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122290611
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290617
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 2798364,
+                "sha256": "2a6c499707746c7a6b20b0866e7437ebebd23501a7e4f9e4809877f4c074d988"
+              },
+              "visibility_ms": {
+                "samples": 8999,
+                "min": 5888,
+                "p50": 33404,
+                "p95": 61113,
+                "p99": 63145,
+                "max": 63742,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 8999,
+                "missing_arrivals": 1,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 2999,
+                "true_markers": 6000,
+                "business_ids_without_false": 1,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/sink-read_committed.jsonl",
+                "bytes": 1629604,
+                "sha256": "923647fdafdd8fa9dab0a689d45177cbfab38303403ddcad04ffdc88707ff14c"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290542
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122290588
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122284689,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290596
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290605
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122290611
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122284723,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122290617
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-before-recovery/observations-read_committed.jsonl",
+                "bytes": 2780366,
+                "sha256": "42702b22b5bcaa6bc67cb57522f40188a33b90ceead3e3128eeba351432007ff"
+              },
+              "visibility_ms": {
+                "samples": 8999,
+                "min": 5888,
+                "p50": 33404,
+                "p95": 61113,
+                "p99": 63145,
+                "max": 63742,
+                "within_100ms": 0
+              }
+            }
+          },
+          "final_redis_fault_key_value": "reserved",
+          "exported_jsonl": [
+            {
+              "path": "data/state-redis-before-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "aae28543980c0496e2e3fbfc1bcc9d359c61ac396ea44e718277cd564e41daba",
+              "gzip_sha256": "cf102872acb53403ddfe66910cb4afa2303b5fcc9c4b8c9be9f4743f3fd2c21d"
+            },
+            {
+              "path": "data/state-redis-before-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 8999,
+              "uncompressed_sha256": "85d64bc922897c4a100f0b22b914c1024bf818c61d055d452627326f2718e10f",
+              "gzip_sha256": "9c76a84aa59c075b9447348d927eb299173c24441d7e01d5bc600f7da9b0e0d0"
+            },
+            {
+              "path": "data/state-redis-before-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 8999,
+              "uncompressed_sha256": "2b090b258ad9e9f9855ea6f49a1416891db6ca3cc6a87f521274ca0e88493d2f",
+              "gzip_sha256": "e138c2ae1d11c54a0db4207efe1bc7bff571bf70b2a269b855e46c1593c4fe19"
+            },
+            {
+              "path": "data/state-redis-before-recovery/output-read_committed.jsonl.gz",
+              "rows": 8999,
+              "uncompressed_sha256": "85d64bc922897c4a100f0b22b914c1024bf818c61d055d452627326f2718e10f",
+              "gzip_sha256": "34a36ceab1ebc6812f88bbf56f561beb89f6c2a92bad08440473ece0fccc965c"
+            },
+            {
+              "path": "data/state-redis-before-recovery/observations-read_committed.jsonl.gz",
+              "rows": 8999,
+              "uncompressed_sha256": "6ec635202b5dc102cdb082a45368ce790ef0538befe3bb10588eb2b5dfc3953e",
+              "gzip_sha256": "f167aefe35c22f8f62b2e2de154dea7c80c5b12c2b3292722fe94390936dbb6b"
+            }
+          ]
+        },
+        {
+          "name": "state-redis-after-normal",
+          "mode": "state-redis-after",
+          "failure_kind": "none",
+          "source_topic": "arrival-native-state-redis-after-normal-in",
+          "output_topic": "arrival-native-state-redis-after-normal-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792122393444,
+            "send_duration_ms": 2999.950246,
+            "acknowledged_duration_ms": 3003.150533,
+            "achieved_send_rate_per_sec": 3000.049754825167,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 282594,
+          "failure_action": "none",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792122392609
+          },
+          "fault": null,
+          "sink_gap": [],
+          "boundary_verification": null,
+          "marker_backend": "flink-state",
+          "send_ledger_key": "input_seq",
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792122383166
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792122392609
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 0,
+              "processed": 6310,
+              "completed_at_ms": 1792122436290
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 0,
+              "processed": 9000,
+              "completed_at_ms": 1792122457246
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "4bb292049070c5079ac6505550d321c80a6aa2a98341ddb1bdbdd9acf085af11"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/sink-read_uncommitted.jsonl",
+                "bytes": 1629780,
+                "sha256": "0a321aa5b79dac2002cab31694302b2d566fe901b76b066176b28ae797626022"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393560
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393675
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393699
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393721
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122393487,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393737
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122393487,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393752
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/observations-read_uncommitted.jsonl",
+                "bytes": 2798670,
+                "sha256": "99aece69361e0647b64dbbe6141d5191e14e2c5fa2ba8885d4b96edf41a8672d"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 235,
+                "p50": 28846,
+                "p95": 57786,
+                "p99": 60070,
+                "max": 60753,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9000,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 0,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 0,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3000,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 0,
+                "maximum_input_sequence_multiplicity": 1,
+                "arrival_contract_pass": true
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/sink-read_committed.jsonl",
+                "bytes": 1629780,
+                "sha256": "0a321aa5b79dac2002cab31694302b2d566fe901b76b066176b28ae797626022"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393560
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393675
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393699
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122393451,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393721
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 7,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 7,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122393487,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122393737
+                },
+                {
+                  "event_id": "event-00002",
+                  "input_seq": 6,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 6,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122393487,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122393752
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-normal/observations-read_committed.jsonl",
+                "bytes": 2780670,
+                "sha256": "26e5ecd322ed7df46ba20e353854dab00c780f1b9d5e2c34c2fa3c9aa4290524"
+              },
+              "visibility_ms": {
+                "samples": 9000,
+                "min": 234,
+                "p50": 28846,
+                "p95": 57786,
+                "p99": 60070,
+                "max": 60753,
+                "within_100ms": 0
+              }
+            }
+          },
+          "exported_jsonl": [
+            {
+              "path": "data/state-redis-after-normal/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "70fa21a667b2cf1167b287e6e5d7033431acc6f92e0bcfa4b0c81c2b973c599f",
+              "gzip_sha256": "9bbdd245063cc141545ba55037d4ca8ca5088057384c849beb2bf00f1f069cc8"
+            },
+            {
+              "path": "data/state-redis-after-normal/output-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "d55030b313976461f38b469b64d0e73739d1a9a46c24b8591aafc3ee6db2d401",
+              "gzip_sha256": "a595c6e148229ed54965e4f181ecb096e2b09b1962dd9417ef4416094607bc42"
+            },
+            {
+              "path": "data/state-redis-after-normal/observations-read_uncommitted.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "b50821c36e2718f2fcf829e717fbe01196b528a3be41f69c7fbe69fd69f81a52",
+              "gzip_sha256": "d8c3242187c61043d91de5f230882eaa22c5537a2e2fd7d10414cb18fb5212f0"
+            },
+            {
+              "path": "data/state-redis-after-normal/output-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "d55030b313976461f38b469b64d0e73739d1a9a46c24b8591aafc3ee6db2d401",
+              "gzip_sha256": "599cd531a3ae805b6dbb97295965910d2244fb8e2597c4c763d41694684a3bde"
+            },
+            {
+              "path": "data/state-redis-after-normal/observations-read_committed.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "4183eb34ed65b457fdbd1c9295fb5a524aca612e5255c91bc781be808b59a4ec",
+              "gzip_sha256": "478d0f6ee990415536e9d13d4e76677e11cd85a1ebab0ea1d3d12be2ebaca1a4"
+            }
+          ]
+        },
+        {
+          "name": "state-redis-after-recovery",
+          "mode": "state-redis-after",
+          "failure_kind": "after-ack",
+          "source_topic": "arrival-native-state-redis-after-recovery-in",
+          "output_topic": "arrival-native-state-redis-after-recovery-out",
+          "generation": {
+            "records": 9000,
+            "target_rate_per_sec": 3000,
+            "producer_threads": 4,
+            "started_at_ms": 1792122479553,
+            "send_duration_ms": 2999.868311,
+            "acknowledged_duration_ms": 3002.303148,
+            "achieved_send_rate_per_sec": 3000.1316947809178,
+            "send_buckets_per_second": {
+              "0": 3000,
+              "1": 3000,
+              "2": 3000
+            }
+          },
+          "checkpoint_interval_ms": 30000,
+          "checkpoint_timeout_ms": 120000,
+          "tolerable_checkpoint_failures": 0,
+          "deduplication_ttl_ms": 3600000,
+          "flink_jvm_pid": 283013,
+          "failure_action": "native task IOException; automatic job restart",
+          "controller_kill_during_failure": false,
+          "initial_checkpoint": {
+            "checkpoint_id": 1,
+            "attempt": 0,
+            "processed": 0,
+            "completed_at_ms": 1792122478707
+          },
+          "fault": null,
+          "sink_gap": [
+            {
+              "stage": "after-ack",
+              "mode": "state-redis-after",
+              "attempt": 0,
+              "redis_key": "arrival-native-state-redis-after-recovery-out:sent:1",
+              "redis_value": null,
+              "marked_value": {
+                "event_id": "event-00000",
+                "input_seq": 1,
+                "payload": {
+                  "source": "synthetic",
+                  "value": 1,
+                  "worker": 1
+                },
+                "ingested_at_ms": 1792122479559,
+                "is_duplicate": false,
+                "marked_at_ms": 1792122479671
+              },
+              "kafka_acked": true,
+              "kafka_offset": 0,
+              "at_ms": 1792122479801
+            }
+          ],
+          "boundary_verification": {
+            "redis_value": null,
+            "raw_records": 1,
+            "committed_records": 1,
+            "verified_at_ms": 1792122484475
+          },
+          "marker_backend": "flink-state",
+          "send_ledger_key": "input_seq",
+          "initialized_attempts": [
+            {
+              "attempt": 0,
+              "is_restored": false,
+              "at_ms": 1792122471740
+            },
+            {
+              "attempt": 1,
+              "is_restored": true,
+              "at_ms": 1792122485598
+            }
+          ],
+          "aborted_checkpoints": [],
+          "completed_checkpoints": [
+            {
+              "checkpoint_id": 1,
+              "attempt": 0,
+              "processed": 0,
+              "completed_at_ms": 1792122478707
+            },
+            {
+              "checkpoint_id": 2,
+              "attempt": 1,
+              "processed": 2716,
+              "completed_at_ms": 1792122502498
+            },
+            {
+              "checkpoint_id": 3,
+              "attempt": 1,
+              "processed": 6978,
+              "completed_at_ms": 1792122533858
+            },
+            {
+              "checkpoint_id": 4,
+              "attempt": 1,
+              "processed": 9000,
+              "completed_at_ms": 1792122550544
+            }
+          ],
+          "worker_directory": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/flink",
+          "input_file": {
+            "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/input.jsonl",
+            "bytes": 1185780,
+            "sha256": "e34a29442377e5ae19b1cc185a56ffaccf02523df00c7bd43217b315d0e5aa4e"
+          },
+          "views": {
+            "read_uncommitted": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9001,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 1,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3001,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 1,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/sink-read_uncommitted.jsonl",
+                "bytes": 1629956,
+                "sha256": "a8c025cac97e56af74370eb4816343065efafa347edb029cd5710eca873b0c2e"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122479671
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122485616
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485639
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122485645
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485654
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479596,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485661
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/observations-read_uncommitted.jsonl",
+                "bytes": 2798976,
+                "sha256": "c35b7e3574e6abfc89727ec18259bbb165fdc3115bfbc10b844748d004567402"
+              },
+              "visibility_ms": {
+                "samples": 9001,
+                "min": 258,
+                "p50": 35252,
+                "p95": 64305,
+                "p99": 66718,
+                "max": 67217,
+                "within_100ms": 0
+              }
+            },
+            "read_committed": {
+              "audit": {
+                "source_arrivals": 9000,
+                "unique_business_ids": 3000,
+                "output_unique_business_ids": 3000,
+                "output_arrivals": 9001,
+                "missing_arrivals": 0,
+                "unexpected_arrivals": 0,
+                "replayed_arrival_records": 1,
+                "payload_mismatches": 0,
+                "flag_mismatches_in_output_order": 1,
+                "flag_mismatches_against_source": 0,
+                "invalid_flag_types": 0,
+                "false_markers": 3001,
+                "true_markers": 6000,
+                "business_ids_without_false": 0,
+                "business_ids_with_multiple_false": 1,
+                "maximum_input_sequence_multiplicity": 2,
+                "arrival_contract_pass": false
+              },
+              "sink_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/sink-read_committed.jsonl",
+                "bytes": 1629956,
+                "sha256": "a8c025cac97e56af74370eb4816343065efafa347edb029cd5710eca873b0c2e"
+              },
+              "examples": [
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122479671
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 1,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 1,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122485616
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 2,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 2,
+                    "worker": 2
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485639
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 3,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 3,
+                    "worker": 3
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": false,
+                  "marked_at_ms": 1792122485645
+                },
+                {
+                  "event_id": "event-00000",
+                  "input_seq": 0,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 0,
+                    "worker": 0
+                  },
+                  "ingested_at_ms": 1792122479559,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485654
+                },
+                {
+                  "event_id": "event-00001",
+                  "input_seq": 5,
+                  "payload": {
+                    "source": "synthetic",
+                    "value": 5,
+                    "worker": 1
+                  },
+                  "ingested_at_ms": 1792122479596,
+                  "is_duplicate": true,
+                  "marked_at_ms": 1792122485661
+                }
+              ],
+              "observation_file": {
+                "path": "/home/walter/workspace/kafka-delivery-lab/results/local/arrival-v2-native-01/arrival-native/state-redis-after-recovery/observations-read_committed.jsonl",
+                "bytes": 2780974,
+                "sha256": "39f57f13536b56b569c74f9a9f05d46e49cbb62de4388face8aa0e843d1521b1"
+              },
+              "visibility_ms": {
+                "samples": 9001,
+                "min": 257,
+                "p50": 35252,
+                "p95": 64305,
+                "p99": 66718,
+                "max": 67217,
+                "within_100ms": 0
+              }
+            }
+          },
+          "final_redis_fault_key_value": "sent",
+          "exported_jsonl": [
+            {
+              "path": "data/state-redis-after-recovery/input.jsonl.gz",
+              "rows": 9000,
+              "uncompressed_sha256": "64f7c4f8150f40bbf0bc623e7c16111f977f6670dcfcc7c4aef095d172e4118d",
+              "gzip_sha256": "28b9c960d4887489585cf1b233c421c9f1afc4ee70e56a843aad4c195bb82d50"
+            },
+            {
+              "path": "data/state-redis-after-recovery/output-read_uncommitted.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "e138774d40db85898230e6829f690b77f9404d2671d5dfcd0b99136becc56d04",
+              "gzip_sha256": "0d5869632385d5c58833d5e79f67b3d0c512092274bbcb4c5bb193552689d9c2"
+            },
+            {
+              "path": "data/state-redis-after-recovery/observations-read_uncommitted.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "c5825f0029a9cb33c2a457562aa4bdf802a54fb6b2a2c538a8226561937e1a24",
+              "gzip_sha256": "9c1c2c5a5401aa3d9894d343b236b70d26d0e91f0c0c094a18873ee6717d53b1"
+            },
+            {
+              "path": "data/state-redis-after-recovery/output-read_committed.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "e138774d40db85898230e6829f690b77f9404d2671d5dfcd0b99136becc56d04",
+              "gzip_sha256": "bf4fc474b42734664cfd3285a027232846673511b934cd629a58ce6e0285f530"
+            },
+            {
+              "path": "data/state-redis-after-recovery/observations-read_committed.jsonl.gz",
+              "rows": 9001,
+              "uncompressed_sha256": "65df99ad37c14eccc0e16f3729cdbf53ca7b9ca7961f6378c4307f047b0bf637",
+              "gzip_sha256": "8f9fe4ec4906f673df1bc68122da30841a7c91b4e066a36c5cff27509ea324fb"
+            }
+          ]
+        }
+      ],
+      "execution": {
+        "kind": "native processes",
+        "redis_version": "Redis server v=7.2.6 sha=00000000:0 malloc=libc bits=64 build=56ccf08e4af0d095",
+        "java_version": "openjdk version \"17.0.20.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Corretto-17.0.20.12.1 (build 17.0.20.1+12-LTS)\nOpenJDK 64-Bit Server VM Corretto-17.0.20.12.1 (build 17.0.20.1+12-LTS, mixed mode, sharing)",
+        "kafka_server_jar_sha256": "8626f21d33d68a097d378cda2d595f03be8ef74ba4c106e975de6b3d5548d83a",
+        "ports": [
+          41297,
+          50459,
+          35891,
+          37693,
+          34045,
+          49083,
+          49329
+        ],
+        "owned_server_pids": [
+          275365,
+          275366,
+          275367,
+          275368
+        ]
+      }
+    }
+  ]
+}

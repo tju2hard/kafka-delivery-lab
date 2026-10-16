@@ -5,6 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import runpy
+import sys
 ROOT=Path(__file__).resolve().parents[1]
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def values(path):
@@ -63,7 +65,7 @@ def plain_language_report(runs):
         '故障行从最初发送计时，包含恢复等待和额外重放记录；具体故障注入方式见明细。','',
         '本次是单机约3秒发完9000条的合成数据实验。Redis 使用逐条同步实现，表中耗时不是其性能上限。'
         '事务结果按下游 `read_committed` 可见的数据统计。','',
-        '- [逐轮明细、串联对照与故障解释](ARRIVAL_DETAILS.md)',
+        '- [逐轮明细、串联对照与故障解释](ARRIVAL_LEGACY_DETAILS.md)',
         '- [状态后端与持续输入定位（单独实验）](STATE_STORE_PROBE.md)',
         '- [9条输入](examples/arrival-marked-input.jsonl) / [对应9条带标记输出](examples/arrival-marked-output.jsonl)',
         '- [平均时间的逐轮计算结果](arrival-readable-metrics.json) / [全部原始实验数据](arrival-evidence/)','']
@@ -72,6 +74,9 @@ def plain_language_report(runs):
     return '\n'.join(lines)
 
 def main():
+    if '--baseline' not in sys.argv:
+        runpy.run_path(str(ROOT/'scripts/render-arrival-v2-report.py'),run_name='__main__')
+        return
     parser=argparse.ArgumentParser();parser.add_argument('--baseline',required=True);parser.add_argument('--oracle',nargs=2,required=True);args=parser.parse_args()
     results=ROOT/'results';evidence=results/'arrival-evidence';evidence.mkdir(exist_ok=True)
     manifest=results/'arrival-inputs.sha256.json'
@@ -163,9 +168,9 @@ def main():
         '```bash','bash scripts/build.sh','harbor trials start -p harbor/arrival-marking-comparison -a oracle '+chr(92),
         '  --trial-name arrival-comparison --trials-dir results/trials','```','']
     detail_lines=['# 两轮逐场实验明细','',
-        '先看 [通俗对比报告](ARRIVAL_COMPARISON.md)，了解9000条消息最后收到多少条、标记是否正确、下游多久能看到。'
+        '先看 [通俗对比报告](ARRIVAL_LEGACY_COMPARISON.md)，了解9000条消息最后收到多少条、标记是否正确、下游多久能看到。'
         '本页保留原始实验配置、额外对照、逐轮计数和复现命令。','']+lines[2:]
-    (results/'ARRIVAL_DETAILS.md').write_text('\n'.join(detail_lines))
-    (results/'ARRIVAL_COMPARISON.md').write_text(plain_language_report(runs))
-    print(json.dumps({'report':'results/ARRIVAL_COMPARISON.md','runs':args.oracle,'cases_per_run':10}))
+    (results/'ARRIVAL_LEGACY_DETAILS.md').write_text('\n'.join(detail_lines))
+    (results/'ARRIVAL_LEGACY_COMPARISON.md').write_text(plain_language_report(runs))
+    print(json.dumps({'report':'results/ARRIVAL_LEGACY_COMPARISON.md','runs':args.oracle,'cases_per_run':10}))
 if __name__=='__main__':main()

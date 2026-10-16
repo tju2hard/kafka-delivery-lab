@@ -88,7 +88,8 @@ public class DeduplicationDemo {
         final BufferedReader input;
         final OutputStream output;
         RedisConnection()throws IOException {
-            socket=new Socket(System.getenv().getOrDefault("REDIS_HOST","redis"),6379);
+            socket=new Socket(System.getenv().getOrDefault("REDIS_HOST","redis"),
+                Integer.parseInt(System.getenv().getOrDefault("REDIS_PORT","6379")));
             socket.setSoTimeout(5000);socket.setTcpNoDelay(true);
             input=new BufferedReader(new InputStreamReader(socket.getInputStream(),StandardCharsets.UTF_8));
             output=new BufferedOutputStream(socket.getOutputStream());

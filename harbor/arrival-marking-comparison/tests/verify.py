@@ -2,16 +2,21 @@
 import gzip
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 sys.path.insert(0,'/app')
-from arrival_comparison import CASE_NAMES,COUNT,TAG_JAVA,STREAMS_JAVA,audit_arrivals,native_json
+import run_lab
+if os.getenv('LAB_JAVA'):
+    run_lab.JAVA[0]=os.environ['LAB_JAVA'];run_lab.JAVA[-2]=os.environ['LAB_CLASSPATH']
+from arrival_comparison import CASE_NAMES,COUNT,TAG_JAVA,STREAMS_JAVA,audit_arrivals,native_json,assert_outcome
 from latency import business_rows,distribution,jsonl
-out=Path('/logs/verifier');checks=[];errors=[]
+out=Path(os.getenv('ARRIVAL_VERIFY_OUT','/logs/verifier'));out.mkdir(parents=True,exist_ok=True)
+checks=[];errors=[]
 try:
-    report=json.loads(Path('/app/arrival-report.json').read_text())
-    assert report['experiment_valid'] is True
+    report=json.loads(Path(os.getenv('ARRIVAL_REPORT','/app/arrival-report.json')).read_text())
+    assert report['experiment_valid'] is True and report['schema_version']==2
     assert [c['name'] for c in report['cases']]==CASE_NAMES
     for case in report['cases']:
         def read(topic,view):
@@ -59,13 +64,31 @@ try:
             assert case['initial_checkpoint']['processed']==0
             assert case['generation']['started_at_ms']>case['initial_checkpoint']['completed_at_ms']
             if recovered:
-                assert native_json(worker,'checkpoint-fault.json')==[case['fault']]
-                assert case['fault']['checkpoint_id']>case['initial_checkpoint']['checkpoint_id']
-                assert case['fault']['processed_before_failure']>0
                 assert any(v['attempt']>=1 and v['is_restored'] for v in case['initialized_attempts'])
+                if case['failure_kind']=='snapshot-error':
+                    assert native_json(worker,'checkpoint-fault.json')==[case['fault']]
+                    assert case['fault']['checkpoint_id']>case['initial_checkpoint']['checkpoint_id']
+                    assert case['fault']['processed_before_failure']>0
+                    assert not case['sink_gap']
+                else:
+                    assert case['fault'] is None and not native_json(worker,'checkpoint-fault.json')
+                    assert native_json(worker,'sink-gap.json')==case['sink_gap']
+                    assert native_json(worker,'boundary-verification.json')==[case['boundary_verification']]
+                    witness=case['sink_gap'][0];marked=witness['marked_value']
+                    first=next(v for v in values if v['event_id']==marked['event_id'])
+                    assert marked['input_seq']==first['input_seq'] and marked['is_duplicate'] is False
+                    assert witness['mode']==case['mode']
+                    assert witness['kafka_acked'] is (case['failure_kind']=='after-ack')
+                    assert witness['redis_key']==case['output_topic']+(
+                        ':sent:'+str(marked['input_seq']) if case['mode'].startswith('state-redis-')
+                        else ':seen:'+marked['event_id'])
+                    assert case['boundary_verification']['verified_at_ms']>=witness['at_ms']
             else:
                 assert case['fault'] is None and not native_json(worker,'checkpoint-fault.json')
+                assert not case['sink_gap'] and not native_json(worker,'sink-gap.json')
                 assert all(v['attempt']==0 for v in case['initialized_attempts'])
+            assert case['marker_backend']==('redis' if case['mode'].startswith('redis-mark-') else 'flink-state')
+            assert case['send_ledger_key']==('input_seq' if case['mode'].startswith('state-redis-') else None)
             assert any(v['processed']>=COUNT and v['attempt']>=(1 if recovered else 0) for v in case['completed_checkpoints'])
         exports=[]
         def export(stem,values):
@@ -90,14 +113,23 @@ try:
                 else:assert not matches
             export('output-'+view,actual);export('observations-'+view,observed)
         a=case['views']['read_committed']['audit']
-        assert a['missing_arrivals']==a['payload_mismatches']==a['unexpected_arrivals']==0
-        assert a['output_unique_business_ids']==COUNT//3
-        should_pass=not recovered or direct or case['mode']=='eos'
-        assert a['arrival_contract_pass'] is should_pass
-        if should_pass:assert a['output_arrivals']==COUNT and a['false_markers']==COUNT//3 and a['true_markers']==COUNT*2//3
-        else:assert a['replayed_arrival_records']>0
-        if case.get('staging_topic'):
-            assert len(business_rows(read(case['staging_topic'],'read_uncommitted')))==a['output_arrivals']
+        assert_outcome(case)
+        if not direct and case['mode']!='eos':
+            assert case['views']['read_uncommitted']['audit']==a
+        if not direct and case['sink_gap']:
+            gap=case['sink_gap'][0];sequence=gap['marked_value']['input_seq']
+            final_value=run_lab.redis('GET',gap['redis_key'])
+            assert final_value==('reserved' if case['mode']=='state-redis-before' else
+                                 'sent' if case['mode']=='state-redis-after' else 'seen')
+            case['final_redis_fault_key_value']=final_value
+            for view in ('read_uncommitted','read_committed'):
+                rows=read(case['output_topic'],view)
+                matches=[json.loads(r['value']) for r in rows if json.loads(r['value'])['input_seq']==sequence]
+                expected=0 if case['mode']=='state-redis-before' else 1 if case['mode']=='redis-mark-before' else 2
+                assert len(matches)==expected
+                assert all(v['is_duplicate'] is (case['mode']=='redis-mark-before') for v in matches)
+                if case['failure_kind']=='after-ack':
+                    assert any(r['offset']==gap['kafka_offset'] and json.loads(r['value'])==gap['marked_value'] for r in rows)
         case['exported_jsonl']=exports
         checks.append({'name':case['name'],'passed':True,'committed_audit':a,'visibility_ms':case['views']['read_committed']['visibility_ms']})
     (out/'arrival-comparison.json').write_text(json.dumps(report,indent=2)+'\n');reward=1

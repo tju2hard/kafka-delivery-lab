@@ -1,0 +1,102 @@
+{
+  "rows": [
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "flink-state-eos-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 27651.39477777778,
+      "p99_visibility_ms": 29046
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "flink-state-eos-recovery",
+      "samples": 9000,
+      "mean_visibility_ms": 34814.339,
+      "p99_visibility_ms": 36235
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "flink-state-alo-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 184.33877777777778,
+      "p99_visibility_ms": 519
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "flink-state-alo-recovery",
+      "samples": 18000,
+      "mean_visibility_ms": 14601.872444444445,
+      "p99_visibility_ms": 30122
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "streams-direct-eos-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 2141.777,
+      "p99_visibility_ms": 2757
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "streams-direct-eos-recovery",
+      "samples": 9000,
+      "mean_visibility_ms": 15627.175666666666,
+      "p99_visibility_ms": 16252
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "redis-mark-before-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 28478.66222222222,
+      "p99_visibility_ms": 56855
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "redis-mark-before-recovery",
+      "samples": 9000,
+      "mean_visibility_ms": 33319.81088888889,
+      "p99_visibility_ms": 61183
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "redis-mark-after-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 27908.39988888889,
+      "p99_visibility_ms": 56529
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "redis-mark-after-recovery",
+      "samples": 9001,
+      "mean_visibility_ms": 34912.132540828796,
+      "p99_visibility_ms": 66066
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "state-redis-before-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 29338.298777777778,
+      "p99_visibility_ms": 60136
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "state-redis-before-recovery",
+      "samples": 8999,
+      "mean_visibility_ms": 34332.94132681409,
+      "p99_visibility_ms": 63145
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "state-redis-after-normal",
+      "samples": 9000,
+      "mean_visibility_ms": 29230.94522222222,
+      "p99_visibility_ms": 60070
+    },
+    {
+      "trial": "arrival-v2-native-01",
+      "case": "state-redis-after-recovery",
+      "samples": 9001,
+      "mean_visibility_ms": 35150.85134985002,
+      "p99_visibility_ms": 66718
+    }
+  ]
+}

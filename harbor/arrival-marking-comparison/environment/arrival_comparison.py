@@ -10,10 +10,18 @@ from latency import Experiment,TAG_JAVA,RATE,business_rows,jsonl,file_info,distr
 from run_lab import JAVA,wait_for,redis
 COUNT=9000
 STREAMS_JAVA=JAVA[:-1]+['lab.ArrivalStreamsDemo']
-CASES=tuple((name,mode,fault) for fault in ('none','snapshot-error') for name,mode in (
- ('flink-state-alo','alo'),('redis-sink-alo','redis'),('streams-direct-eos','streams'),
- ('flink-alo-streams-eos','bridge'),('flink-state-eos','eos')))
-CASE_NAMES=[name+('-normal' if fault=='none' else '-recovery') for name,mode,fault in CASES]
+SCHEMES=(
+ ('flink-state-eos','eos','snapshot-error','state 标记＋事务输出（CK＝30秒）'),
+ ('flink-state-alo','alo','snapshot-error','state 标记＋非事务输出'),
+ ('streams-direct-eos','streams','ack-crash','直接 Streams EOS'),
+ ('redis-mark-before','redis-mark-before','after-redis','纯 Redis 标记：先登记，再输出'),
+ ('redis-mark-after','redis-mark-after','after-ack','纯 Redis 标记：先输出，再登记'),
+ ('state-redis-before','state-redis-before','after-redis','state 标记＋Redis 发送登记：先登记'),
+ ('state-redis-after','state-redis-after','after-ack','state 标记＋Redis 发送登记：后登记'),
+)
+CASES=tuple((prefix+suffix,mode,fault) for prefix,mode,recovery,_ in SCHEMES
+            for suffix,fault in (('-normal','none'),('-recovery',recovery)))
+CASE_NAMES=[name for name,_,_ in CASES]
 
 def native_json(directory, pattern):
     values = []
@@ -113,59 +121,70 @@ class ArrivalExperiment(Experiment):
         directory=self.root/name; directory.mkdir()
         source=self.root.name+'-'+name+'-in'; output=self.root.name+'-'+name+'-out'
         self.create(source); self.create(output)
-        staging=None
-        if mode=='bridge': staging=output+'-staging'; self.create(staging)
         observer=self.tag(['observe',output,directory],directory)
         for view in ('read_uncommitted','read_committed'):
             wait_for(lambda:(directory/('observer-ready-'+view)).exists(),35,'observer assignment',observer)
         worker_dir=directory/'flink'; worker_dir.mkdir()
         self.tag_call(['seed',source,0,0],directory)
-        stream_worker=None
-        if staging:
-            self.tag_call(['seed',staging,0,0],directory)
-            stream_worker=self.tag(['arrival-streams',staging,output,directory,'none'],directory)
-            wait_for(lambda:(directory/'worker-ready').exists(),120,'Streams warmup',stream_worker)
-        worker=self.tag(['recovery-flink',source,staging or output,mode,worker_dir,kind],worker_dir)
+        worker=self.tag(['recovery-flink',source,output,mode,worker_dir,kind],worker_dir)
         wait_for(lambda:(worker_dir/'worker-ready').exists(),120,'Flink warmup',worker)
         wait_for(lambda:any(x['processed']==0 for x in native_json(worker_dir,'completed-*.json')),
                  180,'actual initial completed checkpoint',worker)
         initial=[x for x in native_json(worker_dir,'completed-*.json') if x['processed']==0][-1]
         generation=json.loads(self.tag_call(['seed',source,COUNT,RATE],directory,timeout=90))
-        if kind=='snapshot-error':
-            wait_for(lambda:bool(native_json(worker_dir,'checkpoint-fault.json')),240,'actual CK snapshot IOException',worker)
+        boundary=None
+        if kind!='none':
+            pattern='checkpoint-fault.json' if kind=='snapshot-error' else 'sink-gap.json'
+            wait_for(lambda:bool(native_json(worker_dir,pattern)),240,'native fault boundary',worker)
+            if kind in ('after-redis','after-ack'):
+                witness=native_json(worker_dir,'sink-gap.json')[0]
+                raw=json.loads(self.tag_call(['read',output,'read_uncommitted'],directory))
+                committed=json.loads(self.tag_call(['read',output,'read_committed'],directory))
+                stored=redis('GET',witness['redis_key'])
+                assert stored==witness['redis_value']
+                assert len(raw)==len(committed)==(1 if kind=='after-ack' else 0)
+                if kind=='after-ack':
+                    assert stored is None and witness['kafka_acked'] is True
+                    assert raw[0]['offset']==witness['kafka_offset']
+                    assert json.loads(raw[0]['value'])==witness['marked_value']
+                else:
+                    assert stored in ('seen','reserved') and witness['kafka_acked'] is False
+                assert witness['marked_value']['is_duplicate'] is False
+                boundary={'redis_value':stored,'raw_records':len(raw),'committed_records':len(committed),
+                          'verified_at_ms':int(time.time()*1000)}
+                (worker_dir/'boundary-verification.json').write_text(json.dumps(boundary)+'\n')
+                (worker_dir/'release-sink-gap').touch()
             wait_for(lambda:any(x['attempt']>=1 and x['is_restored'] for x in native_json(worker_dir,'attempt-*-initialized.json')),
                      180,'native restored attempt in same JVM',worker)
-        required_attempt=1 if kind=='snapshot-error' else 0
+        required_attempt=1 if kind!='none' else 0
         wait_for(lambda:any(x['attempt']>=required_attempt and x['processed']>=COUNT for x in native_json(worker_dir,'completed-*.json')),
                  900,'completed all-data checkpoint',worker)
         assert worker.poll() is None, 'JVM must stay alive during automatic job recovery'
-        if staging:
-            target_rows=business_rows(json.loads(self.tag_call(['read',staging,'read_uncommitted'],directory)))
-            target=len(target_rows)
-        else:
-            wait_for(lambda:self.progress(directory,'read_committed')>=COUNT,120,'committed full source coverage',worker)
-            target_rows=json.loads(self.tag_call(['read',output,'read_committed'],directory))
-            target=len(target_rows)
+        # Completion is source/checkpoint based: the before-send ledger can lose an output.
+        target_rows=json.loads(self.tag_call(['read',output,'read_committed'],directory))
+        target=len(target_rows)
         wait_for(lambda:self.progress(directory,'read_committed')>=target,120,'observer committed drain',observer)
         for view in ('read_uncommitted','read_committed'):
             rows=json.loads(self.tag_call(['read',output,view],directory))
             wait_for(lambda:self.progress(directory,view)>=len(rows),60,'observer full drain',observer)
         # Shutdown only after native checkpoint recovery has already completed.
         self.kill(worker)
-        if stream_worker:self.kill(stream_worker)
         (directory/'observer-stop').touch();self.finish(observer,15)
         inputs=json.loads(self.tag_call(['read',source,'read_uncommitted'],directory))
         input_path=directory/'input.jsonl'
         with input_path.open('w') as stream:
             for row in business_rows(inputs):stream.write(row['value']+'\n')
         case={'name':name,'mode':mode,'failure_kind':kind,'source_topic':source,'output_topic':output,
-            'staging_topic':staging,'generation':generation,'checkpoint_interval_ms':30000,
+            'generation':generation,'checkpoint_interval_ms':30000,
             'checkpoint_timeout_ms':5000 if kind=='timeout' else 120000,
             'tolerable_checkpoint_failures':1 if kind=='timeout' else 0,
             'deduplication_ttl_ms':3600000,'flink_jvm_pid':worker.pid,
-            'failure_action':'none' if kind=='none' else 'native snapshot IOException; automatic job restart',
+            'failure_action':'none' if kind=='none' else 'native task IOException; automatic job restart',
             'controller_kill_during_failure':False,'initial_checkpoint':initial,
-            'fault':native_json(worker_dir,'checkpoint-fault.json')[0] if kind!='none' else None,
+            'fault':native_json(worker_dir,'checkpoint-fault.json')[0] if kind=='snapshot-error' else None,
+            'sink_gap':native_json(worker_dir,'sink-gap.json'), 'boundary_verification':boundary,
+            'marker_backend':'redis' if mode.startswith('redis-mark-') else 'flink-state',
+            'send_ledger_key':'input_seq' if mode.startswith('state-redis-') else None,
             'initialized_attempts':native_json(worker_dir,'attempt-*-initialized.json'),
             'aborted_checkpoints':native_json(worker_dir,'aborted-*.json'),
             'completed_checkpoints':native_json(worker_dir,'completed-*.json'),
@@ -179,11 +198,7 @@ class ArrivalExperiment(Experiment):
             case['views'][view]={'audit':audit_arrivals(inputs,rows),'sink_file':file_info(sink_path),
                 'examples':[json.loads(r['value']) for r in rows[:6]]}
         committed=case['views']['read_committed']['audit']
-        assert committed['missing_arrivals']==committed['payload_mismatches']==0
-        if mode=='eos' or kind=='none':
-            assert committed['arrival_contract_pass'] is True, 'Reference/control did not preserve all arrivals correctly'
-        else:
-            assert committed['replayed_arrival_records']>0, 'Expected replay fault was not exercised'
+        assert_outcome(case)
         print(json.dumps({'case':name,'failure':kind,'attempts':case['initialized_attempts'],
                           'committed_audit':committed}),flush=True)
         return observations(case)
@@ -272,9 +287,9 @@ class ArrivalExperiment(Experiment):
             time.sleep(.5)
         assert redis('PING')=='PONG'
         cases=[]
-        for (prefix,mode,fault),name in zip(CASES,CASE_NAMES):
+        for name,mode,fault in CASES:
             cases.append(self.streams_case(name) if mode=='streams' else self.flink_case(name,mode,fault))
-        return {'experiment_valid':True,'run_id':self.root.name,
+        return {'schema_version':2,'experiment_valid':True,'run_id':self.root.name,
             'contract':'all source arrivals preserved and marked; business-ID duplicates are NEVER filtered',
             'source_arrivals_per_case':COUNT,'unique_business_ids':COUNT//3,'producer_threads':4,
             'target_rate_per_sec':RATE,'deduplication_ttl_ms':3600000,'flink_checkpoint_interval_ms':30000,
@@ -283,9 +298,41 @@ class ArrivalExperiment(Experiment):
             'limitations':['single machine, single partition, synthetic 3-second load, no production SLA',
                 'warmup allocates workers; first business state/output path is not separately preheated',
                 'Flink: actual CK IOException with automatic task restore in same JVM; Streams: ACK-before-commit process kill',
-                'Redis exact seen keys in sink, updated before send; not an atomic Redis/Kafka transaction',
+                'Redis business markers keyed by event_id; separate state/Redis send-ledger cases keyed by input_seq',
+                'Redis/Kafka gaps independently checked while task is held, then native IOException and restore',
+                'no atomic Redis/Kafka transaction; single writer, no concurrent check/send race exercised',
                 'one-hour logical expiry configured, not observed for an actual hour; no broker/disk/rescale tests'],
             'cases':cases}
+
+def assert_outcome(case):
+    """A valid fault experiment must show the selected failure, not pass every strategy."""
+    a=case['views']['read_committed']['audit'];mode=case.get('mode','streams')
+    fault=case.get('failure_kind','ack-crash' if case.get('failure') else 'none')
+    assert a['payload_mismatches']==a['unexpected_arrivals']==a['invalid_flag_types']==0
+    assert a['output_unique_business_ids']==COUNT//3
+    if fault=='none' or mode in ('eos','streams'):
+        assert a['arrival_contract_pass'] is True
+        assert (a['output_arrivals'],a['false_markers'],a['true_markers'])==(COUNT,COUNT//3,COUNT*2//3)
+    elif mode=='alo':
+        assert a['missing_arrivals']==0 and a['replayed_arrival_records']>0
+        assert a['business_ids_with_multiple_false']>0
+    else:
+        expected={
+            'redis-mark-before':(COUNT,COUNT//3-1,COUNT*2//3+1,0,0,1,1,0),
+            'redis-mark-after':(COUNT+1,COUNT//3+1,COUNT*2//3,0,1,0,0,1),
+            'state-redis-before':(COUNT-1,COUNT//3-1,COUNT*2//3,1,0,0,1,0),
+            'state-redis-after':(COUNT+1,COUNT//3+1,COUNT*2//3,0,1,0,0,1),
+        }
+        keys=('output_arrivals','false_markers','true_markers','missing_arrivals','replayed_arrival_records',
+              'flag_mismatches_against_source','business_ids_without_false','business_ids_with_multiple_false')
+        assert tuple(a[k] for k in keys)==expected[mode],(mode,a)
+        assert a['arrival_contract_pass'] is False
+        witness=case['sink_gap'][0];assert witness['stage']==fault and witness['attempt']==0
+        assert witness['marked_value']['is_duplicate'] is False
+        boundary=case['boundary_verification']
+        assert boundary['raw_records']==boundary['committed_records']==int(fault=='after-ack')
+        assert boundary['redis_value']==witness['redis_value']
+
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);args=parser.parse_args()

@@ -1,0 +1,1 @@
+{"application_id":"arrival-native-streams-direct-eos-normal-out-filter-app","commit_interval_ms":100,"transaction_timeout_ms":10000,"ttl_ms":3600000,"processing_guarantee":"exactly_once_v2","input_key":"event_id","filter_duplicates":false}
