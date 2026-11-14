@@ -1,0 +1,9 @@
+{
+  "duplicates": 107143,
+  "encoding": "big-endian int64",
+  "id_mapping": "signed64(index * 0x9e3779b97f4a7c15) modulo 2^64",
+  "inputs": 357143,
+  "seed": 20261114,
+  "sha256": "52730d3cc901f684c74243bc36530b87c676c884925e94f9c53edf76c9ab1ef4",
+  "unique": 250000
+}

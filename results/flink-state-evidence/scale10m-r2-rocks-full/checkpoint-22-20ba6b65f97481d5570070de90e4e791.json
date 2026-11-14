@@ -1,0 +1,165 @@
+{
+  "alignment_buffered": 0,
+  "checkpointed_size": 173177362,
+  "end_to_end_duration": 332,
+  "id": 22,
+  "latest_ack_timestamp": 1794622025774,
+  "num_acknowledged_subtasks": 2,
+  "num_subtasks": 2,
+  "persisted_data": 0,
+  "processed_data": 0,
+  "state_size": 173177362,
+  "status": "COMPLETED",
+  "subtasks": [
+    {
+      "aborted": false,
+      "ack_timestamp": 1794622025734,
+      "alignment": {
+        "buffered": 0,
+        "duration": 0,
+        "persisted": 0,
+        "processed": 0
+      },
+      "checkpoint": {
+        "async": 274,
+        "sync": 7
+      },
+      "checkpointed_size": 91427632,
+      "className": "completed",
+      "end_to_end_duration": 292,
+      "index": 0,
+      "start_delay": 4,
+      "state_size": 91427632,
+      "status": "completed",
+      "unaligned_checkpoint": false
+    },
+    {
+      "aborted": false,
+      "ack_timestamp": 1794622025774,
+      "alignment": {
+        "buffered": 0,
+        "duration": 0,
+        "persisted": 0,
+        "processed": 0
+      },
+      "checkpoint": {
+        "async": 307,
+        "sync": 20
+      },
+      "checkpointed_size": 81749730,
+      "className": "completed",
+      "end_to_end_duration": 332,
+      "index": 1,
+      "start_delay": 3,
+      "state_size": 81749730,
+      "status": "completed",
+      "unaligned_checkpoint": false
+    }
+  ],
+  "summary": {
+    "alignment": {
+      "buffered": {
+        "avg": 0,
+        "max": 0,
+        "min": 0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "p999": 0.0
+      },
+      "duration": {
+        "avg": 0,
+        "max": 0,
+        "min": 0,
+        "p50": "NaN",
+        "p90": "NaN",
+        "p95": "NaN",
+        "p99": "NaN",
+        "p999": "NaN"
+      },
+      "persisted": {
+        "avg": 0,
+        "max": 0,
+        "min": 0,
+        "p50": "NaN",
+        "p90": "NaN",
+        "p95": "NaN",
+        "p99": "NaN",
+        "p999": "NaN"
+      },
+      "processed": {
+        "avg": 0,
+        "max": 0,
+        "min": 0,
+        "p50": "NaN",
+        "p90": "NaN",
+        "p95": "NaN",
+        "p99": "NaN",
+        "p999": "NaN"
+      }
+    },
+    "checkpoint_duration": {
+      "async": {
+        "avg": 290,
+        "max": 307,
+        "min": 274,
+        "p50": "NaN",
+        "p90": "NaN",
+        "p95": "NaN",
+        "p99": "NaN",
+        "p999": "NaN"
+      },
+      "sync": {
+        "avg": 13,
+        "max": 20,
+        "min": 7,
+        "p50": "NaN",
+        "p90": "NaN",
+        "p95": "NaN",
+        "p99": "NaN",
+        "p999": "NaN"
+      }
+    },
+    "checkpointed_size": {
+      "avg": 86588681,
+      "max": 91427632,
+      "min": 81749730,
+      "p50": "NaN",
+      "p90": "NaN",
+      "p95": "NaN",
+      "p99": "NaN",
+      "p999": "NaN"
+    },
+    "end_to_end_duration": {
+      "avg": 312,
+      "max": 332,
+      "min": 292,
+      "p50": "NaN",
+      "p90": "NaN",
+      "p95": "NaN",
+      "p99": "NaN",
+      "p999": "NaN"
+    },
+    "start_delay": {
+      "avg": 3,
+      "max": 4,
+      "min": 3,
+      "p50": "NaN",
+      "p90": "NaN",
+      "p95": "NaN",
+      "p99": "NaN",
+      "p999": "NaN"
+    },
+    "state_size": {
+      "avg": 86588681,
+      "max": 91427632,
+      "min": 81749730,
+      "p50": "NaN",
+      "p90": "NaN",
+      "p95": "NaN",
+      "p99": "NaN",
+      "p999": "NaN"
+    }
+  }
+}

@@ -38,6 +38,10 @@ Redis、Kafka 原始/已提交视图，确认窗口后释放真实 sink 异常�
 保留原来的14402条等历史实测，不能当作新方案的数据。
 [90000条状态后端/持续负载诊断](results/STATE_STORE_PROBE.md) 仍单独保留，不替代9000条整批结果。
 
+另有独立的 [Flink heap / RocksDB 六小时 TTL 数字 ID 去重实测](results/FLINK_STATE_BACKENDS.md)：
+固定约30%重复，25万至1000万唯一 ID，比较堆/RSS、吞吐、GC、反压及全量/增量 checkpoint。
+这是无故障、TTL未过期窗口内的状态后端实验，不替代上述交付语义和恢复矩阵。
+
 实现：[ArrivalStreamsDemo](src/main/java/lab/ArrivalStreamsDemo.java)、
 [ArrivalCheckpointDemo](src/main/java/lab/ArrivalCheckpointDemo.java)。
 容器入口为 `harbor/arrival-marking-comparison`；无 Docker 时可运行固定版本的本地三 Broker、

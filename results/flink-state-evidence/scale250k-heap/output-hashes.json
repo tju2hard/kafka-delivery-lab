@@ -1,0 +1,10 @@
+{
+  "output-0.bin": {
+    "bytes": 2000944,
+    "sha256": "e3f7b2d44d08c331d3d26fedecb27229067827619897c2582974c84eda76a9a0"
+  },
+  "output-1.bin": {
+    "bytes": 1999056,
+    "sha256": "01f003aa12827460847b7ebd907f419ff938b2c8f212fd9a4e2d69a003fec2dc"
+  }
+}

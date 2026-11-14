@@ -1,0 +1,39 @@
+{
+  "duration": 154,
+  "end-time": -1,
+  "isStoppable": false,
+  "jid": "369a3e38d3eb6fefa686032b6170b217",
+  "job-type": "STREAMING",
+  "maxParallelism": -1,
+  "name": "state-backend-rocks-full",
+  "now": 1794621538456,
+  "plan": {},
+  "start-time": 1794621538302,
+  "state": "INITIALIZING",
+  "status-counts": {
+    "CANCELED": 0,
+    "CANCELING": 0,
+    "CREATED": 0,
+    "DEPLOYING": 0,
+    "FAILED": 0,
+    "FINISHED": 0,
+    "INITIALIZING": 0,
+    "RECONCILING": 0,
+    "RUNNING": 0,
+    "SCHEDULED": 0
+  },
+  "timestamps": {
+    "CANCELED": 0,
+    "CANCELLING": 0,
+    "CREATED": 0,
+    "FAILED": 0,
+    "FAILING": 0,
+    "FINISHED": 0,
+    "INITIALIZING": 1794621538302,
+    "RECONCILING": 0,
+    "RESTARTING": 0,
+    "RUNNING": 0,
+    "SUSPENDED": 0
+  },
+  "vertices": []
+}

@@ -1,0 +1,2420 @@
+[
+  {
+    "run": "scale10m-r1-heap",
+    "backend": "heap",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 56.034517723,
+    "records_per_second": 254944.89076571935,
+    "mean_source_to_state_ms": 39.69500219688004,
+    "p99_source_to_state_ms_upper_bound": 262.144,
+    "mean_source_to_sink_callback_ms": 39.6889801917,
+    "p99_source_to_sink_callback_ms_upper_bound": 262.144,
+    "peak_rss_mib": 2376.44140625,
+    "retained_heap_mib": 998.588249206543,
+    "baseline_heap_mib": 23.748374938964844,
+    "retained_heap_delta_bytes_per_id": 102.2193696,
+    "sampled_active_cpu_seconds": 105.8,
+    "sampled_active_wall_seconds": 54.497,
+    "sample_coverage_ratio": 0.9725612392953833,
+    "sampled_average_cpu_cores": 1.9413912692441786,
+    "sampled_active_gc_ms": 7611,
+    "source_backpressure_mean_ms_per_second": 830.8076923076923,
+    "peak_rocksdb_directory_mib": 0.0,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 2045001728,
+    "active_checkpoints": [
+      {
+        "id": 10,
+        "duration_ms": 5428,
+        "checkpointed_bytes": 160258176,
+        "full_bytes": 160258176,
+        "trigger_timestamp": 1794621500328
+      },
+      {
+        "id": 6,
+        "duration_ms": 3296,
+        "checkpointed_bytes": 111558456,
+        "full_bytes": 111558456,
+        "trigger_timestamp": 1794621480116
+      },
+      {
+        "id": 1,
+        "duration_ms": 782,
+        "checkpointed_bytes": 18578106,
+        "full_bytes": 18578106,
+        "trigger_timestamp": 1794621455117
+      },
+      {
+        "id": 7,
+        "duration_ms": 3558,
+        "checkpointed_bytes": 122961024,
+        "full_bytes": 122961024,
+        "trigger_timestamp": 1794621485113
+      },
+      {
+        "id": 8,
+        "duration_ms": 4050,
+        "checkpointed_bytes": 137072304,
+        "full_bytes": 137072304,
+        "trigger_timestamp": 1794621490113
+      },
+      {
+        "id": 9,
+        "duration_ms": 5212,
+        "checkpointed_bytes": 150541254,
+        "full_bytes": 150541254,
+        "trigger_timestamp": 1794621495113
+      },
+      {
+        "id": 4,
+        "duration_ms": 2120,
+        "checkpointed_bytes": 82702800,
+        "full_bytes": 82702800,
+        "trigger_timestamp": 1794621470114
+      },
+      {
+        "id": 3,
+        "duration_ms": 1504,
+        "checkpointed_bytes": 61989066,
+        "full_bytes": 61989066,
+        "trigger_timestamp": 1794621465114
+      },
+      {
+        "id": 5,
+        "duration_ms": 3951,
+        "checkpointed_bytes": 101649240,
+        "full_bytes": 101649240,
+        "trigger_timestamp": 1794621475113
+      },
+      {
+        "id": 11,
+        "duration_ms": 3851,
+        "checkpointed_bytes": 176680404,
+        "full_bytes": 176680404,
+        "trigger_timestamp": 1794621505759
+      },
+      {
+        "id": 2,
+        "duration_ms": 914,
+        "checkpointed_bytes": 40642110,
+        "full_bytes": 40642110,
+        "trigger_timestamp": 1794621460114
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 13,
+        "duration_ms": 2172,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794621515115
+      },
+      {
+        "id": 12,
+        "duration_ms": 2150,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794621510113
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 13,
+        "duration_ms": 2172,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794621515115
+      },
+      {
+        "id": 10,
+        "duration_ms": 5428,
+        "checkpointed_bytes": 160258176,
+        "full_bytes": 160258176,
+        "trigger_timestamp": 1794621500328
+      },
+      {
+        "id": 6,
+        "duration_ms": 3296,
+        "checkpointed_bytes": 111558456,
+        "full_bytes": 111558456,
+        "trigger_timestamp": 1794621480116
+      },
+      {
+        "id": 12,
+        "duration_ms": 2150,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794621510113
+      },
+      {
+        "id": 1,
+        "duration_ms": 782,
+        "checkpointed_bytes": 18578106,
+        "full_bytes": 18578106,
+        "trigger_timestamp": 1794621455117
+      },
+      {
+        "id": 7,
+        "duration_ms": 3558,
+        "checkpointed_bytes": 122961024,
+        "full_bytes": 122961024,
+        "trigger_timestamp": 1794621485113
+      },
+      {
+        "id": 8,
+        "duration_ms": 4050,
+        "checkpointed_bytes": 137072304,
+        "full_bytes": 137072304,
+        "trigger_timestamp": 1794621490113
+      },
+      {
+        "id": 9,
+        "duration_ms": 5212,
+        "checkpointed_bytes": 150541254,
+        "full_bytes": 150541254,
+        "trigger_timestamp": 1794621495113
+      },
+      {
+        "id": 4,
+        "duration_ms": 2120,
+        "checkpointed_bytes": 82702800,
+        "full_bytes": 82702800,
+        "trigger_timestamp": 1794621470114
+      },
+      {
+        "id": 3,
+        "duration_ms": 1504,
+        "checkpointed_bytes": 61989066,
+        "full_bytes": 61989066,
+        "trigger_timestamp": 1794621465114
+      },
+      {
+        "id": 5,
+        "duration_ms": 3951,
+        "checkpointed_bytes": 101649240,
+        "full_bytes": 101649240,
+        "trigger_timestamp": 1794621475113
+      },
+      {
+        "id": 11,
+        "duration_ms": 3851,
+        "checkpointed_bytes": 176680404,
+        "full_bytes": 176680404,
+        "trigger_timestamp": 1794621505759
+      },
+      {
+        "id": 2,
+        "duration_ms": 914,
+        "checkpointed_bytes": 40642110,
+        "full_bytes": 40642110,
+        "trigger_timestamp": 1794621460114
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 13,
+      "failed": 0,
+      "in_progress": 1,
+      "restored": 0,
+      "total": 14
+    }
+  },
+  {
+    "run": "scale10m-r1-rocks-full",
+    "backend": "rocks-full",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 89.364380391,
+    "records_per_second": 159859.15123559377,
+    "mean_source_to_state_ms": 64.85633770534676,
+    "p99_source_to_state_ms_upper_bound": 524.288,
+    "mean_source_to_sink_callback_ms": 64.8517547029,
+    "p99_source_to_sink_callback_ms_upper_bound": 524.288,
+    "peak_rss_mib": 1092.59765625,
+    "retained_heap_mib": 26.180877685546875,
+    "baseline_heap_mib": 24.266761779785156,
+    "retained_heap_delta_bytes_per_id": 0.2007096,
+    "sampled_active_cpu_seconds": 166.69,
+    "sampled_active_wall_seconds": 88.115,
+    "sample_coverage_ratio": 0.9860192574990894,
+    "sampled_average_cpu_cores": 1.891732395165409,
+    "sampled_active_gc_ms": 140,
+    "source_backpressure_mean_ms_per_second": 927.9651162790698,
+    "peak_rocksdb_directory_mib": 230.44622898101807,
+    "process_total_read_bytes": 290816,
+    "process_total_write_bytes": 3360022528,
+    "active_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 600,
+        "checkpointed_bytes": 168956730,
+        "full_bytes": 168956730,
+        "trigger_timestamp": 1794621626163
+      },
+      {
+        "id": 13,
+        "duration_ms": 752,
+        "checkpointed_bytes": 143914500,
+        "full_bytes": 143914500,
+        "trigger_timestamp": 1794621601163
+      },
+      {
+        "id": 10,
+        "duration_ms": 338,
+        "checkpointed_bytes": 97882988,
+        "full_bytes": 97882988,
+        "trigger_timestamp": 1794621586162
+      },
+      {
+        "id": 6,
+        "duration_ms": 526,
+        "checkpointed_bytes": 65791038,
+        "full_bytes": 65791038,
+        "trigger_timestamp": 1794621566162
+      },
+      {
+        "id": 12,
+        "duration_ms": 633,
+        "checkpointed_bytes": 131863872,
+        "full_bytes": 131863872,
+        "trigger_timestamp": 1794621596162
+      },
+      {
+        "id": 14,
+        "duration_ms": 609,
+        "checkpointed_bytes": 129218592,
+        "full_bytes": 129218592,
+        "trigger_timestamp": 1794621606162
+      },
+      {
+        "id": 15,
+        "duration_ms": 661,
+        "checkpointed_bytes": 146219490,
+        "full_bytes": 146219490,
+        "trigger_timestamp": 1794621611162
+      },
+      {
+        "id": 7,
+        "duration_ms": 768,
+        "checkpointed_bytes": 85483591,
+        "full_bytes": 85483591,
+        "trigger_timestamp": 1794621571162
+      },
+      {
+        "id": 8,
+        "duration_ms": 696,
+        "checkpointed_bytes": 100653772,
+        "full_bytes": 100653772,
+        "trigger_timestamp": 1794621576163
+      },
+      {
+        "id": 9,
+        "duration_ms": 712,
+        "checkpointed_bytes": 114063811,
+        "full_bytes": 114063811,
+        "trigger_timestamp": 1794621581162
+      },
+      {
+        "id": 17,
+        "duration_ms": 799,
+        "checkpointed_bytes": 173817516,
+        "full_bytes": 173817516,
+        "trigger_timestamp": 1794621621162
+      },
+      {
+        "id": 4,
+        "duration_ms": 844,
+        "checkpointed_bytes": 61081359,
+        "full_bytes": 61081359,
+        "trigger_timestamp": 1794621556162
+      },
+      {
+        "id": 16,
+        "duration_ms": 670,
+        "checkpointed_bytes": 161343841,
+        "full_bytes": 161343841,
+        "trigger_timestamp": 1794621616162
+      },
+      {
+        "id": 3,
+        "duration_ms": 879,
+        "checkpointed_bytes": 41330220,
+        "full_bytes": 41330220,
+        "trigger_timestamp": 1794621551163
+      },
+      {
+        "id": 5,
+        "duration_ms": 772,
+        "checkpointed_bytes": 76728774,
+        "full_bytes": 76728774,
+        "trigger_timestamp": 1794621561162
+      },
+      {
+        "id": 11,
+        "duration_ms": 759,
+        "checkpointed_bytes": 116595353,
+        "full_bytes": 116595353,
+        "trigger_timestamp": 1794621591162
+      },
+      {
+        "id": 2,
+        "duration_ms": 971,
+        "checkpointed_bytes": 19453274,
+        "full_bytes": 19453274,
+        "trigger_timestamp": 1794621546176
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 20,
+        "duration_ms": 190,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621636162
+      },
+      {
+        "id": 19,
+        "duration_ms": 557,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621631162
+      },
+      {
+        "id": 21,
+        "duration_ms": 199,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621641162
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 600,
+        "checkpointed_bytes": 168956730,
+        "full_bytes": 168956730,
+        "trigger_timestamp": 1794621626163
+      },
+      {
+        "id": 20,
+        "duration_ms": 190,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621636162
+      },
+      {
+        "id": 13,
+        "duration_ms": 752,
+        "checkpointed_bytes": 143914500,
+        "full_bytes": 143914500,
+        "trigger_timestamp": 1794621601163
+      },
+      {
+        "id": 10,
+        "duration_ms": 338,
+        "checkpointed_bytes": 97882988,
+        "full_bytes": 97882988,
+        "trigger_timestamp": 1794621586162
+      },
+      {
+        "id": 6,
+        "duration_ms": 526,
+        "checkpointed_bytes": 65791038,
+        "full_bytes": 65791038,
+        "trigger_timestamp": 1794621566162
+      },
+      {
+        "id": 12,
+        "duration_ms": 633,
+        "checkpointed_bytes": 131863872,
+        "full_bytes": 131863872,
+        "trigger_timestamp": 1794621596162
+      },
+      {
+        "id": 1,
+        "duration_ms": 86,
+        "checkpointed_bytes": 37966,
+        "full_bytes": 37966,
+        "trigger_timestamp": 1794621541167
+      },
+      {
+        "id": 14,
+        "duration_ms": 609,
+        "checkpointed_bytes": 129218592,
+        "full_bytes": 129218592,
+        "trigger_timestamp": 1794621606162
+      },
+      {
+        "id": 15,
+        "duration_ms": 661,
+        "checkpointed_bytes": 146219490,
+        "full_bytes": 146219490,
+        "trigger_timestamp": 1794621611162
+      },
+      {
+        "id": 7,
+        "duration_ms": 768,
+        "checkpointed_bytes": 85483591,
+        "full_bytes": 85483591,
+        "trigger_timestamp": 1794621571162
+      },
+      {
+        "id": 19,
+        "duration_ms": 557,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621631162
+      },
+      {
+        "id": 8,
+        "duration_ms": 696,
+        "checkpointed_bytes": 100653772,
+        "full_bytes": 100653772,
+        "trigger_timestamp": 1794621576163
+      },
+      {
+        "id": 9,
+        "duration_ms": 712,
+        "checkpointed_bytes": 114063811,
+        "full_bytes": 114063811,
+        "trigger_timestamp": 1794621581162
+      },
+      {
+        "id": 17,
+        "duration_ms": 799,
+        "checkpointed_bytes": 173817516,
+        "full_bytes": 173817516,
+        "trigger_timestamp": 1794621621162
+      },
+      {
+        "id": 4,
+        "duration_ms": 844,
+        "checkpointed_bytes": 61081359,
+        "full_bytes": 61081359,
+        "trigger_timestamp": 1794621556162
+      },
+      {
+        "id": 16,
+        "duration_ms": 670,
+        "checkpointed_bytes": 161343841,
+        "full_bytes": 161343841,
+        "trigger_timestamp": 1794621616162
+      },
+      {
+        "id": 3,
+        "duration_ms": 879,
+        "checkpointed_bytes": 41330220,
+        "full_bytes": 41330220,
+        "trigger_timestamp": 1794621551163
+      },
+      {
+        "id": 5,
+        "duration_ms": 772,
+        "checkpointed_bytes": 76728774,
+        "full_bytes": 76728774,
+        "trigger_timestamp": 1794621561162
+      },
+      {
+        "id": 11,
+        "duration_ms": 759,
+        "checkpointed_bytes": 116595353,
+        "full_bytes": 116595353,
+        "trigger_timestamp": 1794621591162
+      },
+      {
+        "id": 21,
+        "duration_ms": 199,
+        "checkpointed_bytes": 170854996,
+        "full_bytes": 170854996,
+        "trigger_timestamp": 1794621641162
+      },
+      {
+        "id": 2,
+        "duration_ms": 971,
+        "checkpointed_bytes": 19453274,
+        "full_bytes": 19453274,
+        "trigger_timestamp": 1794621546176
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 21,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 21
+    }
+  },
+  {
+    "run": "scale10m-r1-rocks-incremental",
+    "backend": "rocks-incremental",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 96.505318674,
+    "records_per_second": 148030.32823774085,
+    "mean_source_to_state_ms": 70.16008020411161,
+    "p99_source_to_state_ms_upper_bound": 524.288,
+    "mean_source_to_sink_callback_ms": 70.1602304173,
+    "p99_source_to_sink_callback_ms_upper_bound": 524.288,
+    "peak_rss_mib": 1105.7578125,
+    "retained_heap_mib": 26.192718505859375,
+    "baseline_heap_mib": 24.298797607421875,
+    "retained_heap_delta_bytes_per_id": 0.198592,
+    "sampled_active_cpu_seconds": 181.11,
+    "sampled_active_wall_seconds": 95.124,
+    "sample_coverage_ratio": 0.9856866057438123,
+    "sampled_average_cpu_cores": 1.9039359152264415,
+    "sampled_active_gc_ms": 133,
+    "source_backpressure_mean_ms_per_second": 920.4623655913979,
+    "peak_rocksdb_directory_mib": 241.5546998977661,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 1784643584,
+    "active_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 594,
+        "checkpointed_bytes": 75719851,
+        "full_bytes": 154023397,
+        "trigger_timestamp": 1794621746820
+      },
+      {
+        "id": 20,
+        "duration_ms": 598,
+        "checkpointed_bytes": 13984917,
+        "full_bytes": 171898940,
+        "trigger_timestamp": 1794621756816
+      },
+      {
+        "id": 13,
+        "duration_ms": 698,
+        "checkpointed_bytes": 13011757,
+        "full_bytes": 136722102,
+        "trigger_timestamp": 1794621721816
+      },
+      {
+        "id": 10,
+        "duration_ms": 430,
+        "checkpointed_bytes": 89385314,
+        "full_bytes": 89385314,
+        "trigger_timestamp": 1794621706816
+      },
+      {
+        "id": 6,
+        "duration_ms": 733,
+        "checkpointed_bytes": 59757430,
+        "full_bytes": 59757430,
+        "trigger_timestamp": 1794621686816
+      },
+      {
+        "id": 12,
+        "duration_ms": 530,
+        "checkpointed_bytes": 15934762,
+        "full_bytes": 123750916,
+        "trigger_timestamp": 1794621716816
+      },
+      {
+        "id": 14,
+        "duration_ms": 710,
+        "checkpointed_bytes": 64413045,
+        "full_bytes": 132728552,
+        "trigger_timestamp": 1794621726816
+      },
+      {
+        "id": 15,
+        "duration_ms": 1105,
+        "checkpointed_bytes": 66918066,
+        "full_bytes": 131290033,
+        "trigger_timestamp": 1794621731816
+      },
+      {
+        "id": 7,
+        "duration_ms": 651,
+        "checkpointed_bytes": 16360648,
+        "full_bytes": 76078921,
+        "trigger_timestamp": 1794621691816
+      },
+      {
+        "id": 19,
+        "duration_ms": 860,
+        "checkpointed_bytes": 82278882,
+        "full_bytes": 157956568,
+        "trigger_timestamp": 1794621751816
+      },
+      {
+        "id": 8,
+        "duration_ms": 592,
+        "checkpointed_bytes": 15897370,
+        "full_bytes": 91936934,
+        "trigger_timestamp": 1794621696816
+      },
+      {
+        "id": 9,
+        "duration_ms": 631,
+        "checkpointed_bytes": 13457754,
+        "full_bytes": 105355131,
+        "trigger_timestamp": 1794621701817
+      },
+      {
+        "id": 17,
+        "duration_ms": 521,
+        "checkpointed_bytes": 12025232,
+        "full_bytes": 156571314,
+        "trigger_timestamp": 1794621741816
+      },
+      {
+        "id": 4,
+        "duration_ms": 769,
+        "checkpointed_bytes": 18395298,
+        "full_bytes": 52397231,
+        "trigger_timestamp": 1794621676816
+      },
+      {
+        "id": 16,
+        "duration_ms": 544,
+        "checkpointed_bytes": 13339019,
+        "full_bytes": 144587667,
+        "trigger_timestamp": 1794621736817
+      },
+      {
+        "id": 3,
+        "duration_ms": 942,
+        "checkpointed_bytes": 22283871,
+        "full_bytes": 34040297,
+        "trigger_timestamp": 1794621671817
+      },
+      {
+        "id": 5,
+        "duration_ms": 895,
+        "checkpointed_bytes": 15985717,
+        "full_bytes": 68344390,
+        "trigger_timestamp": 1794621681816
+      },
+      {
+        "id": 11,
+        "duration_ms": 657,
+        "checkpointed_bytes": 18511382,
+        "full_bytes": 107856525,
+        "trigger_timestamp": 1794621711816
+      },
+      {
+        "id": 2,
+        "duration_ms": 588,
+        "checkpointed_bytes": 11794596,
+        "full_bytes": 11794596,
+        "trigger_timestamp": 1794621666816
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 22,
+        "duration_ms": 147,
+        "checkpointed_bytes": 81775558,
+        "full_bytes": 171785187,
+        "trigger_timestamp": 1794621766817
+      },
+      {
+        "id": 21,
+        "duration_ms": 329,
+        "checkpointed_bytes": 8273670,
+        "full_bytes": 180129865,
+        "trigger_timestamp": 1794621761816
+      },
+      {
+        "id": 23,
+        "duration_ms": 201,
+        "checkpointed_bytes": 81723326,
+        "full_bytes": 163455756,
+        "trigger_timestamp": 1794621771817
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 594,
+        "checkpointed_bytes": 75719851,
+        "full_bytes": 154023397,
+        "trigger_timestamp": 1794621746820
+      },
+      {
+        "id": 20,
+        "duration_ms": 598,
+        "checkpointed_bytes": 13984917,
+        "full_bytes": 171898940,
+        "trigger_timestamp": 1794621756816
+      },
+      {
+        "id": 13,
+        "duration_ms": 698,
+        "checkpointed_bytes": 13011757,
+        "full_bytes": 136722102,
+        "trigger_timestamp": 1794621721816
+      },
+      {
+        "id": 10,
+        "duration_ms": 430,
+        "checkpointed_bytes": 89385314,
+        "full_bytes": 89385314,
+        "trigger_timestamp": 1794621706816
+      },
+      {
+        "id": 6,
+        "duration_ms": 733,
+        "checkpointed_bytes": 59757430,
+        "full_bytes": 59757430,
+        "trigger_timestamp": 1794621686816
+      },
+      {
+        "id": 12,
+        "duration_ms": 530,
+        "checkpointed_bytes": 15934762,
+        "full_bytes": 123750916,
+        "trigger_timestamp": 1794621716816
+      },
+      {
+        "id": 1,
+        "duration_ms": 65,
+        "checkpointed_bytes": 37980,
+        "full_bytes": 37980,
+        "trigger_timestamp": 1794621661817
+      },
+      {
+        "id": 14,
+        "duration_ms": 710,
+        "checkpointed_bytes": 64413045,
+        "full_bytes": 132728552,
+        "trigger_timestamp": 1794621726816
+      },
+      {
+        "id": 15,
+        "duration_ms": 1105,
+        "checkpointed_bytes": 66918066,
+        "full_bytes": 131290033,
+        "trigger_timestamp": 1794621731816
+      },
+      {
+        "id": 7,
+        "duration_ms": 651,
+        "checkpointed_bytes": 16360648,
+        "full_bytes": 76078921,
+        "trigger_timestamp": 1794621691816
+      },
+      {
+        "id": 19,
+        "duration_ms": 860,
+        "checkpointed_bytes": 82278882,
+        "full_bytes": 157956568,
+        "trigger_timestamp": 1794621751816
+      },
+      {
+        "id": 8,
+        "duration_ms": 592,
+        "checkpointed_bytes": 15897370,
+        "full_bytes": 91936934,
+        "trigger_timestamp": 1794621696816
+      },
+      {
+        "id": 9,
+        "duration_ms": 631,
+        "checkpointed_bytes": 13457754,
+        "full_bytes": 105355131,
+        "trigger_timestamp": 1794621701817
+      },
+      {
+        "id": 17,
+        "duration_ms": 521,
+        "checkpointed_bytes": 12025232,
+        "full_bytes": 156571314,
+        "trigger_timestamp": 1794621741816
+      },
+      {
+        "id": 4,
+        "duration_ms": 769,
+        "checkpointed_bytes": 18395298,
+        "full_bytes": 52397231,
+        "trigger_timestamp": 1794621676816
+      },
+      {
+        "id": 22,
+        "duration_ms": 147,
+        "checkpointed_bytes": 81775558,
+        "full_bytes": 171785187,
+        "trigger_timestamp": 1794621766817
+      },
+      {
+        "id": 16,
+        "duration_ms": 544,
+        "checkpointed_bytes": 13339019,
+        "full_bytes": 144587667,
+        "trigger_timestamp": 1794621736817
+      },
+      {
+        "id": 3,
+        "duration_ms": 942,
+        "checkpointed_bytes": 22283871,
+        "full_bytes": 34040297,
+        "trigger_timestamp": 1794621671817
+      },
+      {
+        "id": 5,
+        "duration_ms": 895,
+        "checkpointed_bytes": 15985717,
+        "full_bytes": 68344390,
+        "trigger_timestamp": 1794621681816
+      },
+      {
+        "id": 11,
+        "duration_ms": 657,
+        "checkpointed_bytes": 18511382,
+        "full_bytes": 107856525,
+        "trigger_timestamp": 1794621711816
+      },
+      {
+        "id": 21,
+        "duration_ms": 329,
+        "checkpointed_bytes": 8273670,
+        "full_bytes": 180129865,
+        "trigger_timestamp": 1794621761816
+      },
+      {
+        "id": 2,
+        "duration_ms": 588,
+        "checkpointed_bytes": 11794596,
+        "full_bytes": 11794596,
+        "trigger_timestamp": 1794621666816
+      },
+      {
+        "id": 23,
+        "duration_ms": 201,
+        "checkpointed_bytes": 81723326,
+        "full_bytes": 163455756,
+        "trigger_timestamp": 1794621771817
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 23,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 23
+    }
+  },
+  {
+    "run": "scale10m-r2-heap",
+    "backend": "heap",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 51.23700537,
+    "records_per_second": 278816.3339531254,
+    "mean_source_to_state_ms": 36.43501438850029,
+    "p99_source_to_state_ms_upper_bound": 262.144,
+    "mean_source_to_sink_callback_ms": 36.4377429109,
+    "p99_source_to_sink_callback_ms_upper_bound": 262.144,
+    "peak_rss_mib": 2357.0703125,
+    "retained_heap_mib": 998.0646743774414,
+    "baseline_heap_mib": 22.757911682128906,
+    "retained_heap_delta_bytes_per_id": 102.2683264,
+    "sampled_active_cpu_seconds": 95.36,
+    "sampled_active_wall_seconds": 49.572,
+    "sample_coverage_ratio": 0.9675038508207804,
+    "sampled_average_cpu_cores": 1.923666585975954,
+    "sampled_active_gc_ms": 7097,
+    "source_backpressure_mean_ms_per_second": 843.063829787234,
+    "peak_rocksdb_directory_mib": 0.0,
+    "process_total_read_bytes": 61440,
+    "process_total_write_bytes": 1966297088,
+    "active_checkpoints": [
+      {
+        "id": 10,
+        "duration_ms": 4309,
+        "checkpointed_bytes": 163879506,
+        "full_bytes": 163879506,
+        "trigger_timestamp": 1794622099216
+      },
+      {
+        "id": 6,
+        "duration_ms": 2216,
+        "checkpointed_bytes": 107136198,
+        "full_bytes": 107136198,
+        "trigger_timestamp": 1794622079216
+      },
+      {
+        "id": 1,
+        "duration_ms": 206,
+        "checkpointed_bytes": 203184,
+        "full_bytes": 203184,
+        "trigger_timestamp": 1794622054224
+      },
+      {
+        "id": 7,
+        "duration_ms": 3030,
+        "checkpointed_bytes": 120542634,
+        "full_bytes": 120542634,
+        "trigger_timestamp": 1794622084220
+      },
+      {
+        "id": 8,
+        "duration_ms": 3732,
+        "checkpointed_bytes": 135273816,
+        "full_bytes": 135273816,
+        "trigger_timestamp": 1794622089216
+      },
+      {
+        "id": 9,
+        "duration_ms": 4260,
+        "checkpointed_bytes": 149395122,
+        "full_bytes": 149395122,
+        "trigger_timestamp": 1794622094216
+      },
+      {
+        "id": 4,
+        "duration_ms": 1559,
+        "checkpointed_bytes": 69583788,
+        "full_bytes": 69583788,
+        "trigger_timestamp": 1794622069216
+      },
+      {
+        "id": 3,
+        "duration_ms": 957,
+        "checkpointed_bytes": 46794150,
+        "full_bytes": 46794150,
+        "trigger_timestamp": 1794622064216
+      },
+      {
+        "id": 5,
+        "duration_ms": 2164,
+        "checkpointed_bytes": 89596476,
+        "full_bytes": 89596476,
+        "trigger_timestamp": 1794622074220
+      },
+      {
+        "id": 11,
+        "duration_ms": 2804,
+        "checkpointed_bytes": 177555366,
+        "full_bytes": 177555366,
+        "trigger_timestamp": 1794622104216
+      },
+      {
+        "id": 2,
+        "duration_ms": 1051,
+        "checkpointed_bytes": 25950204,
+        "full_bytes": 25950204,
+        "trigger_timestamp": 1794622059216
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 13,
+        "duration_ms": 3181,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622114217
+      },
+      {
+        "id": 12,
+        "duration_ms": 1961,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622109217
+      },
+      {
+        "id": 14,
+        "duration_ms": 1329,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622119942
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 13,
+        "duration_ms": 3181,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622114217
+      },
+      {
+        "id": 10,
+        "duration_ms": 4309,
+        "checkpointed_bytes": 163879506,
+        "full_bytes": 163879506,
+        "trigger_timestamp": 1794622099216
+      },
+      {
+        "id": 6,
+        "duration_ms": 2216,
+        "checkpointed_bytes": 107136198,
+        "full_bytes": 107136198,
+        "trigger_timestamp": 1794622079216
+      },
+      {
+        "id": 12,
+        "duration_ms": 1961,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622109217
+      },
+      {
+        "id": 1,
+        "duration_ms": 206,
+        "checkpointed_bytes": 203184,
+        "full_bytes": 203184,
+        "trigger_timestamp": 1794622054224
+      },
+      {
+        "id": 14,
+        "duration_ms": 1329,
+        "checkpointed_bytes": 180005274,
+        "full_bytes": 180005274,
+        "trigger_timestamp": 1794622119942
+      },
+      {
+        "id": 7,
+        "duration_ms": 3030,
+        "checkpointed_bytes": 120542634,
+        "full_bytes": 120542634,
+        "trigger_timestamp": 1794622084220
+      },
+      {
+        "id": 8,
+        "duration_ms": 3732,
+        "checkpointed_bytes": 135273816,
+        "full_bytes": 135273816,
+        "trigger_timestamp": 1794622089216
+      },
+      {
+        "id": 9,
+        "duration_ms": 4260,
+        "checkpointed_bytes": 149395122,
+        "full_bytes": 149395122,
+        "trigger_timestamp": 1794622094216
+      },
+      {
+        "id": 4,
+        "duration_ms": 1559,
+        "checkpointed_bytes": 69583788,
+        "full_bytes": 69583788,
+        "trigger_timestamp": 1794622069216
+      },
+      {
+        "id": 3,
+        "duration_ms": 957,
+        "checkpointed_bytes": 46794150,
+        "full_bytes": 46794150,
+        "trigger_timestamp": 1794622064216
+      },
+      {
+        "id": 5,
+        "duration_ms": 2164,
+        "checkpointed_bytes": 89596476,
+        "full_bytes": 89596476,
+        "trigger_timestamp": 1794622074220
+      },
+      {
+        "id": 11,
+        "duration_ms": 2804,
+        "checkpointed_bytes": 177555366,
+        "full_bytes": 177555366,
+        "trigger_timestamp": 1794622104216
+      },
+      {
+        "id": 2,
+        "duration_ms": 1051,
+        "checkpointed_bytes": 25950204,
+        "full_bytes": 25950204,
+        "trigger_timestamp": 1794622059216
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 14,
+      "failed": 0,
+      "in_progress": 1,
+      "restored": 0,
+      "total": 15
+    }
+  },
+  {
+    "run": "scale10m-r2-rocks-full",
+    "backend": "rocks-full",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 97.406905774,
+    "records_per_second": 146660.17657049082,
+    "mean_source_to_state_ms": 70.75644161558883,
+    "p99_source_to_state_ms_upper_bound": 524.288,
+    "mean_source_to_sink_callback_ms": 70.7715222011,
+    "p99_source_to_sink_callback_ms_upper_bound": 524.288,
+    "peak_rss_mib": 1093.734375,
+    "retained_heap_mib": 26.123191833496094,
+    "baseline_heap_mib": 24.272216796875,
+    "retained_heap_delta_bytes_per_id": 0.1940888,
+    "sampled_active_cpu_seconds": 182.31,
+    "sampled_active_wall_seconds": 96.138,
+    "sample_coverage_ratio": 0.9869731435988321,
+    "sampled_average_cpu_cores": 1.8963365162578791,
+    "sampled_active_gc_ms": 125,
+    "source_backpressure_mean_ms_per_second": 924.5957446808511,
+    "peak_rocksdb_directory_mib": 312.445161819458,
+    "process_total_read_bytes": 1150976,
+    "process_total_write_bytes": 3653050368,
+    "active_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 679,
+        "checkpointed_bytes": 150925522,
+        "full_bytes": 150925522,
+        "trigger_timestamp": 1794622005441
+      },
+      {
+        "id": 20,
+        "duration_ms": 654,
+        "checkpointed_bytes": 173294082,
+        "full_bytes": 173294082,
+        "trigger_timestamp": 1794622015441
+      },
+      {
+        "id": 13,
+        "duration_ms": 695,
+        "checkpointed_bytes": 130386225,
+        "full_bytes": 130386225,
+        "trigger_timestamp": 1794621980441
+      },
+      {
+        "id": 10,
+        "duration_ms": 506,
+        "checkpointed_bytes": 101048085,
+        "full_bytes": 101048085,
+        "trigger_timestamp": 1794621965442
+      },
+      {
+        "id": 6,
+        "duration_ms": 593,
+        "checkpointed_bytes": 61297923,
+        "full_bytes": 61297923,
+        "trigger_timestamp": 1794621945441
+      },
+      {
+        "id": 12,
+        "duration_ms": 756,
+        "checkpointed_bytes": 119304222,
+        "full_bytes": 119304222,
+        "trigger_timestamp": 1794621975441
+      },
+      {
+        "id": 14,
+        "duration_ms": 634,
+        "checkpointed_bytes": 125772343,
+        "full_bytes": 125772343,
+        "trigger_timestamp": 1794621985441
+      },
+      {
+        "id": 15,
+        "duration_ms": 472,
+        "checkpointed_bytes": 127186425,
+        "full_bytes": 127186425,
+        "trigger_timestamp": 1794621990442
+      },
+      {
+        "id": 7,
+        "duration_ms": 811,
+        "checkpointed_bytes": 79630330,
+        "full_bytes": 79630330,
+        "trigger_timestamp": 1794621950441
+      },
+      {
+        "id": 19,
+        "duration_ms": 956,
+        "checkpointed_bytes": 158909581,
+        "full_bytes": 158909581,
+        "trigger_timestamp": 1794622010441
+      },
+      {
+        "id": 8,
+        "duration_ms": 677,
+        "checkpointed_bytes": 94106839,
+        "full_bytes": 94106839,
+        "trigger_timestamp": 1794621955442
+      },
+      {
+        "id": 9,
+        "duration_ms": 860,
+        "checkpointed_bytes": 106411566,
+        "full_bytes": 106411566,
+        "trigger_timestamp": 1794621960442
+      },
+      {
+        "id": 17,
+        "duration_ms": 693,
+        "checkpointed_bytes": 151986984,
+        "full_bytes": 151986984,
+        "trigger_timestamp": 1794622000441
+      },
+      {
+        "id": 4,
+        "duration_ms": 860,
+        "checkpointed_bytes": 54453182,
+        "full_bytes": 54453182,
+        "trigger_timestamp": 1794621935441
+      },
+      {
+        "id": 16,
+        "duration_ms": 695,
+        "checkpointed_bytes": 140772752,
+        "full_bytes": 140772752,
+        "trigger_timestamp": 1794621995441
+      },
+      {
+        "id": 3,
+        "duration_ms": 935,
+        "checkpointed_bytes": 35880349,
+        "full_bytes": 35880349,
+        "trigger_timestamp": 1794621930441
+      },
+      {
+        "id": 5,
+        "duration_ms": 920,
+        "checkpointed_bytes": 70002209,
+        "full_bytes": 70002209,
+        "trigger_timestamp": 1794621940441
+      },
+      {
+        "id": 11,
+        "duration_ms": 809,
+        "checkpointed_bytes": 106080457,
+        "full_bytes": 106080457,
+        "trigger_timestamp": 1794621970441
+      },
+      {
+        "id": 2,
+        "duration_ms": 728,
+        "checkpointed_bytes": 14799260,
+        "full_bytes": 14799260,
+        "trigger_timestamp": 1794621925444
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 24,
+        "duration_ms": 311,
+        "checkpointed_bytes": 163604226,
+        "full_bytes": 163604226,
+        "trigger_timestamp": 1794622035441
+      },
+      {
+        "id": 22,
+        "duration_ms": 332,
+        "checkpointed_bytes": 173177362,
+        "full_bytes": 173177362,
+        "trigger_timestamp": 1794622025442
+      },
+      {
+        "id": 21,
+        "duration_ms": 414,
+        "checkpointed_bytes": 182785017,
+        "full_bytes": 182785017,
+        "trigger_timestamp": 1794622020441
+      },
+      {
+        "id": 23,
+        "duration_ms": 332,
+        "checkpointed_bytes": 163604226,
+        "full_bytes": 163604226,
+        "trigger_timestamp": 1794622030441
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 679,
+        "checkpointed_bytes": 150925522,
+        "full_bytes": 150925522,
+        "trigger_timestamp": 1794622005441
+      },
+      {
+        "id": 20,
+        "duration_ms": 654,
+        "checkpointed_bytes": 173294082,
+        "full_bytes": 173294082,
+        "trigger_timestamp": 1794622015441
+      },
+      {
+        "id": 13,
+        "duration_ms": 695,
+        "checkpointed_bytes": 130386225,
+        "full_bytes": 130386225,
+        "trigger_timestamp": 1794621980441
+      },
+      {
+        "id": 10,
+        "duration_ms": 506,
+        "checkpointed_bytes": 101048085,
+        "full_bytes": 101048085,
+        "trigger_timestamp": 1794621965442
+      },
+      {
+        "id": 6,
+        "duration_ms": 593,
+        "checkpointed_bytes": 61297923,
+        "full_bytes": 61297923,
+        "trigger_timestamp": 1794621945441
+      },
+      {
+        "id": 12,
+        "duration_ms": 756,
+        "checkpointed_bytes": 119304222,
+        "full_bytes": 119304222,
+        "trigger_timestamp": 1794621975441
+      },
+      {
+        "id": 1,
+        "duration_ms": 79,
+        "checkpointed_bytes": 37966,
+        "full_bytes": 37966,
+        "trigger_timestamp": 1794621920445
+      },
+      {
+        "id": 14,
+        "duration_ms": 634,
+        "checkpointed_bytes": 125772343,
+        "full_bytes": 125772343,
+        "trigger_timestamp": 1794621985441
+      },
+      {
+        "id": 15,
+        "duration_ms": 472,
+        "checkpointed_bytes": 127186425,
+        "full_bytes": 127186425,
+        "trigger_timestamp": 1794621990442
+      },
+      {
+        "id": 24,
+        "duration_ms": 311,
+        "checkpointed_bytes": 163604226,
+        "full_bytes": 163604226,
+        "trigger_timestamp": 1794622035441
+      },
+      {
+        "id": 7,
+        "duration_ms": 811,
+        "checkpointed_bytes": 79630330,
+        "full_bytes": 79630330,
+        "trigger_timestamp": 1794621950441
+      },
+      {
+        "id": 19,
+        "duration_ms": 956,
+        "checkpointed_bytes": 158909581,
+        "full_bytes": 158909581,
+        "trigger_timestamp": 1794622010441
+      },
+      {
+        "id": 8,
+        "duration_ms": 677,
+        "checkpointed_bytes": 94106839,
+        "full_bytes": 94106839,
+        "trigger_timestamp": 1794621955442
+      },
+      {
+        "id": 9,
+        "duration_ms": 860,
+        "checkpointed_bytes": 106411566,
+        "full_bytes": 106411566,
+        "trigger_timestamp": 1794621960442
+      },
+      {
+        "id": 17,
+        "duration_ms": 693,
+        "checkpointed_bytes": 151986984,
+        "full_bytes": 151986984,
+        "trigger_timestamp": 1794622000441
+      },
+      {
+        "id": 4,
+        "duration_ms": 860,
+        "checkpointed_bytes": 54453182,
+        "full_bytes": 54453182,
+        "trigger_timestamp": 1794621935441
+      },
+      {
+        "id": 22,
+        "duration_ms": 332,
+        "checkpointed_bytes": 173177362,
+        "full_bytes": 173177362,
+        "trigger_timestamp": 1794622025442
+      },
+      {
+        "id": 16,
+        "duration_ms": 695,
+        "checkpointed_bytes": 140772752,
+        "full_bytes": 140772752,
+        "trigger_timestamp": 1794621995441
+      },
+      {
+        "id": 3,
+        "duration_ms": 935,
+        "checkpointed_bytes": 35880349,
+        "full_bytes": 35880349,
+        "trigger_timestamp": 1794621930441
+      },
+      {
+        "id": 5,
+        "duration_ms": 920,
+        "checkpointed_bytes": 70002209,
+        "full_bytes": 70002209,
+        "trigger_timestamp": 1794621940441
+      },
+      {
+        "id": 11,
+        "duration_ms": 809,
+        "checkpointed_bytes": 106080457,
+        "full_bytes": 106080457,
+        "trigger_timestamp": 1794621970441
+      },
+      {
+        "id": 21,
+        "duration_ms": 414,
+        "checkpointed_bytes": 182785017,
+        "full_bytes": 182785017,
+        "trigger_timestamp": 1794622020441
+      },
+      {
+        "id": 2,
+        "duration_ms": 728,
+        "checkpointed_bytes": 14799260,
+        "full_bytes": 14799260,
+        "trigger_timestamp": 1794621925444
+      },
+      {
+        "id": 23,
+        "duration_ms": 332,
+        "checkpointed_bytes": 163604226,
+        "full_bytes": 163604226,
+        "trigger_timestamp": 1794622030441
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 24,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 24
+    }
+  },
+  {
+    "run": "scale10m-r2-rocks-incremental",
+    "backend": "rocks-incremental",
+    "inputs": 14285714,
+    "unique": 10000000,
+    "duplicates": 4285714,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 95.258656267,
+    "records_per_second": 149967.62036993934,
+    "mean_source_to_state_ms": 68.9078093432362,
+    "p99_source_to_state_ms_upper_bound": 524.288,
+    "mean_source_to_sink_callback_ms": 68.87215750840001,
+    "p99_source_to_sink_callback_ms_upper_bound": 524.288,
+    "peak_rss_mib": 1090.4140625,
+    "retained_heap_mib": 26.155426025390625,
+    "baseline_heap_mib": 22.978347778320312,
+    "retained_heap_delta_bytes_per_id": 0.3331408,
+    "sampled_active_cpu_seconds": 178.7,
+    "sampled_active_wall_seconds": 94.149,
+    "sample_coverage_ratio": 0.9883511240816818,
+    "sampled_average_cpu_cores": 1.8980552103580492,
+    "sampled_active_gc_ms": 155,
+    "source_backpressure_mean_ms_per_second": 907.0217391304348,
+    "peak_rocksdb_directory_mib": 215.9234275817871,
+    "process_total_read_bytes": 860160,
+    "process_total_write_bytes": 1821499392,
+    "active_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 552,
+        "checkpointed_bytes": 82877373,
+        "full_bytes": 162377907,
+        "trigger_timestamp": 1794621880554
+      },
+      {
+        "id": 13,
+        "duration_ms": 432,
+        "checkpointed_bytes": 124695541,
+        "full_bytes": 124695541,
+        "trigger_timestamp": 1794621855560
+      },
+      {
+        "id": 10,
+        "duration_ms": 654,
+        "checkpointed_bytes": 59738135,
+        "full_bytes": 109601516,
+        "trigger_timestamp": 1794621840554
+      },
+      {
+        "id": 6,
+        "duration_ms": 737,
+        "checkpointed_bytes": 18464592,
+        "full_bytes": 82930181,
+        "trigger_timestamp": 1794621820555
+      },
+      {
+        "id": 12,
+        "duration_ms": 600,
+        "checkpointed_bytes": 12442174,
+        "full_bytes": 136562190,
+        "trigger_timestamp": 1794621850555
+      },
+      {
+        "id": 1,
+        "duration_ms": 1013,
+        "checkpointed_bytes": 22047206,
+        "full_bytes": 22047206,
+        "trigger_timestamp": 1794621795555
+      },
+      {
+        "id": 14,
+        "duration_ms": 626,
+        "checkpointed_bytes": 17249724,
+        "full_bytes": 141904073,
+        "trigger_timestamp": 1794621860554
+      },
+      {
+        "id": 15,
+        "duration_ms": 558,
+        "checkpointed_bytes": 13917040,
+        "full_bytes": 155779721,
+        "trigger_timestamp": 1794621865556
+      },
+      {
+        "id": 7,
+        "duration_ms": 586,
+        "checkpointed_bytes": 14794471,
+        "full_bytes": 97685288,
+        "trigger_timestamp": 1794621825554
+      },
+      {
+        "id": 19,
+        "duration_ms": 537,
+        "checkpointed_bytes": 12840984,
+        "full_bytes": 175176339,
+        "trigger_timestamp": 1794621885554
+      },
+      {
+        "id": 8,
+        "duration_ms": 820,
+        "checkpointed_bytes": 13146434,
+        "full_bytes": 110792158,
+        "trigger_timestamp": 1794621830554
+      },
+      {
+        "id": 9,
+        "duration_ms": 468,
+        "checkpointed_bytes": 49903452,
+        "full_bytes": 105279786,
+        "trigger_timestamp": 1794621835554
+      },
+      {
+        "id": 17,
+        "duration_ms": 561,
+        "checkpointed_bytes": 79542706,
+        "full_bytes": 162887176,
+        "trigger_timestamp": 1794621875556
+      },
+      {
+        "id": 4,
+        "duration_ms": 691,
+        "checkpointed_bytes": 15230481,
+        "full_bytes": 76023078,
+        "trigger_timestamp": 1794621810554
+      },
+      {
+        "id": 16,
+        "duration_ms": 746,
+        "checkpointed_bytes": 11088903,
+        "full_bytes": 166827032,
+        "trigger_timestamp": 1794621870554
+      },
+      {
+        "id": 3,
+        "duration_ms": 850,
+        "checkpointed_bytes": 18919485,
+        "full_bytes": 60831155,
+        "trigger_timestamp": 1794621805554
+      },
+      {
+        "id": 5,
+        "duration_ms": 556,
+        "checkpointed_bytes": 64504753,
+        "full_bytes": 64504753,
+        "trigger_timestamp": 1794621815554
+      },
+      {
+        "id": 11,
+        "duration_ms": 571,
+        "checkpointed_bytes": 14599456,
+        "full_bytes": 124160594,
+        "trigger_timestamp": 1794621845554
+      },
+      {
+        "id": 2,
+        "duration_ms": 819,
+        "checkpointed_bytes": 19940998,
+        "full_bytes": 41950034,
+        "trigger_timestamp": 1794621800554
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 20,
+        "duration_ms": 30,
+        "checkpointed_bytes": 46160,
+        "full_bytes": 175179747,
+        "trigger_timestamp": 1794621890555
+      },
+      {
+        "id": 22,
+        "duration_ms": 224,
+        "checkpointed_bytes": 81820266,
+        "full_bytes": 163646860,
+        "trigger_timestamp": 1794621900555
+      },
+      {
+        "id": 21,
+        "duration_ms": 189,
+        "checkpointed_bytes": 81869725,
+        "full_bytes": 169413841,
+        "trigger_timestamp": 1794621895557
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 18,
+        "duration_ms": 552,
+        "checkpointed_bytes": 82877373,
+        "full_bytes": 162377907,
+        "trigger_timestamp": 1794621880554
+      },
+      {
+        "id": 20,
+        "duration_ms": 30,
+        "checkpointed_bytes": 46160,
+        "full_bytes": 175179747,
+        "trigger_timestamp": 1794621890555
+      },
+      {
+        "id": 13,
+        "duration_ms": 432,
+        "checkpointed_bytes": 124695541,
+        "full_bytes": 124695541,
+        "trigger_timestamp": 1794621855560
+      },
+      {
+        "id": 10,
+        "duration_ms": 654,
+        "checkpointed_bytes": 59738135,
+        "full_bytes": 109601516,
+        "trigger_timestamp": 1794621840554
+      },
+      {
+        "id": 6,
+        "duration_ms": 737,
+        "checkpointed_bytes": 18464592,
+        "full_bytes": 82930181,
+        "trigger_timestamp": 1794621820555
+      },
+      {
+        "id": 12,
+        "duration_ms": 600,
+        "checkpointed_bytes": 12442174,
+        "full_bytes": 136562190,
+        "trigger_timestamp": 1794621850555
+      },
+      {
+        "id": 1,
+        "duration_ms": 1013,
+        "checkpointed_bytes": 22047206,
+        "full_bytes": 22047206,
+        "trigger_timestamp": 1794621795555
+      },
+      {
+        "id": 14,
+        "duration_ms": 626,
+        "checkpointed_bytes": 17249724,
+        "full_bytes": 141904073,
+        "trigger_timestamp": 1794621860554
+      },
+      {
+        "id": 15,
+        "duration_ms": 558,
+        "checkpointed_bytes": 13917040,
+        "full_bytes": 155779721,
+        "trigger_timestamp": 1794621865556
+      },
+      {
+        "id": 7,
+        "duration_ms": 586,
+        "checkpointed_bytes": 14794471,
+        "full_bytes": 97685288,
+        "trigger_timestamp": 1794621825554
+      },
+      {
+        "id": 19,
+        "duration_ms": 537,
+        "checkpointed_bytes": 12840984,
+        "full_bytes": 175176339,
+        "trigger_timestamp": 1794621885554
+      },
+      {
+        "id": 8,
+        "duration_ms": 820,
+        "checkpointed_bytes": 13146434,
+        "full_bytes": 110792158,
+        "trigger_timestamp": 1794621830554
+      },
+      {
+        "id": 9,
+        "duration_ms": 468,
+        "checkpointed_bytes": 49903452,
+        "full_bytes": 105279786,
+        "trigger_timestamp": 1794621835554
+      },
+      {
+        "id": 17,
+        "duration_ms": 561,
+        "checkpointed_bytes": 79542706,
+        "full_bytes": 162887176,
+        "trigger_timestamp": 1794621875556
+      },
+      {
+        "id": 4,
+        "duration_ms": 691,
+        "checkpointed_bytes": 15230481,
+        "full_bytes": 76023078,
+        "trigger_timestamp": 1794621810554
+      },
+      {
+        "id": 22,
+        "duration_ms": 224,
+        "checkpointed_bytes": 81820266,
+        "full_bytes": 163646860,
+        "trigger_timestamp": 1794621900555
+      },
+      {
+        "id": 16,
+        "duration_ms": 746,
+        "checkpointed_bytes": 11088903,
+        "full_bytes": 166827032,
+        "trigger_timestamp": 1794621870554
+      },
+      {
+        "id": 3,
+        "duration_ms": 850,
+        "checkpointed_bytes": 18919485,
+        "full_bytes": 60831155,
+        "trigger_timestamp": 1794621805554
+      },
+      {
+        "id": 5,
+        "duration_ms": 556,
+        "checkpointed_bytes": 64504753,
+        "full_bytes": 64504753,
+        "trigger_timestamp": 1794621815554
+      },
+      {
+        "id": 11,
+        "duration_ms": 571,
+        "checkpointed_bytes": 14599456,
+        "full_bytes": 124160594,
+        "trigger_timestamp": 1794621845554
+      },
+      {
+        "id": 21,
+        "duration_ms": 189,
+        "checkpointed_bytes": 81869725,
+        "full_bytes": 169413841,
+        "trigger_timestamp": 1794621895557
+      },
+      {
+        "id": 2,
+        "duration_ms": 819,
+        "checkpointed_bytes": 19940998,
+        "full_bytes": 41950034,
+        "trigger_timestamp": 1794621800554
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 22,
+      "failed": 1,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 23
+    }
+  },
+  {
+    "run": "scale1m-heap",
+    "backend": "heap",
+    "inputs": 1428571,
+    "unique": 1000000,
+    "duplicates": 428571,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 3.698992433,
+    "records_per_second": 386205.4399612231,
+    "mean_source_to_state_ms": 25.580333947700183,
+    "p99_source_to_state_ms_upper_bound": 131.072,
+    "mean_source_to_sink_callback_ms": 25.568863475999997,
+    "p99_source_to_sink_callback_ms_upper_bound": 131.072,
+    "peak_rss_mib": 1002.38671875,
+    "retained_heap_mib": 117.79037475585938,
+    "baseline_heap_mib": 24.438888549804688,
+    "retained_heap_delta_bytes_per_id": 97.886128,
+    "sampled_active_cpu_seconds": 3.81,
+    "sampled_active_wall_seconds": 2.002,
+    "sample_coverage_ratio": 0.5412284659301978,
+    "sampled_average_cpu_cores": 1.9030969030969034,
+    "sampled_active_gc_ms": 163,
+    "source_backpressure_mean_ms_per_second": 0.0,
+    "peak_rocksdb_directory_mib": 0.0,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 83845120,
+    "active_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 573,
+        "checkpointed_bytes": 15083352,
+        "full_bytes": 15083352,
+        "trigger_timestamp": 1794621415446
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 4,
+        "duration_ms": 127,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621430441
+      },
+      {
+        "id": 3,
+        "duration_ms": 84,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621425442
+      },
+      {
+        "id": 2,
+        "duration_ms": 177,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621420441
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 573,
+        "checkpointed_bytes": 15083352,
+        "full_bytes": 15083352,
+        "trigger_timestamp": 1794621415446
+      },
+      {
+        "id": 4,
+        "duration_ms": 127,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621430441
+      },
+      {
+        "id": 3,
+        "duration_ms": 84,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621425442
+      },
+      {
+        "id": 2,
+        "duration_ms": 177,
+        "checkpointed_bytes": 18005274,
+        "full_bytes": 18005274,
+        "trigger_timestamp": 1794621420441
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 4,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  },
+  {
+    "run": "scale1m-rocks-full",
+    "backend": "rocks-full",
+    "inputs": 1428571,
+    "unique": 1000000,
+    "duplicates": 428571,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 5.222358962,
+    "records_per_second": 273548.98627131176,
+    "mean_source_to_state_ms": 37.23038057611417,
+    "p99_source_to_state_ms_upper_bound": 262.144,
+    "mean_source_to_sink_callback_ms": 37.210799175,
+    "p99_source_to_sink_callback_ms_upper_bound": 262.144,
+    "peak_rss_mib": 653.3671875,
+    "retained_heap_mib": 25.96893310546875,
+    "baseline_heap_mib": 24.499649047851562,
+    "retained_heap_delta_bytes_per_id": 1.540656,
+    "sampled_active_cpu_seconds": 7.54,
+    "sampled_active_wall_seconds": 4.008,
+    "sample_coverage_ratio": 0.7674692661235721,
+    "sampled_average_cpu_cores": 1.8812375249500999,
+    "sampled_active_gc_ms": 6,
+    "source_backpressure_mean_ms_per_second": 0.0,
+    "peak_rocksdb_directory_mib": 21.098112106323242,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 111484928,
+    "active_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 607,
+        "checkpointed_bytes": 8251557,
+        "full_bytes": 8251557,
+        "trigger_timestamp": 1794621389542
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 4,
+        "duration_ms": 45,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621404541
+      },
+      {
+        "id": 3,
+        "duration_ms": 38,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621399542
+      },
+      {
+        "id": 2,
+        "duration_ms": 550,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621394542
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 607,
+        "checkpointed_bytes": 8251557,
+        "full_bytes": 8251557,
+        "trigger_timestamp": 1794621389542
+      },
+      {
+        "id": 4,
+        "duration_ms": 45,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621404541
+      },
+      {
+        "id": 3,
+        "duration_ms": 38,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621399542
+      },
+      {
+        "id": 2,
+        "duration_ms": 550,
+        "checkpointed_bytes": 21973862,
+        "full_bytes": 21973862,
+        "trigger_timestamp": 1794621394542
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 4,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  },
+  {
+    "run": "scale1m-rocks-incremental",
+    "backend": "rocks-incremental",
+    "inputs": 1428571,
+    "unique": 1000000,
+    "duplicates": 428571,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 4.974240549,
+    "records_per_second": 287193.7908767186,
+    "mean_source_to_state_ms": 35.385994789198435,
+    "p99_source_to_state_ms_upper_bound": 524.288,
+    "mean_source_to_sink_callback_ms": 35.370095018,
+    "p99_source_to_sink_callback_ms_upper_bound": 524.288,
+    "peak_rss_mib": 643.08984375,
+    "retained_heap_mib": 26.001609802246094,
+    "baseline_heap_mib": 24.500320434570312,
+    "retained_heap_delta_bytes_per_id": 1.574216,
+    "sampled_active_cpu_seconds": 7.35,
+    "sampled_active_wall_seconds": 4.004,
+    "sample_coverage_ratio": 0.8049469985533664,
+    "sampled_average_cpu_cores": 1.8356643356643358,
+    "sampled_active_gc_ms": 6,
+    "source_backpressure_mean_ms_per_second": 0.0,
+    "peak_rocksdb_directory_mib": 20.10434055328369,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 57286656,
+    "active_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 726,
+        "checkpointed_bytes": 15421427,
+        "full_bytes": 15421427,
+        "trigger_timestamp": 1794621362055
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 4,
+        "duration_ms": 17,
+        "checkpointed_bytes": 38356,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621377054
+      },
+      {
+        "id": 3,
+        "duration_ms": 14,
+        "checkpointed_bytes": 38356,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621372055
+      },
+      {
+        "id": 2,
+        "duration_ms": 235,
+        "checkpointed_bytes": 5547904,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621367055
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 726,
+        "checkpointed_bytes": 15421427,
+        "full_bytes": 15421427,
+        "trigger_timestamp": 1794621362055
+      },
+      {
+        "id": 4,
+        "duration_ms": 17,
+        "checkpointed_bytes": 38356,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621377054
+      },
+      {
+        "id": 3,
+        "duration_ms": 14,
+        "checkpointed_bytes": 38356,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621372055
+      },
+      {
+        "id": 2,
+        "duration_ms": 235,
+        "checkpointed_bytes": 5547904,
+        "full_bytes": 20931169,
+        "trigger_timestamp": 1794621367055
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 4,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  },
+  {
+    "run": "scale250k-heap",
+    "backend": "heap",
+    "inputs": 357143,
+    "unique": 250000,
+    "duplicates": 107143,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 1.262739183,
+    "records_per_second": 282831.96150728775,
+    "mean_source_to_state_ms": 33.55417736872906,
+    "p99_source_to_state_ms_upper_bound": 131.072,
+    "mean_source_to_sink_callback_ms": 33.562507284,
+    "p99_source_to_sink_callback_ms_upper_bound": 131.072,
+    "peak_rss_mib": 488.640625,
+    "retained_heap_mib": 48.40070343017578,
+    "baseline_heap_mib": 76.05644989013672,
+    "retained_heap_delta_bytes_per_id": -115.996608,
+    "sampled_active_cpu_seconds": null,
+    "sampled_active_wall_seconds": null,
+    "sample_coverage_ratio": null,
+    "sampled_average_cpu_cores": null,
+    "sampled_active_gc_ms": null,
+    "source_backpressure_mean_ms_per_second": null,
+    "peak_rocksdb_directory_mib": 0.0,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 22114304,
+    "active_checkpoints": [],
+    "post_load_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 168,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621289782
+      },
+      {
+        "id": 3,
+        "duration_ms": 41,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621299781
+      },
+      {
+        "id": 2,
+        "duration_ms": 114,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621294781
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 168,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621289782
+      },
+      {
+        "id": 3,
+        "duration_ms": 41,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621299781
+      },
+      {
+        "id": 2,
+        "duration_ms": 114,
+        "checkpointed_bytes": 4505274,
+        "full_bytes": 4505274,
+        "trigger_timestamp": 1794621294781
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 3,
+      "failed": 1,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  },
+  {
+    "run": "scale250k-rocks-full",
+    "backend": "rocks-full",
+    "inputs": 357143,
+    "unique": 250000,
+    "duplicates": 107143,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 1.658753216,
+    "records_per_second": 215308.09800702747,
+    "mean_source_to_state_ms": 44.43040085063966,
+    "p99_source_to_state_ms_upper_bound": 262.144,
+    "mean_source_to_sink_callback_ms": 44.402962072,
+    "p99_source_to_sink_callback_ms_upper_bound": 262.144,
+    "peak_rss_mib": 459.4921875,
+    "retained_heap_mib": 26.041000366210938,
+    "baseline_heap_mib": 24.647964477539062,
+    "retained_heap_delta_bytes_per_id": 5.842816,
+    "sampled_active_cpu_seconds": null,
+    "sampled_active_wall_seconds": null,
+    "sample_coverage_ratio": null,
+    "sampled_average_cpu_cores": null,
+    "sampled_active_gc_ms": null,
+    "source_backpressure_mean_ms_per_second": 0.0,
+    "peak_rocksdb_directory_mib": 5.355780601501465,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 35000320,
+    "active_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 302,
+        "checkpointed_bytes": 2753444,
+        "full_bytes": 2753444,
+        "trigger_timestamp": 1794621308893
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 4,
+        "duration_ms": 42,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621323891
+      },
+      {
+        "id": 3,
+        "duration_ms": 25,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621318891
+      },
+      {
+        "id": 2,
+        "duration_ms": 108,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621313890
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 302,
+        "checkpointed_bytes": 2753444,
+        "full_bytes": 2753444,
+        "trigger_timestamp": 1794621308893
+      },
+      {
+        "id": 4,
+        "duration_ms": 42,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621323891
+      },
+      {
+        "id": 3,
+        "duration_ms": 25,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621318891
+      },
+      {
+        "id": 2,
+        "duration_ms": 108,
+        "checkpointed_bytes": 5466801,
+        "full_bytes": 5466801,
+        "trigger_timestamp": 1794621313890
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 4,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  },
+  {
+    "run": "scale250k-rocks-incremental",
+    "backend": "rocks-incremental",
+    "inputs": 357143,
+    "unique": 250000,
+    "duplicates": 107143,
+    "verification_passed": true,
+    "seconds_source_start_to_last_processed": 1.716022162,
+    "records_per_second": 208122.603488847,
+    "mean_source_to_state_ms": 47.01523285910686,
+    "p99_source_to_state_ms_upper_bound": 262.144,
+    "mean_source_to_sink_callback_ms": 46.990903855999996,
+    "p99_source_to_sink_callback_ms_upper_bound": 262.144,
+    "peak_rss_mib": 480.453125,
+    "retained_heap_mib": 26.07683563232422,
+    "baseline_heap_mib": 24.565345764160156,
+    "retained_heap_delta_bytes_per_id": 6.339648,
+    "sampled_active_cpu_seconds": null,
+    "sampled_active_wall_seconds": null,
+    "sample_coverage_ratio": null,
+    "sampled_average_cpu_cores": null,
+    "sampled_active_gc_ms": null,
+    "source_backpressure_mean_ms_per_second": 0.0,
+    "peak_rocksdb_directory_mib": 4.84743595123291,
+    "process_total_read_bytes": 0,
+    "process_total_write_bytes": 12713984,
+    "active_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 300,
+        "checkpointed_bytes": 4704171,
+        "full_bytes": 4704171,
+        "trigger_timestamp": 1794621334684
+      }
+    ],
+    "post_load_checkpoints": [
+      {
+        "id": 4,
+        "duration_ms": 15,
+        "checkpointed_bytes": 38358,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621349679
+      },
+      {
+        "id": 3,
+        "duration_ms": 18,
+        "checkpointed_bytes": 38358,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621344679
+      },
+      {
+        "id": 2,
+        "duration_ms": 32,
+        "checkpointed_bytes": 267576,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621339680
+      }
+    ],
+    "all_checkpoints": [
+      {
+        "id": 1,
+        "duration_ms": 300,
+        "checkpointed_bytes": 4704171,
+        "full_bytes": 4704171,
+        "trigger_timestamp": 1794621334684
+      },
+      {
+        "id": 4,
+        "duration_ms": 15,
+        "checkpointed_bytes": 38358,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621349679
+      },
+      {
+        "id": 3,
+        "duration_ms": 18,
+        "checkpointed_bytes": 38358,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621344679
+      },
+      {
+        "id": 2,
+        "duration_ms": 32,
+        "checkpointed_bytes": 267576,
+        "full_bytes": 4933581,
+        "trigger_timestamp": 1794621339680
+      }
+    ],
+    "checkpoint_counts": {
+      "completed": 4,
+      "failed": 0,
+      "in_progress": 0,
+      "restored": 0,
+      "total": 4
+    }
+  }
+]

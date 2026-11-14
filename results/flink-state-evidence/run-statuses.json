@@ -1,0 +1,62 @@
+{
+  "scale250k-heap": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 21.9094586780011
+  },
+  "scale1m-rocks-incremental": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 27.358557770001426
+  },
+  "scale10m-r1-heap": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 78.08118900800036
+  },
+  "scale10m-r1-rocks-incremental": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 118.04252748900035
+  },
+  "scale250k-rocks-incremental": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 23.98652853099884
+  },
+  "scale10m-r2-rocks-incremental": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 118.89579218899962
+  },
+  "scale10m-r2-heap": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 74.26045811199947
+  },
+  "scale10m-r2-rocks-full": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 123.27011073299946
+  },
+  "scale1m-rocks-full": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 24.185429354000007
+  },
+  "scale1m-heap": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 27.244910366000113
+  },
+  "scale10m-r1-rocks-full": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 111.49507589799941
+  },
+  "scale250k-rocks-full": {
+    "error": null,
+    "returncode": 0,
+    "seconds": 25.004878464000285
+  }
+}

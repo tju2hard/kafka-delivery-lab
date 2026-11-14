@@ -1,0 +1,20 @@
+{
+  "captured_at_utc": "2026-11-14T01:58:16Z",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "cpu_affinity_available": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "meminfo": "MemTotal:       10206472 kB\nMemFree:         5795928 kB\nMemAvailable:    6502928 kB\nBuffers:            3448 kB\nCached:          1602068 kB\nSwapCached:            0 kB\nActive:           613636 kB\nInactive:        3302492 kB\nActive(anon):     539996 kB\nInactive(anon):  2491376 kB\nActive(file):      73640 kB\nInactive(file):   811116 kB\nUnevictable:       29944 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nDirty:            320228 kB\nWriteback:             0 kB\nAnonPages:       2340736 kB\nMapped:            97476 kB\nShmem:            690864 kB\nKReclaimable:     102688 kB\nSlab:             158480 kB\nSReclaimable:     102688 kB\nSUnreclaim:        55792 kB\nKernelStack:        5052 kB\nPageTables:        10192 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5103236 kB\nCommitted_AS:    3749792 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:        6376 kB\nVmallocChunk:          0 kB\nPercpu:             2880 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      137216 kB\nDirectMap2M:     4935680 kB\nDirectMap1G:    22020096 kB\n",
+  "cpu_model": "model name\t: AMD EPYC 9V74 80-Core Processor",
+  "base_commit": "1c37ca8613619af435523cbd6c4c7d9aee497154",
+  "filesystem": "Filesystem     Type    1K-blocks    Used Available Use% Mounted on\noverlay        overlay  66002476 1786992  60843660   3% /workspace/scratch/39adeaaeb390\n",
+  "note": "Shared cloud container; two CPUs affinity per JVM; no HDFS/S3 benchmark."
+}

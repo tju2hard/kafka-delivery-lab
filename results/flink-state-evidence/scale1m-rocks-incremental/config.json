@@ -1,0 +1,43 @@
+{
+  "backend": "rocks-incremental",
+  "checkpoint_interval_ms": 5000,
+  "checkpoint_storage": "local filesystem, NOT HDFS/S3",
+  "command": [
+    "$JAVA_HOME/bin/java",
+    "-Xms512m",
+    "-Xmx2g",
+    "-XX:MaxDirectMemorySize=1g",
+    "-XX:ActiveProcessorCount=2",
+    "--add-opens=java.base/java.lang=ALL-UNNAMED",
+    "--add-opens=java.base/java.util=ALL-UNNAMED",
+    "--add-opens=java.base/java.io=ALL-UNNAMED",
+    "--add-opens=java.base/java.nio=ALL-UNNAMED",
+    "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
+    "-Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+    "-cp",
+    "$REPO/experiments/flink-state-backends/target/classes:$REPO/experiments/flink-state-backends/target/dependency/*",
+    "lab.StateBackendBench",
+    "rocks-incremental",
+    "$REPO/results/local/flink-state-final-20261114/scale1m-rocks-incremental",
+    "$REPO/results/local/flink-state-final-20261114/fixtures/ids64-v2-1000000.bin",
+    "2",
+    "43023"
+  ],
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "input": {
+    "duplicates": 428571,
+    "encoding": "big-endian int64",
+    "id_mapping": "signed64(index * 0x9e3779b97f4a7c15) modulo 2^64",
+    "inputs": 1428571,
+    "seed": 20261114,
+    "sha256": "e741b16b5f4d9c5c0f576292ee58bb9bfb30b67c85305637717268040489daeb",
+    "unique": 1000000
+  },
+  "java_version": "openjdk version \"17.0.21\" 2026-10-20 LTS\nOpenJDK Runtime Environment Corretto-17.0.21.0.11 (build 17.0.21+11-LTS)\nOpenJDK 64-Bit Server VM Corretto-17.0.21.0.11 (build 17.0.21+11-LTS, mixed mode, sharing)\n",
+  "parallelism": 2,
+  "refresh": "every arrival",
+  "ttl_hours": 6
+}

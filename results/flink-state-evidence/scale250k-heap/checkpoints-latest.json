@@ -1,0 +1,162 @@
+{
+  "counts": {
+    "completed": 3,
+    "failed": 1,
+    "in_progress": 0,
+    "restored": 0,
+    "total": 4
+  },
+  "history": [
+    {
+      "alignment_buffered": 0,
+      "checkpoint_type": "CHECKPOINT",
+      "checkpointed_size": 4505274,
+      "className": "completed",
+      "discarded": false,
+      "end_to_end_duration": 41,
+      "external_path": "file:$REPO/results/local/flink-state-final-20261114/scale250k-heap/checkpoints/14514a4ba4516ac00e3802c2fa13d643/chk-3",
+      "id": 3,
+      "is_savepoint": false,
+      "latest_ack_timestamp": 1794621299822,
+      "num_acknowledged_subtasks": 3,
+      "num_subtasks": 3,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "savepointFormat": null,
+      "state_size": 4505274,
+      "status": "COMPLETED",
+      "tasks": {},
+      "trigger_timestamp": 1794621299781
+    },
+    {
+      "alignment_buffered": 0,
+      "checkpoint_type": "CHECKPOINT",
+      "checkpointed_size": 4505274,
+      "className": "completed",
+      "discarded": false,
+      "end_to_end_duration": 114,
+      "external_path": "file:$REPO/results/local/flink-state-final-20261114/scale250k-heap/checkpoints/14514a4ba4516ac00e3802c2fa13d643/chk-2",
+      "id": 2,
+      "is_savepoint": false,
+      "latest_ack_timestamp": 1794621294895,
+      "num_acknowledged_subtasks": 3,
+      "num_subtasks": 3,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "savepointFormat": null,
+      "state_size": 4505274,
+      "status": "COMPLETED",
+      "tasks": {},
+      "trigger_timestamp": 1794621294781
+    },
+    {
+      "alignment_buffered": 0,
+      "checkpoint_type": "CHECKPOINT",
+      "checkpointed_size": 4505274,
+      "className": "completed",
+      "discarded": false,
+      "end_to_end_duration": 168,
+      "external_path": "file:$REPO/results/local/flink-state-final-20261114/scale250k-heap/checkpoints/14514a4ba4516ac00e3802c2fa13d643/chk-1",
+      "id": 1,
+      "is_savepoint": false,
+      "latest_ack_timestamp": 1794621289950,
+      "num_acknowledged_subtasks": 3,
+      "num_subtasks": 3,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "savepointFormat": null,
+      "state_size": 4505274,
+      "status": "COMPLETED",
+      "tasks": {},
+      "trigger_timestamp": 1794621289782
+    }
+  ],
+  "latest": {
+    "completed": {
+      "alignment_buffered": 0,
+      "checkpoint_type": "CHECKPOINT",
+      "checkpointed_size": 4505274,
+      "className": "completed",
+      "discarded": false,
+      "end_to_end_duration": 41,
+      "external_path": "file:$REPO/results/local/flink-state-final-20261114/scale250k-heap/checkpoints/14514a4ba4516ac00e3802c2fa13d643/chk-3",
+      "id": 3,
+      "is_savepoint": false,
+      "latest_ack_timestamp": 1794621299822,
+      "num_acknowledged_subtasks": 3,
+      "num_subtasks": 3,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "savepointFormat": null,
+      "state_size": 4505274,
+      "status": "COMPLETED",
+      "tasks": {},
+      "trigger_timestamp": 1794621299781
+    },
+    "failed": null,
+    "restored": null,
+    "savepoint": null
+  },
+  "summary": {
+    "alignment_buffered": {
+      "avg": 0,
+      "max": 0,
+      "min": 0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "p999": 0.0
+    },
+    "checkpointed_size": {
+      "avg": 4505274,
+      "max": 4505274,
+      "min": 4505274,
+      "p50": 4505274.0,
+      "p90": 4505274.0,
+      "p95": 4505274.0,
+      "p99": 4505274.0,
+      "p999": 4505274.0
+    },
+    "end_to_end_duration": {
+      "avg": 107,
+      "max": 168,
+      "min": 41,
+      "p50": 114.0,
+      "p90": 168.0,
+      "p95": 168.0,
+      "p99": 168.0,
+      "p999": 168.0
+    },
+    "persisted_data": {
+      "avg": 0,
+      "max": 0,
+      "min": 0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "p999": 0.0
+    },
+    "processed_data": {
+      "avg": 0,
+      "max": 0,
+      "min": 0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "p999": 0.0
+    },
+    "state_size": {
+      "avg": 4505274,
+      "max": 4505274,
+      "min": 4505274,
+      "p50": 4505274.0,
+      "p90": 4505274.0,
+      "p95": 4505274.0,
+      "p99": 4505274.0,
+      "p999": 4505274.0
+    }
+  }
+}

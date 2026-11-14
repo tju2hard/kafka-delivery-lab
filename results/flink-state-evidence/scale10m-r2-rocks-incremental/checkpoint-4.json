@@ -1,0 +1,48 @@
+{
+  "alignment_buffered": 0,
+  "checkpoint_type": "CHECKPOINT",
+  "checkpointed_size": 15230481,
+  "className": "completed",
+  "discarded": false,
+  "end_to_end_duration": 691,
+  "external_path": "file:$REPO/results/local/flink-state-final-20261114/scale10m-r2-rocks-incremental/checkpoints/e83f582ae140bdb934f36dd946f09ec6/chk-4",
+  "id": 4,
+  "is_savepoint": false,
+  "latest_ack_timestamp": 1794621811245,
+  "num_acknowledged_subtasks": 3,
+  "num_subtasks": 3,
+  "persisted_data": 0,
+  "processed_data": 0,
+  "savepointFormat": null,
+  "state_size": 76023078,
+  "status": "COMPLETED",
+  "tasks": {
+    "20ba6b65f97481d5570070de90e4e791": {
+      "alignment_buffered": 0,
+      "checkpointed_size": 15230481,
+      "end_to_end_duration": 691,
+      "id": 4,
+      "latest_ack_timestamp": 1794621811245,
+      "num_acknowledged_subtasks": 2,
+      "num_subtasks": 2,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "state_size": 76023078,
+      "status": "COMPLETED"
+    },
+    "bc764cd8ddf7a0cff126f51c16239658": {
+      "alignment_buffered": 0,
+      "checkpointed_size": 0,
+      "end_to_end_duration": 8,
+      "id": 4,
+      "latest_ack_timestamp": 1794621810562,
+      "num_acknowledged_subtasks": 1,
+      "num_subtasks": 1,
+      "persisted_data": 0,
+      "processed_data": 0,
+      "state_size": 0,
+      "status": "COMPLETED"
+    }
+  },
+  "trigger_timestamp": 1794621810554
+}

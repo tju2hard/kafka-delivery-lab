@@ -1,0 +1,142 @@
+{
+  "duration": 807,
+  "end-time": -1,
+  "isStoppable": false,
+  "jid": "a188777267ea36e0f43fec62b7fbe677",
+  "job-type": "STREAMING",
+  "maxParallelism": 128,
+  "name": "state-backend-heap",
+  "now": 1794622053989,
+  "plan": {
+    "jid": "a188777267ea36e0f43fec62b7fbe677",
+    "name": "state-backend-heap",
+    "nodes": [
+      {
+        "description": "six-hour-id-dedup<br/>+- Sink: downstream-file<br/>",
+        "id": "20ba6b65f97481d5570070de90e4e791",
+        "inputs": [
+          {
+            "exchange": "pipelined_bounded",
+            "id": "bc764cd8ddf7a0cff126f51c16239658",
+            "num": 0,
+            "ship_strategy": "HASH"
+          }
+        ],
+        "operator": "",
+        "operator_strategy": "",
+        "optimizer_properties": {},
+        "parallelism": 2
+      },
+      {
+        "description": "Source: synthetic-source<br/>",
+        "id": "bc764cd8ddf7a0cff126f51c16239658",
+        "operator": "",
+        "operator_strategy": "",
+        "optimizer_properties": {},
+        "parallelism": 1
+      }
+    ],
+    "type": "STREAMING"
+  },
+  "start-time": 1794622053182,
+  "state": "RUNNING",
+  "status-counts": {
+    "CANCELED": 0,
+    "CANCELING": 0,
+    "CREATED": 0,
+    "DEPLOYING": 0,
+    "FAILED": 0,
+    "FINISHED": 0,
+    "INITIALIZING": 0,
+    "RECONCILING": 0,
+    "RUNNING": 2,
+    "SCHEDULED": 0
+  },
+  "timestamps": {
+    "CANCELED": 0,
+    "CANCELLING": 0,
+    "CREATED": 1794622053267,
+    "FAILED": 0,
+    "FAILING": 0,
+    "FINISHED": 0,
+    "INITIALIZING": 1794622053182,
+    "RECONCILING": 0,
+    "RESTARTING": 0,
+    "RUNNING": 1794622053375,
+    "SUSPENDED": 0
+  },
+  "vertices": [
+    {
+      "duration": 483,
+      "end-time": -1,
+      "id": "bc764cd8ddf7a0cff126f51c16239658",
+      "maxParallelism": 128,
+      "metrics": {
+        "accumulated-backpressured-time": 0,
+        "accumulated-busy-time": 0.0,
+        "accumulated-idle-time": 0,
+        "read-bytes": 0,
+        "read-bytes-complete": false,
+        "read-records": 0,
+        "read-records-complete": false,
+        "write-bytes": 0,
+        "write-bytes-complete": false,
+        "write-records": 0,
+        "write-records-complete": false
+      },
+      "name": "Source: synthetic-source",
+      "parallelism": 1,
+      "slotSharingGroupId": "09f62e575223514074f40afc4006ca39",
+      "start-time": 1794622053506,
+      "status": "RUNNING",
+      "tasks": {
+        "CANCELED": 0,
+        "CANCELING": 0,
+        "CREATED": 0,
+        "DEPLOYING": 0,
+        "FAILED": 0,
+        "FINISHED": 0,
+        "INITIALIZING": 0,
+        "RECONCILING": 0,
+        "RUNNING": 1,
+        "SCHEDULED": 0
+      }
+    },
+    {
+      "duration": 478,
+      "end-time": -1,
+      "id": "20ba6b65f97481d5570070de90e4e791",
+      "maxParallelism": 128,
+      "metrics": {
+        "accumulated-backpressured-time": 0,
+        "accumulated-busy-time": 0.0,
+        "accumulated-idle-time": 0,
+        "read-bytes": 0,
+        "read-bytes-complete": false,
+        "read-records": 0,
+        "read-records-complete": false,
+        "write-bytes": 0,
+        "write-bytes-complete": false,
+        "write-records": 0,
+        "write-records-complete": false
+      },
+      "name": "six-hour-id-dedup -> Sink: downstream-file",
+      "parallelism": 2,
+      "slotSharingGroupId": "09f62e575223514074f40afc4006ca39",
+      "start-time": 1794622053511,
+      "status": "RUNNING",
+      "tasks": {
+        "CANCELED": 0,
+        "CANCELING": 0,
+        "CREATED": 0,
+        "DEPLOYING": 0,
+        "FAILED": 0,
+        "FINISHED": 0,
+        "INITIALIZING": 0,
+        "RECONCILING": 0,
+        "RUNNING": 2,
+        "SCHEDULED": 0
+      }
+    }
+  ]
+}

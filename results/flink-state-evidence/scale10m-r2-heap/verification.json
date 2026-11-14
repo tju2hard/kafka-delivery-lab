@@ -1,0 +1,15 @@
+{
+  "input_count": 14285714,
+  "input_duplicates": 4285714,
+  "input_unique": 10000000,
+  "missing_ids": 0,
+  "operator_duplicates": 4285714,
+  "operator_processed": 14285714,
+  "operator_unique": 10000000,
+  "output_canonical_sha256": "8eda11dbc67b6c0288596263543a1b04a8eeb33480218b975b2a0254e8d0e278",
+  "output_count": 10000000,
+  "output_duplicate_ids": 0,
+  "passed": true,
+  "unexpected_ids": 0,
+  "wrong_first_arrival_seq": 0
+}
